@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 export const passwordValid = password => {
   if (password.length < 8) return false;
   const regExp = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[~!^(){}<>%@#&*+.,=_-]).*$/;
@@ -31,3 +29,44 @@ export const formatDate = date => {
 
   return [year, month, day].join('-');
 };
+
+export function isGood(password) {
+  //TextBox left blank.
+
+  //Regular Expressions.
+  var regex = new Array();
+  regex.push('[A-Z]'); //Uppercase Alphabet.
+  regex.push('[a-z]'); //Lowercase Alphabet.
+  regex.push('[0-9]'); //Digit.
+  regex.push('[$@$!%*#?&]'); //Special Character.
+
+  var passed = 0;
+
+  //Validate for each Regular Expression.
+  for (var i = 0; i < regex.length; i++) {
+    if (new RegExp(regex[i]).test(password)) {
+      passed++;
+    }
+  }
+
+  //Display status.
+  var strength = '';
+  switch (passed) {
+    case 0:
+    case 1:
+    case 2:
+      strength = 'Weak';
+      // "<small class='progress-bar bg-danger' style='width: 40%'>Weak</small>";
+      break;
+    case 3:
+      strength = 'Medium';
+      // "<small class='progress-bar bg-warning' style='width: 60%'>Medium</small>";
+      break;
+    case 4:
+      strength = 'Strong';
+      // "<small class='progress-bar bg-success' style='width: 100%'>Strong</small>";
+      break;
+  }
+  return strength;
+  // password_strength.innerHTML = strength;
+}
