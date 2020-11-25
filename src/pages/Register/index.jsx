@@ -27,6 +27,7 @@ const Register = () => {
         return setRePassword(e.target.value);
     }
   };
+
   const handleSubmit = e => {
     e.preventDefault();
     if (
@@ -35,13 +36,13 @@ const Register = () => {
       username.length > 0 &&
       password === rePassword
     ) {
-      dispatch(register({ username, email, password }));
-      history.push('/home');
-      setUsername('');
-      setEmail('');
-      setPassword('');
-      setRePassword('');
-      setPasswordValid('');
+      dispatch(register({ username, email, password }, history));
+
+      // setUsername('');
+      // setEmail('');
+      // setPassword('');
+      // setRePassword('');
+      // setPasswordValid('');
     } else {
       if (!emailValid(email)) {
         return notification({

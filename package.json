@@ -36,7 +36,8 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
-    "throttle-debounce": "^3.0.1"
+    "throttle-debounce": "^3.0.1",
+    "uuid": "^8.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
