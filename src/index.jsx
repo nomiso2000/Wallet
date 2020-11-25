@@ -8,6 +8,7 @@ import App from './components/App';
 import './styles/index.css';
 import { store, persistor } from './redux/store';
 
+import Currency from './components/Currency/Currency';
 import Loader from './components/Loader';
 
 export const Index = () => {
@@ -15,6 +16,7 @@ export const Index = () => {
     <>
       <App />
       <NotificationContainer />
+      <Currency />
     </>
   );
 };
