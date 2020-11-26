@@ -1,0 +1,21 @@
+.wrap{
+    display: flex;
+}
+
+.table{
+    
+    background-color:red
+}
+
+tr:hover{
+    background-color: #fff;
+}
+
+.hoveredLetter{
+    position: relative;
+    
+}
+
+.letterWithModal{
+    /* visibility: hidden; */
+}
