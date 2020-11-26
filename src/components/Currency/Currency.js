@@ -1,29 +1,34 @@
 import React, { Component } from 'react';
 import CurrencyAPI from './CurrencyAPI';
 import { v4 as uuidv4 } from 'uuid';
+import styles from './CurrencyStyles.module.css';
 uuidv4();
 
 class Currency extends Component {
   state = {
     currency: [],
   };
+
   componentDidMount = () => {
     CurrencyAPI.getCurrencyValue().then(currencyItems =>
       this.setState({ currency: currencyItems }),
     );
   };
+
   render() {
     const arrayOfCurrency = this.state.currency.filter(
       item => item.ccy !== 'BTC',
     );
     return (
-      <table>
-        <tbody>
+      <table className={styles.table}>
+        <thead className={styles.tableHead}>
           <tr>
-            <th>Валюта</th>
-            <th>Покупка</th>
-            <th>Продажа</th>
+            <td>Валюта</td>
+            <td>Покупка</td>
+            <td>Продажа</td>
           </tr>
+        </thead>
+        <tbody className={styles.tableBody}>
           {arrayOfCurrency.map(itemOfCurrency => (
             <tr key={uuidv4()}>
               <td>{itemOfCurrency.ccy}</td>
@@ -32,6 +37,13 @@ class Currency extends Component {
             </tr>
           ))}
         </tbody>
+        <tfoot className={styles.tableFooter}>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tfoot>
       </table>
     );
   }
