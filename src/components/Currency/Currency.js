@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CurrencyAPI from './CurrencyAPI';
 import { v4 as uuidv4 } from 'uuid';
-import styles from './CurrencyStyles.module.css';
+import styles from '../../styles/css/currency/CurrencyStyles.module.css';
 uuidv4();
 
 class Currency extends Component {
