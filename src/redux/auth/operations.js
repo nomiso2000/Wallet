@@ -29,7 +29,7 @@ const token = {
 //     dispatch({ type: types.LOGIN_FAILURE, payload: e.response.data.errors });
 //   }
 // };
-export const register = credentials => async dispatch => {
+export const register = (credentials, history) => async dispatch => {
   dispatch({ type: types.SIGNUP_START });
   try {
     const { data } = await API.auth.register(credentials);
@@ -37,6 +37,7 @@ export const register = credentials => async dispatch => {
     dispatch({ type: types.SIGNUP_SUCCESS, payload: data });
     token.set(data.token);
     console.log(data);
+    history.push('/home');
     notification({
       type: 'success',
       message: 'Login Success!',
