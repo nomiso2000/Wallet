@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import './coverPressure.css';
+import style from './coverPressure.module.css';
 import Datapicker from '../Datapicket/Datapicket';
+import postItem from '../../services/servis';
+import selectsvg from '../../styles/css/icon/calendar.svg';
 
 class OverkayBlock extends Component {
   state = {
+    error: null,
     income: false,
     price: '',
     category: '',
     coment: '',
     data: '',
   };
+
+  audit = '';
 
   toggle = () => this.setState(state => ({ income: !state.income }));
 
@@ -24,21 +29,33 @@ class OverkayBlock extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
-
-    // const { price, category, coment, data } = this.state;
-    // { (price &&  calendar && category && data ) ?    //   this.props.onAddContact({ price, category, coment, data });
-    // this.setState({ price: '', category: '', coment: '' }) :  alert("One of the fields was not filled!")}
-
-    const { price, category, coment, data, income } = this.state;
-    {
-      price && data
-        ? alert('заповнені всі поля')
-        : alert('One of the fields was not filled!');
+    const { price, category, data, income } = this.state;
+    if (!income) {
+      price && data ? (this.audit = 'true') : (this.audit = 'false');
+    } else if (income) {
+      price && data && category
+        ? (this.audit = 'true')
+        : (this.audit = 'false');
     }
+    if (this.audit === 'false') {
+      alert('не були заповнені всі поля спробуйте знову');
+      return;
+    }
+
     this.setState({ price: '', category: '', coment: '' });
   };
 
+  fetchImages = () => {
+    postItem(this.state)
+      .then(item => console.log(item))
+      .catch(error => this.setState({ error }));
+  };
+
   componentDidMount() {
+    {
+      this.audit === 'true' && this.fetchImages();
+    }
+
     window.addEventListener('keydown', this.handleKeydown);
   }
 
@@ -52,49 +69,53 @@ class OverkayBlock extends Component {
   //   }
   // };
   render() {
-    const { price, category, coment, income } = this.state;
+    const { price, category, coment, income, data } = this.state;
+
     return (
-      <div className="overlay">
-        <div className="modal">
-          <button type="button" className="button_close">
+      <div className={style.overlay}>
+        <div className={style.modal}>
+          <button type="button" className={style.button_close}>
             &#10006;
           </button>
-          <h2 className="title">Добавить транзакцию</h2>
+          <h2 className={style.title}>Добавить транзакцию</h2>
 
           {/* кнопка checkbox */}
-          <div className="checkboxSelector">
+          <div className={style.checkboxSelector}>
             <span
               className={
                 income
-                  ? 'text_checkbox_darck text_checkbox'
-                  : 'text_checkbox_light text_checkbox'
+                  ? [style.text_checkbox_darck, style.text_checkbox]
+                  : [style.text_checkbox_light, style.text_checkbox]
               }
             >
               Доход
             </span>
-            <label className="switch">
+            <label className={style.switch}>
               <input
                 type="checkbox"
                 checked={this.state.theme}
                 onChange={this.toggle}
               />
-              <span className="slider"></span>
+              <span className={style.slider}></span>
             </label>
             <span
               className={
                 income
-                  ? 'text_checkbox_red text_checkbox'
-                  : 'text_checkbox_darcks text_checkbox'
+                  ? [style.text_checkbox_red, style.text_checkbox].join(' ')
+                  : [style.text_checkbox_darcks, style.text_checkbox].join(' ')
               }
             >
               Росход
             </span>
           </div>
 
-          <form className="contactForm" onSubmit={this.handleFormSubmit}>
+          <form className={style.contactForm} onSubmit={this.handleFormSubmit}>
             <div>
               <input
-                className="contactFormItem contactFormItemPrice"
+                className={[
+                  style.contactFormItem,
+                  style.contactFormItemPrice,
+                ].join(' ')}
                 type="text"
                 id="price"
                 autoComplete="off"
@@ -105,25 +126,14 @@ class OverkayBlock extends Component {
               />
               <Datapicker onAddContacts={this.onAddContact} />
 
-              <span className="calendar_svg">
-                <svg
-                  width="18"
-                  height="20"
-                  viewBox="0 0 18 20"
-                  fill="white"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M6 9H4V11H6V9ZM10 9H8V11H10V9ZM14 9H12V11H14V9ZM16 2H15V0H13V2H5V0H3V2H2C0.89 2 0.00999999 2.9 0.00999999 4L0 18C0 19.1 0.89 20 2 20H16C17.1 20 18 19.1 18 18V4C18 2.9 17.1 2 16 2ZM16 18H2V7H16V18Z"
-                    fill="#4A56E2"
-                  />
-                </svg>
+              <span className={style.calendar_svg}>
+                <img src={selectsvg} />
               </span>
             </div>
 
             {income && (
               <select
-                className="contactSelect"
+                className={style.contactSelect}
                 id="category"
                 name="category"
                 value={category}
@@ -132,32 +142,35 @@ class OverkayBlock extends Component {
                 <option value="" disabled selected hidden>
                   Выберите категорию
                 </option>
-                <option className="SelectItem" value="main">
+                <option className={style.SelectItem} value="main">
                   Основной
                 </option>
-                <option className="SelectItem" value="auto">
+                <option className={style.SelectItem} value="auto">
                   Авто
                 </option>
-                <option className="SelectItem" value="development">
+                <option className={style.SelectItem} value="development">
                   Развитие
                 </option>
-                <option className="SelectItem" value="сhildren">
+                <option className={style.SelectItem} value="сhildren">
                   Дети
                 </option>
-                <option className="SelectItem" value="house">
+                <option className={style.SelectItem} value="house">
                   Дом
                 </option>
-                <option className="SelectItem" value="education">
+                <option className={style.SelectItem} value="education">
                   Образование
                 </option>
-                <option className="SelectItem" value="rest">
+                <option className={style.SelectItem} value="rest">
                   Остальные
                 </option>
               </select>
             )}
 
             <input
-              className="contactFormItem contactFormItemComent"
+              className={[
+                style.contactFormItem,
+                style.contactFormItemComent,
+              ].join(' ')}
               type="text"
               id="coment"
               autoComplete="off"
@@ -167,10 +180,15 @@ class OverkayBlock extends Component {
               onChange={this.handleChange}
             />
 
-            <button type="submit" className="contactBtnAdd btn">
+            <button
+              type="submit"
+              className={[style.contactBtnAdd, style.btn].join(' ')}
+            >
               Добавить
             </button>
-            <span className="contactBtnDel btn">Отменить</span>
+            <span className={[style.contactBtnDel, style.btn].join(' ')}>
+              Отменить
+            </span>
           </form>
         </div>
       </div>

@@ -9,6 +9,7 @@ const HomePage = () => {
     <>
       <section className="main-section">
         <h1>HomePage</h1>
+        
         <CoverPressure/>
       </section>
     </>
