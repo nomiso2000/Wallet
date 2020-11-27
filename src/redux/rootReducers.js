@@ -6,7 +6,7 @@ import authReducer from './auth/reducer';
 import errorsReducer from './error/reducer';
 
 import { encryptor } from './encryptor';
-
+import transactionsRootReducer from './transactions/transactionsReducers/transactionsRootReducer';
 const authConfig = {
   key: 'auth',
   storage,
@@ -16,6 +16,7 @@ const authConfig = {
 
 const rootReducers = combineReducers({
   auth: persistReducer(authConfig, authReducer),
+  transactions: transactionsRootReducer,
   errors: errorsReducer,
 });
 
