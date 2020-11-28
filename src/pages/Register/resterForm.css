@@ -1,0 +1,125 @@
+/* .blockCover{
+    position: relative;
+width: 1500px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.firstblock{
+    width: 50%;
+    background-color:#E5E5E5;;
+}
+
+
+.endblock{
+    width: 50%;
+background-color:rgba(255, 255, 255, 0.4);
+backdrop-filter: blur(50px);
+}
+
+.blockForm{
+    position: absolute;
+    margin: 0 auto;
+    Width : 540px;
+    Height: 616px;
+    Top: 52px;
+    Left: 655px;
+    border-Radius: 20px;
+    background: #FFFFFF;
+}
+
+
+
+.titleselect{
+    text-align: center;
+    position: absolute;
+    bottom: 45px;
+    left: 210px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	margin: 0 auto 15px;
+	padding: 10px;
+    width: 540px;
+    height: 616px;
+   
+    /* top: 52px; */
+	border-radius: 4px;
+	box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+		0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.form label {
+    display: flex;
+    justify-content: flex-start;
+	display: block;
+    margin-bottom: 10px;
+    width: 410px;
+    /* position: relative; */
+  
+margin-bottom: 5px;
+}
+
+.input {
+
+	display: block;
+	color: #171718;
+	font-size: 1.1rem;
+    padding: 6px 4px;
+    padding-left: 50px;
+	border-radius: 4px;
+
+	width: 100%;
+    outline: 0;
+    border: 0;
+    border-bottom: 1px solid #bdbdbd;
+}
+ img{
+    position: relative;
+    top: 30px;
+}
+
+.button {
+	display: block;
+	color: #4A56E2;
+	border: 0;
+	outline: 0;
+	width: 100%;
+	margin-top: 20px;
+	padding: 8px 8px;
+	border-radius: 4px;
+	cursor: pointer;
+	box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+		0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+	font: 12px;
+	user-select: none;
+    transition: all 250ms ease-in-out;
+    
+width: 300px;
+height: 50px;
+left: 775px;
+top: 558px;
+
+background-color: #FFFFFF;
+border: 1px solid #4A56E2;
+box-sizing: border-box;
+border-radius: 20px;
+
+font-family: Circe;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 27px;
+text-align: center;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+}
+
+.button:hover {
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25), 0px 4px 8px rgba(0, 0, 0, 0.22);
+	background-color: #24CCA7;
+} */
