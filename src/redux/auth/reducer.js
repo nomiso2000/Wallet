@@ -14,17 +14,6 @@ const user = (state = null, { type, payload }) => {
       return state;
   }
 };
-// const register = (state = null, { type, payload }) => {
-//   switch (type) {
-//     case types.SIGNUP_SUCCESS:
-//       return { ...state, ...payload.userData };
-//     case types.LOGOUT_SUCCESS:
-//       return null;
-
-//     default:
-//       return state;
-//   }
-// };
 
 const token = (state = null, { type, payload }) => {
   switch (type) {

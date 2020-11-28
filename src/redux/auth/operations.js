@@ -13,22 +13,26 @@ const token = {
   },
 };
 
-// export const logIn = (user, clearForm) => async dispatch => {
-//   dispatch({ type: types.LOGIN_START });
-//   try {
-//     const { data, status } = await API.auth.login(user);
-//     // if (status < 200 && status >= 300) throw new Error('Something went wrong!');
-//     dispatch({ type: types.LOGIN_SUCCESS, payload: data });
-//     token.set(data.token);
-//     clearForm();
-//     notification({
-//       type: 'success',
-//       message: 'Login Success!',
-//     });
-//   } catch (e) {
-//     dispatch({ type: types.LOGIN_FAILURE, payload: e.response.data.errors });
-//   }
-// };
+export const logIn = (user, history) => async dispatch => {
+  dispatch({ type: types.LOGIN_START });
+  try {
+    const { data, status } = await API.auth.login(user);
+    console.log(data);
+    // if (status < 200 && status >= 300) throw new Error('Something went wrong!');
+    dispatch({ type: types.LOGIN_SUCCESS, payload: data });
+    console.log(data.token);
+    token.set(data.token);
+    // clearForm();
+    history.push('/home');
+    notification({
+      type: 'success',
+      message: 'Login Success!',
+    });
+  } catch (e) {
+    // dispatch({ type: types.LOGIN_FAILURE, payload: e.response.data.errors });
+    console.log(e);
+  }
+};
 export const register = (credentials, history) => async dispatch => {
   dispatch({ type: types.SIGNUP_START });
   try {
@@ -36,11 +40,10 @@ export const register = (credentials, history) => async dispatch => {
     // if (status < 200 && status >= 300) throw new Error('Something went wrong!');
     dispatch({ type: types.SIGNUP_SUCCESS, payload: data });
     token.set(data.token);
-    console.log(data);
     history.push('/home');
     notification({
       type: 'success',
-      message: 'Login Success!',
+      message: 'Register Success!',
     });
   } catch (e) {
     dispatch({ type: types.SIGNUP_FAILURE, payload: e.response.data.errors });
