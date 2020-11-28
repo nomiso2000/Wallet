@@ -19,9 +19,14 @@
     "prettier": "^2.0.5"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
     "axios": "^0.19.2",
+    "chart.js": "^2.9.4",
     "crypto-js": "^4.0.0",
+    "moment": "^2.29.1",
+    "moment-with-locales-es6": "^1.0.1",
     "react": "^16.13.1",
+    "react-chartjs-2": "^2.11.1",
     "react-dom": "^16.13.1",
     "react-loadingg": "^1.7.2",
     "react-maskinput": "^3.2.0",
@@ -29,7 +34,7 @@
     "react-paginate": "^6.3.2",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^4.0.1",
     "react-tooltip": "^4.2.7",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",

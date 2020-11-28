@@ -6,6 +6,7 @@ import authSelectors from '../../redux/auth/selectors';
 import PrivateRoute from '../../HOC/PrivateRoute';
 import ErrorNotification from '../Notifications/Error';
 import Loader from '../Loader';
+// import Statistics from '../Statistics';
 import routes from '../../routes';
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
           {loading && <Loader />}
           <ErrorNotification />
         </Suspense>
+        <Statistics />
       </StrictMode>
     </>
   );
