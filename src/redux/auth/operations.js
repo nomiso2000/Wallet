@@ -50,6 +50,23 @@ export const register = (credentials, history) => async dispatch => {
   }
 };
 
-export const getCurrentUser = () => async (dispatch, getState) => {};
+export const getCurrentUser = history => async (dispatch, getState) => {};
 
-export const logOut = () => async dispatch => {};
+export const logOut = history => async dispatch => {
+  dispatch({ type: types.LOGOUT_START });
+  try {
+    const data = await API.auth.logout();
+    // if (status < 200 && status >= 300) throw new Error('Something went wrong!');
+    console.log(data);
+    dispatch({ type: types.LOGOUT_SUCCESS, payload: data });
+    history.push('/login');
+    token.unset();
+    notification({
+      type: 'success',
+      message: 'Logout Success!',
+    });
+  } catch (e) {
+    console.log(e.response);
+    dispatch({ type: types.LOGOUT_FAILURE });
+  }
+};

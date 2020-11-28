@@ -4,6 +4,7 @@ import Datapicker from '../Datapicket';
 import {
   addTransactionOperation,
   getTransactionOperation,
+  transactionCategories,
 } from '../../redux/transactions/operations';
 import style from './coverPressure.module.css';
 import selectsvg from '../../styles/css/icon/calendar.svg';
@@ -22,10 +23,10 @@ class OverkayBlock extends Component {
 
   state = {
     transactionDate: '2020-11-05T08:15:30-05:00',
-    type: 'EXPENSE',
-    categoryId: '4498bd4f-733c-4819-ba24-6fc7dde77950',
+    type: 'INCOME',
+    categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
     comment: 'SAzx',
-    amount: -20,
+    amount: 20,
   };
 
   toggle = () => this.setState(state => ({ income: !state.income }));
@@ -57,6 +58,15 @@ class OverkayBlock extends Component {
 
     const { transactionDate, type, categoryId, comment, amount } = this.state;
 
+    // this.props.addTransaction({
+    //   transactionDate,
+    //   type,
+    //   categoryId,
+    //   comment,
+    //   amount,
+    // });
+
+    // this.props.getTransaction();
     this.props.addTransaction({
       transactionDate,
       type,
@@ -64,7 +74,6 @@ class OverkayBlock extends Component {
       comment,
       amount,
     });
-    // this.props.getTransaction();
     this.setState({ price: '', category: '', coment: '' });
   };
   // fetchImages = () => {
@@ -73,7 +82,12 @@ class OverkayBlock extends Component {
   //     .catch(error => this.setState({ error }));
   // };
 
+  handleClick = () => {
+    const { transactionDate, type, categoryId, comment, amount } = this.state;
+  };
+
   componentDidMount() {
+    this.props.getCategories();
     {
       this.audit === 'true' && this.fetchImages();
     }
@@ -208,7 +222,10 @@ class OverkayBlock extends Component {
             >
               Добавить
             </button>
-            <span className={[style.contactBtnDel, style.btn].join(' ')}>
+            <span
+              className={[style.contactBtnDel, style.btn].join(' ')}
+              onClick={() => this.handleClick}
+            >
               Отменить
             </span>
           </form>
@@ -221,6 +238,7 @@ class OverkayBlock extends Component {
 const mapDispatchToProps = {
   addTransaction: addTransactionOperation,
   getTransaction: getTransactionOperation,
+  getCategories: transactionCategories,
 };
 export default connect(null, mapDispatchToProps)(OverkayBlock);
 

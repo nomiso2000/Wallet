@@ -3,7 +3,7 @@ import { Redirect, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as authOperations from '../../redux/auth/operations';
 import authSelectors from '../../redux/auth/selectors';
-import PrivateRoute from '../../HOC/PrivateRoute';
+import PrivateRoute from '../../routes/PrivateRoutes';
 import ErrorNotification from '../Notifications/Error';
 import Loader from '../Loader';
 import routes from '../../routes';
@@ -46,3 +46,9 @@ const App = () => {
 };
 
 export default App;
+{
+  /* {routes.map(route => {
+              console.log(route);
+              return <PrivateRoute key={route.path} {...route} />;
+            })} */
+}

@@ -9,6 +9,8 @@ const user = (state = null, { type, payload }) => {
       return { ...state, ...payload.user };
     case types.LOGOUT_SUCCESS:
       return null;
+    case types.LOGOUT_FAILURE:
+      return null;
 
     default:
       return state;
