@@ -16,7 +16,6 @@ export const Index = () => {
     <>
       <App />
       <NotificationContainer />
-      <Currency />
     </>
   );
 };
