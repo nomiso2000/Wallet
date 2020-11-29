@@ -1,14 +1,22 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 const getCurrencyValue = () => {
-  return axios
-    .get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
+  return fetch(
+    'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5',
+  )
     .then(response => {
-      return response.data;
+      return response.json();
     })
-    .catch(error => console.log(error));
+    .then(data => {
+      return data;
+    });
 };
 
-getCurrencyValue();
-
 export default { getCurrencyValue };
+
+// return axios
+//   .get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
+//   .then(response => {
+//     return response.data;
+//   })
+//   .catch(error => console.log(error));

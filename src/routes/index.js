@@ -33,6 +33,7 @@ export default routes;
 //     exact: true,
 //     component: lazy(() => import('../pages/HomePage')),
 //     private: true,
+//     restricted: true,
 //   },
 //   {
 //     path: '/register',
@@ -40,6 +41,7 @@ export default routes;
 //     exact: true,
 //     component: lazy(() => import('../pages/Register')),
 //     private: false,
+//     restricted: true,
 //   },
 //   {
 //     path: '/login',
@@ -47,5 +49,6 @@ export default routes;
 //     exact: true,
 //     component: lazy(() => import('../pages/Login')),
 //     private: false,
+//     restricted: false,
 //   },
 // ];

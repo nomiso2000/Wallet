@@ -11,7 +11,7 @@ const authConfig = {
   key: 'auth',
   storage,
   whitelist: ['token'],
-  transforms: [encryptor],
+  // transforms: [encryptor],
 };
 
 const rootReducers = combineReducers({
