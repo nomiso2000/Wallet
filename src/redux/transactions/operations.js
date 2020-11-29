@@ -8,7 +8,6 @@ axios.defaults.baseURL = 'https://sheltered-sea-54747.herokuapp.com';
 
 export const addTransactionOperation = createTransaction => async dispatch => {
   dispatch({ type: types.ADD_TRANSACTION });
-  console.log('createTrans', createTransaction);
   try {
     const { data } = await API.transaction.add(createTransaction);
     console.log(data);

@@ -7,13 +7,13 @@ function OverkayBlock(props) {
   let nameselect = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}-05:00`;
 
   const handleDateSelect = () => {
-    props.onAddContacts(nameselect);
+    props.onAddContacts(date.toISOString());
   };
 
   const handleDateChange = date => {
     setDate(date);
   };
-  console.log(date);
+  console.log(date.toISOString());
   return (
     <DatePicker
       minDate={new Date()}
