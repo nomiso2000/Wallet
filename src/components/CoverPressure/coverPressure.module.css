@@ -23,6 +23,7 @@
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.8);
   transition: opacity 0.15s linear;
+  z-index: 4324;
 }
 
 .button_close {
@@ -204,7 +205,7 @@ input {
 
 .slider:before {
   content: '+';
-  font-size: 35px;
+  font-size: 28px;
   position: absolute;
   align-items: center;
   justify-content: center;

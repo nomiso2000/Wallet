@@ -10,10 +10,10 @@ import routes from '../../routes';
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const [toggleModal, setToggleModal] = useState(false);
+  const [toggleModal, setToggleModal] = useState(true);
   const isAuthentificated = useSelector(state => state.auth.token);
   const handleHide = () => {
-    setToggleModal(false);
+    setToggleModal(!toggleModal);
   };
   const show = () => {
     console.log(toggleModal);
@@ -26,7 +26,7 @@ const HomePage = () => {
         <Link to={routes.LOGIN.path}>Login</Link>
         <Link to={routes.REGISTER.path}>Register</Link>
         <UserMenu />
-        <TransactionsTable />
+        {/* <TransactionsTable /> */}
       </section>
       <section>
         <Currency />
