@@ -57,13 +57,16 @@ class OverkayBlock extends Component {
       return;
     }
 
-    this.props.addTransaction({
-      transactionDate,
-      type,
-      categoryId,
-      comment,
-      amount,
-    });
+    if (this.audit === 'true') {
+      this.props.addTransaction({
+        transactionDate,
+        type,
+        categoryId,
+        comment,
+        amount,
+      });
+      this.props.hiden();
+    }
 
     this.setState({
       transactionDate: '',
@@ -86,7 +89,6 @@ class OverkayBlock extends Component {
 
   handleKeydown = e => {
     if (e.code === 'Escape' || e.target === e.currentTarget) {
-      this.props.hiden();
     }
   };
 
