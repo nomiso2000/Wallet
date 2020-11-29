@@ -101,6 +101,7 @@ class OverkayBlock extends Component {
       comment,
       amount,
     } = this.state;
+
     return (
       <div className={style.overlay}>
         <div className={style.modal}>
