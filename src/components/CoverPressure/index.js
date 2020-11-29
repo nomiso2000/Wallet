@@ -1,39 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Datapicker from '../Datapicket';
+
 import {
   addTransactionOperation,
   getTransactionOperation,
   transactionCategories,
 } from '../../redux/transactions/operations';
+
 import style from './coverPressure.module.css';
 import selectsvg from '../../styles/css/icon/calendar.svg';
-// import { v4 as uuidv4 } from 'uuid';
 class OverkayBlock extends Component {
-  // state = {
-  //   error: null,
-  //   income: false,
-  //   price: '',
-  //   category: '',
-  //   coment: '',
-  //   data: '',
-  // };
-
   state = {
     array: [],
-    transactionDate: '2020-11-05T08:15:30-05:00',
+    transactionDate: '',
     type: 'INCOME',
-    categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
+    categoryId: '',
     comment: '',
     amount: '',
   };
+
   audit = '';
 
-  // toggle = () => this.setState(state => ({ income: !state.income }));
+  // toggle = () => this.setState(state => ({ INCOME: !state.INCOME }));
 
   toggleType = () => {
     return this.state.type === 'INCOME'
-      ? this.setState({ type: 'COST' })
+      ? this.setState({ type: 'EXPENSE' })
       : this.setState({ type: 'INCOME' });
   };
 
@@ -48,12 +41,13 @@ class OverkayBlock extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
+
     const { transactionDate, type, categoryId, comment, amount } = this.state;
     if (type == 'INCOME') {
       amount && transactionDate
         ? (this.audit = 'true')
         : (this.audit = 'false');
-    } else if (type == 'COST') {
+    } else if (type == 'EXPENSE') {
       amount && transactionDate && categoryId
         ? (this.audit = 'true')
         : (this.audit = 'false');
@@ -62,6 +56,7 @@ class OverkayBlock extends Component {
       alert('Не були заповнені всі поля, спробуйте знову');
       return;
     }
+
     this.props.addTransaction({
       transactionDate,
       type,
@@ -72,7 +67,7 @@ class OverkayBlock extends Component {
 
     this.setState({
       transactionDate: '',
-      type: '',
+      type: 'INCOME',
       categoryId: '',
       comment: '',
       amount: '',
@@ -80,10 +75,8 @@ class OverkayBlock extends Component {
   };
 
   componentDidMount() {
-    this.props.getCategories();
-    // {
-    //   this.audit === 'true' && this.fetchImages();
-    // }
+    this.props.getCategories().then(array => this.setState({ array }));
+
     window.addEventListener('keydown', this.handleKeydown);
   }
 
@@ -98,8 +91,14 @@ class OverkayBlock extends Component {
   };
 
   render() {
-    const { transactionDate, type, categoryId, comment, amount } = this.state;
-
+    const {
+      array,
+      transactionDate,
+      type,
+      categoryId,
+      comment,
+      amount,
+    } = this.state;
     return (
       <div className={style.overlay}>
         <div className={style.modal}>
@@ -116,7 +115,7 @@ class OverkayBlock extends Component {
           <div className={style.checkboxSelector}>
             <span
               className={
-                type === 'COST'
+                type === 'EXPENSE'
                   ? [style.text_checkbox_darck, style.text_checkbox].join(' ')
                   : [style.text_checkbox_light, style.text_checkbox].join(' ')
               }
@@ -124,12 +123,15 @@ class OverkayBlock extends Component {
               Доход
             </span>
             <label onChange={this.toggleType} className={style.switch}>
-              <input type="checkbox" checked={this.state.theme} />
+              <input
+                type="checkbox"
+                checked={this.state.type === 'EXPENSE' ? true : false}
+              />
               <span className={style.slider}></span>
             </label>
             <span
               className={
-                type === 'COST'
+                type === 'EXPENSE'
                   ? [style.text_checkbox_red, style.text_checkbox].join(' ')
                   : [style.text_checkbox_darcks, style.text_checkbox].join(' ')
               }
@@ -160,7 +162,7 @@ class OverkayBlock extends Component {
               </span>
             </div>
 
-            {type === 'COST' && (
+            {type === 'EXPENSE' && (
               <select
                 className={style.contactSelect}
                 id="categoryId"
@@ -171,25 +173,45 @@ class OverkayBlock extends Component {
                 <option value="" disabled selected hidden>
                   Выберите категорию
                 </option>
-                <option className={style.SelectItem} value="main">
+                <option
+                  className={style.SelectItem}
+                  name="Основной"
+                  value={array[2].id}
+                >
                   Основной
                 </option>
-                <option className={style.SelectItem} value="auto">
+                <option className={style.SelectItem} name="Авто" value="auto">
                   Авто
                 </option>
-                <option className={style.SelectItem} value="development">
+                <option
+                  className={style.SelectItem}
+                  name="Развитие"
+                  value={array[3].id}
+                >
                   Развитие
                 </option>
-                <option className={style.SelectItem} value="сhildren">
+                <option
+                  className={style.SelectItem}
+                  name="Дети"
+                  value={array[4].id}
+                >
                   Дети
                 </option>
-                <option className={style.SelectItem} value="house">
+                <option className={style.SelectItem} name="Дом" value="house">
                   Дом
                 </option>
-                <option className={style.SelectItem} value="education">
+                <option
+                  className={style.SelectItem}
+                  name="Образование"
+                  value={array[5].id}
+                >
                   Образование
                 </option>
-                <option className={style.SelectItem} value="rest">
+                <option
+                  className={style.SelectItem}
+                  name="Остальные"
+                  value={array[6].id}
+                >
                   Остальные
                 </option>
               </select>
@@ -234,27 +256,3 @@ const mapDispatchToProps = {
   getCategories: transactionCategories,
 };
 export default connect(null, mapDispatchToProps)(OverkayBlock);
-
-// class Section extends React.Component {
-//   state = {
-//     theme: true
-//   };
-
-//   toggleTheme = () => this.setState((prev) => ({ theme: !prev.theme }));
-
-//   render() {
-//     return (
-//       <section
-//         className={this.state.theme === true ?.light :.dark}
-//       >
-//
-//         {this.props.children}
-//       </section>
-//     );
-//   }
-// }
-
-// Section.propTypes = {
-//   children: PropTypes.node.isRequired
-// };
-// export default Section;
