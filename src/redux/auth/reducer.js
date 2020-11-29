@@ -7,6 +7,8 @@ const user = (state = null, { type, payload }) => {
       return { ...state, ...payload.user };
     case types.SIGNUP_SUCCESS:
       return { ...state, ...payload.user };
+    case types.GET_CURRENT_USER_SUCCESS:
+      return { ...state, ...payload };
     case types.LOGOUT_SUCCESS:
       return null;
     case types.LOGOUT_FAILURE:

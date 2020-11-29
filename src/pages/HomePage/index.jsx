@@ -23,8 +23,8 @@ const HomePage = () => {
     <>
       <section className="main-section">
         <h1>HomePage</h1>
-        <Link to={routes.LOGIN.path}>Login</Link>
-        <Link to={routes.REGISTER.path}>Register</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link>
         <UserMenu />
         {/* <TransactionsTable /> */}
       </section>

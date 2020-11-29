@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import types from '../types';
 
-const errorsInfo = (state = [], { type, payload }) => {
+const errorsInfo = (state = null, { type, payload }) => {
   switch (type) {
     case types.LOGIN_FAILURE:
       return payload;

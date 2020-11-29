@@ -5,7 +5,8 @@ import withAuth from '../../HOC/withAuth';
 import routes from '../../routes';
 import styles from './Login.module.css';
 import { logIn } from '../../redux/auth/operations';
-
+import { emailValid } from '../../services/helpers';
+import notification from '../../services/notification';
 function Login() {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -22,8 +23,25 @@ function Login() {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(logIn({ email, password }, history));
+    e.preventDefault();
+    if (emailValid(email) && password.length >= 4) {
+      dispatch(logIn({ email, password }, history));
+    } else {
+      if (!emailValid(email)) {
+        return notification({
+          type: 'warning',
+          message: 'Email is not valid!',
+        });
+      } else if (password.length < 4) {
+        console.log(password);
+        return notification({
+          type: 'warning',
+          message: 'Password is to short!',
+        });
+      }
+    }
   };
+
   return (
     <section className="form-section">
       <h1>Login</h1>
@@ -51,11 +69,16 @@ function Login() {
             onChange={handleChange}
           />
         </label>
+        <br />
         <button className={styles.button} type="submit">
           ВХОД
         </button>
+        <Link to={routes.REGISTER.path}>
+          {' '}
+          <button className={styles.button}>РЕГИСТРАЦИЯ</button>
+        </Link>
       </form>
     </section>
   );
 }
-export default Login;
+export default withAuth(Login);
