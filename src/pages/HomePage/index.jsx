@@ -9,12 +9,11 @@ const HomePage = () => {
 
   return (
     <>
-      <section className="main-section">
-        <h1> HomePage</h1> 
+
+    
         <Name></Name>
-        <Link to={routes.LOGIN.path}>Login</Link>
-        <Link to={routes.REGISTER.path}>Register</Link>
-      </section>
+
+     
     </>
   );
 };
