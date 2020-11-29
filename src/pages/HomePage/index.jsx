@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import OverkayBlock from '../../components/CoverPressure';
 import Currency from '../../components/Currency';
+import Balance from '../../components/Balance/Balance';
 import HomeTab from '../../components/HomeTab';
 import TransactionsTable from '../../components/Table';
 import UserMenu from '../../components/UserMenu';
@@ -29,6 +30,7 @@ const HomePage = () => {
         <TransactionsTable />
       </section>
       <section>
+        <Balance />
         <Currency />
         <button onClick={show}>CLICK</button>
         {toggleModal && <OverkayBlock hiden={handleHide} />}
