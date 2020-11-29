@@ -3,15 +3,17 @@ import { Redirect, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as authOperations from '../../redux/auth/operations';
 import authSelectors from '../../redux/auth/selectors';
-import PrivateRoute from '../../HOC/PrivateRoute';
 import ErrorNotification from '../Notifications/Error';
 import Loader from '../Loader';
 import routes from '../../routes';
+import PrivateRoute from '../../HOC/PrivateRoute';
 
 const App = () => {
   const dispatch = useDispatch();
   const authLoading = useSelector(authSelectors.getLoading);
-
+  useEffect(() => {
+    dispatch(authOperations.getCurrentUser());
+  }, []);
   const loading = authLoading;
 
   return (
@@ -19,7 +21,7 @@ const App = () => {
       <StrictMode>
         <Suspense fallback={<Loader />}>
           <Switch>
-            <Route
+            <PrivateRoute
               exact
               path={routes.HOME.path}
               component={routes.HOME.component}
@@ -34,7 +36,6 @@ const App = () => {
               path={routes.REGISTER.path}
               component={routes.REGISTER.component}
             />
-
             <Redirect to={routes.HOME.path} />
           </Switch>
           {loading && <Loader />}
@@ -46,3 +47,15 @@ const App = () => {
 };
 
 export default App;
+// {' '}
+// {routes.map(route => {
+//   return route.private ? (
+//     <PrivateRoute key={route.path} {...route} />
+//   ) : (
+//     <PublicRoutes
+//       key={route.path}
+//       {...route}
+//       restricted={route.restricted}
+//     />
+//   );
+// })}

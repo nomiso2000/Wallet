@@ -22,10 +22,12 @@
     "ts-loader": "^8.0.11"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.0",
     "axios": "^0.19.2",
     "crypto-js": "^4.0.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
+    "react-datepicker": "^3.3.0",
     "react-dom": "^16.13.1",
     "react-loadingg": "^1.7.2",
     "react-maskinput": "^3.2.0",
@@ -34,13 +36,16 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
+    "react-super-responsive-table": "^5.1.4",
     "react-tooltip": "^4.2.7",
+    "react-transition-group": "^4.4.1",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
-    "throttle-debounce": "^3.0.1"
+    "throttle-debounce": "^3.0.1",
+    "uuid": "^8.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
