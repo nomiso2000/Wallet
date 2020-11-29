@@ -9,88 +9,77 @@ import {
 import style from './coverPressure.module.css';
 import selectsvg from '../../styles/css/icon/calendar.svg';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 class OverkayBlock extends Component {
   state = {
-    error: null,
-    income: false,
-    price: '',
-    category: '',
-    coment: '',
-    data: '',
+    array: [],
+    transactionDate: '',
+    type: 'INCOME',
+    categoryId: '',
+    comment: '',
+    amount: '',
   };
 
   audit = '';
 
-  state = {
-    transactionDate: '2020-11-05T08:15:30-05:00',
-    type: 'INCOME',
-    categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
-    comment: 'SAzx',
-    amount: 20,
+  toggleType = () => {
+    return this.state.type === 'INCOME'
+      ? this.setState({ type: 'EXPENSE' })
+      : this.setState({ type: 'INCOME' });
   };
-
-  toggle = () => this.setState(state => ({ income: !state.income }));
-
   handleChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
 
   onAddContact = value => {
-    this.setState({ data: value });
+    this.setState({ transactionDate: value });
   };
 
   handleFormSubmit = e => {
     e.preventDefault();
-
-    // const { price, category, data, income } = this.state;
-    // if (!income) {
-    //   price && data ? (this.audit = 'true') : (this.audit = 'false');
-    // } else if (income) {
-    //   price && data && category
-    //     ? (this.audit = 'true')
-    //     : (this.audit = 'false');
-    // }
-    // if (this.audit === 'false') {
-    //   alert('не були заповнені всі поля спробуйте знову');
-    //   return;
-    // }
-
     const { transactionDate, type, categoryId, comment, amount } = this.state;
-
-    // this.props.addTransaction({
-    //   transactionDate,
-    //   type,
-    //   categoryId,
-    //   comment,
-    //   amount,
-    // });
-
-    // this.props.getTransaction();
-    this.props.addTransaction({
-      transactionDate,
-      type,
-      categoryId,
-      comment,
-      amount,
-    });
-    this.setState({ price: '', category: '', coment: '' });
-  };
-  // fetchImages = () => {
-  //   postItem(this.state)
-  //     .then(item => console.log(item))
-  //     .catch(error => this.setState({ error }));
-  // };
-
-  handleClick = () => {
-    const { transactionDate, type, categoryId, comment, amount } = this.state;
-  };
-
-  componentDidMount() {
-    this.props.getCategories();
-    {
-      this.audit === 'true' && this.fetchImages();
+    console.log(transactionDate);
+    if (type == 'INCOME') {
+      amount && transactionDate
+        ? (this.audit = 'true')
+        : (this.audit = 'false');
+    } else if (type == 'EXPENSE') {
+      amount && transactionDate && categoryId
+        ? (this.audit = 'true')
+        : (this.audit = 'false');
     }
+    if (this.audit === 'false') {
+      alert('Не були заповнені всі поля, спробуйте знову');
+      return;
+    }
+    if (this.audit === 'true') {
+      this.props.addTransaction({
+        transactionDate,
+        type,
+        categoryId,
+        comment,
+        amount,
+      });
+      this.props.hiden();
+    }
+    this.setState({
+      transactionDate: '',
+      type: 'INCOME',
+      categoryId: '',
+      comment: '',
+      amount: '',
+    });
+  };
+  componentDidMount() {
+    axios
+      .get(
+        `https://sheltered-sea-54747.herokuapp.com/api/transaction-categories`,
+      )
+      .then(({ data }) => this.setState({ array: data }));
+    // this.props.getCategories().then(array => {
+    //   return this.setState({ array });
+    // });
     window.addEventListener('keydown', this.handleKeydown);
   }
 
@@ -100,17 +89,26 @@ class OverkayBlock extends Component {
 
   handleKeydown = e => {
     if (e.code === 'Escape' || e.target === e.currentTarget) {
-      console.log(this.props);
       this.props.hiden();
     }
   };
   render() {
-    const { price, category, coment, income } = this.state;
-
+    const {
+      array,
+      transactionDate,
+      type,
+      categoryId,
+      comment,
+      amount,
+    } = this.state;
     return (
       <div className={style.overlay}>
         <div className={style.modal}>
-          <button type="button" className={style.button_close}>
+          <button
+            onClick={this.handleKeydown}
+            type="button"
+            className={style.button_close}
+          >
             &#10006;
           </button>
           <h2 className={style.title}>Добавить транзакцию</h2>
@@ -119,24 +117,23 @@ class OverkayBlock extends Component {
           <div className={style.checkboxSelector}>
             <span
               className={
-                income
-                  ? [style.text_checkbox_darck, style.text_checkbox]
-                  : [style.text_checkbox_light, style.text_checkbox]
+                type === 'EXPENSE'
+                  ? [style.text_checkbox_darck, style.text_checkbox].join(' ')
+                  : [style.text_checkbox_light, style.text_checkbox].join(' ')
               }
             >
               Доход
             </span>
-            <label className={style.switch}>
+            <label onChange={this.toggleType} className={style.switch}>
               <input
                 type="checkbox"
-                checked={this.state.theme}
-                onChange={this.toggle}
+                checked={this.state.type === 'EXPENSE' ? true : false}
               />
               <span className={style.slider}></span>
             </label>
             <span
               className={
-                income
+                type === 'EXPENSE'
                   ? [style.text_checkbox_red, style.text_checkbox].join(' ')
                   : [style.text_checkbox_darcks, style.text_checkbox].join(' ')
               }
@@ -153,11 +150,11 @@ class OverkayBlock extends Component {
                   style.contactFormItemPrice,
                 ].join(' ')}
                 type="text"
-                id="price"
+                id="amount"
                 autoComplete="off"
                 placeholder="0.00"
-                name="price"
-                value={price}
+                name="amount"
+                value={amount}
                 onChange={this.handleChange}
               />
               <Datapicker onAddContacts={this.onAddContact} />
@@ -167,36 +164,56 @@ class OverkayBlock extends Component {
               </span>
             </div>
 
-            {income && (
+            {type === 'EXPENSE' && (
               <select
                 className={style.contactSelect}
-                id="category"
-                name="category"
-                value={category}
+                id="categoryId"
+                name="categoryId"
+                value={categoryId}
                 onChange={this.handleChange}
               >
                 <option value="" disabled selected hidden>
                   Выберите категорию
                 </option>
-                <option className={style.SelectItem} value="main">
+                <option
+                  className={style.SelectItem}
+                  name="Основной"
+                  value={array[2].id}
+                >
                   Основной
                 </option>
-                <option className={style.SelectItem} value="auto">
+                <option className={style.SelectItem} name="Авто" value="auto">
                   Авто
                 </option>
-                <option className={style.SelectItem} value="development">
+                <option
+                  className={style.SelectItem}
+                  name="Развитие"
+                  value={array[3].id}
+                >
                   Развитие
                 </option>
-                <option className={style.SelectItem} value="сhildren">
+                <option
+                  className={style.SelectItem}
+                  name="Дети"
+                  value={array[4].id}
+                >
                   Дети
                 </option>
-                <option className={style.SelectItem} value="house">
+                <option className={style.SelectItem} name="Дом" value="house">
                   Дом
                 </option>
-                <option className={style.SelectItem} value="education">
+                <option
+                  className={style.SelectItem}
+                  name="Образование"
+                  value={array[5].id}
+                >
                   Образование
                 </option>
-                <option className={style.SelectItem} value="rest">
+                <option
+                  className={style.SelectItem}
+                  name="Остальные"
+                  value={array[6].id}
+                >
                   Остальные
                 </option>
               </select>
@@ -208,11 +225,11 @@ class OverkayBlock extends Component {
                 style.contactFormItemComent,
               ].join(' ')}
               type="text"
-              id="coment"
+              id="comment"
               autoComplete="off"
               placeholder="Комментарий"
-              value={coment}
-              name="coment"
+              value={comment}
+              name="comment"
               onChange={this.handleChange}
             />
 
@@ -224,7 +241,7 @@ class OverkayBlock extends Component {
             </button>
             <span
               className={[style.contactBtnDel, style.btn].join(' ')}
-              onClick={() => this.handleClick}
+              onClick={() => this.handleKeydown}
             >
               Отменить
             </span>
@@ -241,27 +258,3 @@ const mapDispatchToProps = {
   getCategories: transactionCategories,
 };
 export default connect(null, mapDispatchToProps)(OverkayBlock);
-
-// class Section extends React.Component {
-//   state = {
-//     theme: true
-//   };
-
-//   toggleTheme = () => this.setState((prev) => ({ theme: !prev.theme }));
-
-//   render() {
-//     return (
-//       <section
-//         className={this.state.theme === true ?.light :.dark}
-//       >
-//
-//         {this.props.children}
-//       </section>
-//     );
-//   }
-// }
-
-// Section.propTypes = {
-//   children: PropTypes.node.isRequired
-// };
-// export default Section;

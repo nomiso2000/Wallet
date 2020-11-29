@@ -13,7 +13,7 @@ const HomePage = () => {
   const [toggleModal, setToggleModal] = useState(false);
   const isAuthentificated = useSelector(state => state.auth.token);
   const handleHide = () => {
-    setToggleModal(false);
+    setToggleModal(!toggleModal);
   };
   const show = () => {
     console.log(toggleModal);

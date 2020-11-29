@@ -41,7 +41,7 @@ export const getTransactionOperation = () => async dispatch => {
 export const transactionCategories = () => async dispatch => {
   axios
     .get(`https://sheltered-sea-54747.herokuapp.com/api/transaction-categories`)
-    .then(response => console.log(response));
+    .then(response => response);
   // dispatch({ type: 'getTransactionCategories' });
   // try {
   //   const data = await API.transaction.get();
