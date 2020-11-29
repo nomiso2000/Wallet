@@ -29,8 +29,8 @@ export const logIn = (user, history) => async dispatch => {
       message: 'Login Success!',
     });
   } catch (e) {
-    // dispatch({ type: types.LOGIN_FAILURE, payload: e.response.data.errors });
-    console.log(e);
+    console.log(e.response);
+    dispatch({ type: types.LOGIN_FAILURE, payload: e.response.data.message });
   }
 };
 export const register = (credentials, history) => async dispatch => {
@@ -50,6 +50,44 @@ export const register = (credentials, history) => async dispatch => {
   }
 };
 
-export const getCurrentUser = () => async (dispatch, getState) => {};
+export const getCurrentUser = () => async (dispatch, getState) => {
+  const {
+    auth: { token: persistedToken },
+  } = getState();
+  if (!persistedToken) {
+    return;
+  }
+  token.set(persistedToken);
+  dispatch({ type: types.GET_CURRENT_USER_START });
+  try {
+    const { data } = await API.auth.getCurrentUser();
+    dispatch({ type: types.GET_CURRENT_USER_SUCCESS, payload: data });
+    console.log(data);
+    notification({
+      type: 'success',
+      message: 'getCurrentUser Success!',
+    });
+  } catch (e) {
+    console.log(e.response);
+    dispatch({ type: types.LOGOUT_FAILURE });
+  }
+};
 
-export const logOut = () => async dispatch => {};
+export const logOut = history => async dispatch => {
+  dispatch({ type: types.LOGOUT_START });
+  try {
+    const data = await API.auth.logout();
+    // if (status < 200 && status >= 300) throw new Error('Something went wrong!');
+    console.log(data);
+    dispatch({ type: types.LOGOUT_SUCCESS, payload: data });
+    history.push('/login');
+    token.unset();
+    notification({
+      type: 'success',
+      message: 'Logout Success!',
+    });
+  } catch (e) {
+    console.log(e.response);
+    dispatch({ type: types.LOGOUT_FAILURE });
+  }
+};
