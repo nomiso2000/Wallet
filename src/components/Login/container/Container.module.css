@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    
+}
+
+.container {
+    position: relative;
+    width: 320px;
+    height: 568px;
+    left: 0px;
+    top: 0px;
+    background: #FFFFFF;
+    z-index: 1;
+}
+
+@media (min-width: 768px) {
+   .container {
+    position: relative;
+    width: 768px;
+    height: 1024px;
+    background: #E7EAF2;
+    background-repeat: no-repeat;
+   }
+}
+
+@media (min-width: 1280px) {
+    .container {
+        position: relative;
+        width: 1280px;
+        height: 720px;
+        background: #E5E5E5;
+        }
+}
+
+

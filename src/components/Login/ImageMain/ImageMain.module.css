@@ -1,0 +1,36 @@
+.wrap {
+    position: absolute;
+    width: 320px;
+    height: 568px;
+    left: 0px;
+    top: 0px;
+    z-index: 4;
+}
+
+
+
+@media (min-width: 768px) {
+    .wrap {
+        position: absolute;
+        width: 260.26px;
+        height: 250px;
+        position: absolute;
+        left: 114px;
+        top: 60px;
+        background-image: url(../icons/img.svg);
+        background-repeat: no-repeat;
+    }
+ }
+
+
+@media (min-width: 1280px) {
+.wrap {
+    position: absolute;
+    width: 435.2px;
+    height: 419.5px;
+    left: 76px;
+    top: 150px;
+    background-image: url(../icons/imgScreen.svg);
+    background-repeat: no-repeat;
+  }
+}
