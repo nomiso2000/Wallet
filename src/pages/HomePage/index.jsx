@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Balance from '../../components/Balance';
 import OverkayBlock from '../../components/CoverPressure';
 import Currency from '../../components/Currency';
 import HomeTab from '../../components/HomeTab';
 import TransactionsTable from '../../components/Table';
 import UserMenu from '../../components/UserMenu';
 import routes from '../../routes';
-
 const HomePage = () => {
   const dispatch = useDispatch();
   const [toggleModal, setToggleModal] = useState(false);
@@ -29,6 +29,7 @@ const HomePage = () => {
         <TransactionsTable />
       </section>
       <section>
+        <Balance />
         <Currency />
         <button onClick={show}>CLICK</button>
         {toggleModal && <OverkayBlock hiden={handleHide} />}
