@@ -3,35 +3,20 @@ import styl from './ModalWindow.module.css';
 import { useState } from 'react';
 import TestWindow from '../TestWindow/TestWindow';
 
-const ModalWindow = ({
-  // getEvent,
-  // handleCloseModalWindow,
-  handleDeleteLetter,
-  handleEditLetter
-}) => {
-  const [renderEditWindow, setRenderEditWindow] = useState(false);
-  
+const ModalWindow = ({ getEvent, handleDeleteLetter, handleEditLetter }) => {
   return (
     <>
-    {renderEditWindow ?  <TestWindow />:
-    
       <div
         id="ModalWindowId"
         className={styl.modalWindow}
         onMouseOver={event => {
-          // console.log('event.currentTarget.id', event.currentTarget.id),
-            // getEvent(event.currentTarget.id);
+          getEvent(true);
         }}
-        // onMouseOut={getEvent(false)}
       >
         <div
           className={styl.editSvg}
           onClick={() => {
-            setRenderEditWindow(true);
-            console.log('renderEditWindow', renderEditWindow),
-            handleEditLetter()
-              // handleCloseModalWindow(false)
-              
+            handleEditLetter();
           }}
         ></div>
         <div
@@ -41,7 +26,6 @@ const ModalWindow = ({
           }}
         ></div>
       </div>
-}
     </>
   );
 };

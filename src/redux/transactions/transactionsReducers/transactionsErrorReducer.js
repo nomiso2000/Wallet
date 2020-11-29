@@ -3,12 +3,13 @@ import { setError, resetError } from '../action';
 
 const initialState = '';
 const transactionErrorReducer = createReducer(initialState, {
-  [setError]: ( action) => {
-    console.log('action', action)
-    return action.payload;
+  [setError]: (state, {payload}) => {
+    console.log('payload', payload)
+    return  payload.message
   },
 
-  [resetError]: () => {
+
+  [resetError]: (state, action) => {
     return '';
   },
 });
