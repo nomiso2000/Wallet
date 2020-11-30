@@ -35,3 +35,14 @@ Transaction_GET:
 /api/transactions/amount - get the amount of money spent or got by transaction
 /api/transactions/balanceAfter - get amount of money, that are currently on balance after transaction
 
+Authentication_POST: 
+/api/auth/sign-up - sign up new User 
+/api/auth/sign-up/username - assigning username for new User 
+/api/auth/sign-up/email  - assigning email for new User
+/api/auth/sign-up/password - assigning password for new User
+
+/api/auth/sign-in - sign in existing User 
+/api/auth/sign-in/email - sign in with email of existing User 
+/api/auth/sign-in/password - sign in with password of existing User 
+
+/api/auth/sign-out - sign out of existing User
