@@ -1,17 +1,17 @@
 const testSummary = {
   categoriesSummary: [
     {
-      name: 'test 1',
+      name: 'Основные расходы',
       type: 'EXPENSE',
       total: -1500,
     },
     {
-      name: 'test 2',
+      name: 'Продукты',
       type: 'EXPENSE',
       total: -1500,
     },
     {
-      name: 'test 3',
+      name: 'Машина',
       type: 'EXPENSE',
       total: -500,
     },
@@ -21,14 +21,34 @@ const testSummary = {
       total: 1500,
     },
     {
-      name: 'test 5',
+      name: 'Забота о себе',
       type: 'EXPENSE',
-      total: 1500,
+      total: -1500,
     },
     {
-      name: 'test 6',
+      name: 'Забота о детях',
       type: 'EXPENSE',
-      total: 1500,
+      total: -1000,
+    },
+    {
+      name: 'Товары для дома',
+      type: 'EXPENSE',
+      total: -1500,
+    },
+    {
+      name: 'Образование',
+      type: 'EXPENSE',
+      total: -700,
+    },
+    {
+      name: 'Досуг',
+      type: 'EXPENSE',
+      total: -1100,
+    },
+    {
+      name: 'Другие расходы',
+      type: 'EXPENSE',
+      total: -500,
     },
   ],
   incomeSummary: 1500,

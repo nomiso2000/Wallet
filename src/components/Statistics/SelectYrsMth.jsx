@@ -97,7 +97,6 @@ class SelectYrsMth extends Component {
 
     return (
       <div>
-          {/* NOT READY YET */}
         <select
           name="valueMonth"
           value={valueMonth}
