@@ -6,10 +6,10 @@ import notification from '../../services/notification';
 
 axios.defaults.baseURL = 'https://sheltered-sea-54747.herokuapp.com';
 
-export const addTransactionOperation = createTransaction => async dispatch => {
+export const addTransactionOperation = transaction => async dispatch => {
   dispatch({ type: types.ADD_TRANSACTION });
   try {
-    const { data } = await API.transaction.add(createTransaction);
+    const { data } = await API.transaction.add(transaction);
     console.log(data);
     dispatch({ type: types.ADD_SUCCESS, payload: data });
     notification({
