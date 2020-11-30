@@ -2,9 +2,9 @@ import React from 'react';
 // import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 // import '../TableClass/node_modules/react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import styles from './Table.module.css';
-import ModalWindow from '../ModalWindow/ModalWindow';
-import TestWindow from '../TestWindow/TestWindow';
-import { useState } from 'react';
+import ModalWindow from '../ModalWindow/index';
+import TestWindow from '../TestWindow/index';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 import {
@@ -16,13 +16,18 @@ import FiltersBar from '../Filters/FiltersBar/FiltersBar';
 import {
   deleteTransactionOperation,
   editTransactionOperation,
+  getTransactionOperation,
 } from '../../redux/transactions/operations';
 import { v4 as uuidv4 } from 'uuid';
 import { CSSTransition } from 'react-transition-group';
 
 const TransactionsTable = () => {
   const dispatch = useDispatch();
+
   const transactions = useSelector(state => state.transactions.items);
+  useEffect(() => {
+    dispatch(getTransactionOperation());
+  }, []);
   console.log('transactions', transactions);
   const [isShown, setShown] = useState(false);
   const [idHoveredElement, setIHE] = useState(null);
@@ -91,33 +96,31 @@ const TransactionsTable = () => {
       <table className={styles.table}>
         <thead>
           {titleOfTable.map(title => {
-            return <th>{title}</th>;
+            return <th key={title}>{title}</th>;
           })}
         </thead>
-        <tbody
-   
-        >
+        <tbody>
           {transactions.map((elem, index) => {
             return (
               <tr
                 key={index}
                 onMouseOver={() => {
-                  setShown(true), setIHE(elem.id);
+                  setShown(true);
+                  setIHE(elem.id);
                   console.log('onMouseOver');
                 }}
-              
                 onMouseLeave={() => {
                   console.log('onMouseLeave');
 
                   setShown(false);
                 }}
               >
-                <td key={index + 1}>{elem.avatar}</td>
-                <td key={index + 2}>{elem.name}</td>
-                <td key={index + 3}>{elem.id}</td>
-                <td key={index + 4}>{elem.amount}</td>
-                <td key={index + 5}>{elem.balance}</td>
-                <td
+                <td key={index + 1}>{elem.transactionDate}</td>
+                <td key={index + 2}>{elem.type}</td>
+                <td key={index + 3}>{elem.categoryId}</td>
+                <td key={index + 4}>{elem.comment}</td>
+                <td key={index + 5}>{elem.amount}</td>
+                              <td
                   key={index + 6}
                   className={
                     renderEditWindow
@@ -125,7 +128,7 @@ const TransactionsTable = () => {
                       : styles.hoveredLetter
                   }
                 >
-                  {elem.isOnline}{' '}
+                  {elem.balance}{' '}
                   {isShown &&
                     idHoveredElement === elem.id &&
                     (renderEditWindow ? (

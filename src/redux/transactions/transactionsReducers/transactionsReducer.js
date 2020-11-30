@@ -14,47 +14,47 @@ import { deleteTransaction, editTransaction, getAllTransactionsFromBack, filterT
 // }
 //
 const initialState = [
-  {
-    avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/shojberg/128.jpg',
-    name: 'Mango',
-    isOnline: 'true',
-    id: 1812,
-    amount:2134,
-    balance:2134
-  },
-  {
-    avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/j04ntoh/128.jpg',
-    name: 'Kiwi',
-    isOnline: 'false',
-    id: 1137,
-    amount:2134,
-    balance:2134
-  },
-  {
-    avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/r_oy/128.jpg',
-    name: 'Ajax',
-    isOnline: 'true',
-    id: 1213,
-    amount:2134,
-    balance:2134
-  },
-  {
-    avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/mugukamil/128.jpg',
-    name: 'Jay',
-    isOnline: 'true',
-    id: 1714,
-    amount:2134,
-    balance:2134
-  },
-  {
-    avatar:
-      'https://s3.amazonaws.com/uifaces/faces/twitter/sweetdelisa/128.jpg',
-    name: 'Poly',
-    isOnline: 'false',
-    id: 1284,
-    amount:2134,
-    balance:2134
-  },
+  // {
+  //   avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/shojberg/128.jpg',
+  //   name: 'Mango',
+  //   isOnline: 'true',
+  //   id: 1812,
+  //   amount:2134,
+  //   balance:2134
+  // },
+  // {
+  //   avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/j04ntoh/128.jpg',
+  //   name: 'Kiwi',
+  //   isOnline: 'false',
+  //   id: 1137,
+  //   amount:2134,
+  //   balance:2134
+  // },
+  // {
+  //   avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/r_oy/128.jpg',
+  //   name: 'Ajax',
+  //   isOnline: 'true',
+  //   id: 1213,
+  //   amount:2134,
+  //   balance:2134
+  // },
+  // {
+  //   avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/mugukamil/128.jpg',
+  //   name: 'Jay',
+  //   isOnline: 'true',
+  //   id: 1714,
+  //   amount:2134,
+  //   balance:2134
+  // },
+  // {
+  //   avatar:
+  //     'https://s3.amazonaws.com/uifaces/faces/twitter/sweetdelisa/128.jpg',
+  //   name: 'Poly',
+  //   isOnline: 'false',
+  //   id: 1284,
+  //   amount:2134,
+  //   balance:2134
+  // },
 ];
 const transactionReducer = createReducer(initialState, {
   [getAllTransactionsFromBack]: (state, action) => {

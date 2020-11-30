@@ -7,24 +7,17 @@ const user = (state = null, { type, payload }) => {
       return { ...state, ...payload.user };
     case types.SIGNUP_SUCCESS:
       return { ...state, ...payload.user };
+    case types.GET_CURRENT_USER_SUCCESS:
+      return { ...state, ...payload };
     case types.LOGOUT_SUCCESS:
+      return null;
+    case types.LOGOUT_FAILURE:
       return null;
 
     default:
       return state;
   }
 };
-// const register = (state = null, { type, payload }) => {
-//   switch (type) {
-//     case types.SIGNUP_SUCCESS:
-//       return { ...state, ...payload.userData };
-//     case types.LOGOUT_SUCCESS:
-//       return null;
-
-//     default:
-//       return state;
-//   }
-// };
 
 const token = (state = null, { type, payload }) => {
   switch (type) {

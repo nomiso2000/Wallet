@@ -1,9 +1,6 @@
 import React from 'react';
 import styles from './FiltersBar.module.css';
-import {
-  filterALLTransactionOperation,
-  
-} from '../../../redux/transactions/operations';
+import { filterALLTransactionOperation } from '../../../redux/transactions/operations';
 import {
   filterIncomes,
   filterExpences,
@@ -51,14 +48,11 @@ const FiltersBar = () => {
                 if (link.name === 'ВСЕ') {
                   dispatch(filterALLTransactionOperation());
                 } else if (link.name === 'ДОХОДЫ') {
-                  console.log('ДОХОДЫ');
-                  console.log('filterValue', filterValue);
                   dispatch(filterIncomes('Incomes'));
                   dispatch(filterTransactionsByIncomes(transactions));
                 } else {
-                  console.log('ЗАТРАТЫ');
                   dispatch(filterExpences('Expences'));
-                 dispatch(filterTransactionsByExpences(transactions));
+                  dispatch(filterTransactionsByExpences(transactions));
                 }
               }}
             >

@@ -1,7 +1,7 @@
 import React from 'react';
 import styl from './ModalWindow.module.css';
 import { useState } from 'react';
-import TestWindow from '../TestWindow/TestWindow';
+import TestWindow from '../TestWindow/index';
 
 const ModalWindow = ({ getEvent, handleDeleteLetter, handleEditLetter }) => {
   return (
@@ -21,8 +21,7 @@ const ModalWindow = ({ getEvent, handleDeleteLetter, handleEditLetter }) => {
         ></div>
         <div
           className={styl.deleteSvg}
-          onClick={() => {
-            console.log('del'), handleDeleteLetter();
+          onClick={() => { handleDeleteLetter();
           }}
         ></div>
       </div>

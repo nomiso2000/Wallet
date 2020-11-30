@@ -23,6 +23,7 @@
     "axios": "^0.19.2",
     "crypto-js": "^4.0.0",
     "react": "^16.13.1",
+    "react-datepicker": "^3.3.0",
     "react-dom": "^16.13.1",
     "react-loadingg": "^1.7.2",
     "react-maskinput": "^3.2.0",
@@ -39,7 +40,6 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0",
     "throttle-debounce": "^3.0.1",
     "uuid": "^8.3.1"
   },

@@ -4,22 +4,20 @@ import storage from 'redux-persist/lib/storage';
 import authReducer from './auth/reducer';
 
 import errorsReducer from './error/reducer';
-// import transactionReducer from './transactions/transactionsReducers/transactionsReducer';
-// import transactionsErrorReducer from './transactions/transactionsReducers/transactionsErrorReducer';
-import transactionsRootReducer from './transactions/transactionsReducers/transactionsRootReducer';
-import { encryptor } from './encryptor';
 
+import { encryptor } from './encryptor';
+import transactionsRootReducer from './transactions/transactionsReducers/transactionsRootReducer';
 const authConfig = {
   key: 'auth',
   storage,
   whitelist: ['token'],
-  transforms: [encryptor],
+  // transforms: [encryptor],
 };
 
 const rootReducers = combineReducers({
   auth: persistReducer(authConfig, authReducer),
+  transactions: transactionsRootReducer,
   errors: errorsReducer,
-  transactions:transactionsRootReducer
 });
 
 export default rootReducers;
