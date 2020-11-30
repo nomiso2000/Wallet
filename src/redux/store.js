@@ -11,3 +11,5 @@ const enhancer =
 
 export const store = createStore(rootReducer, enhancer);
 export const persistor = persistStore(store);
+
+console.log(store.getState());
