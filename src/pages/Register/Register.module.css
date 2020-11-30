@@ -1,4 +1,4 @@
-@media (min-width: 1200px) {
+/* @media (min-width: 1200px) {
     .blockCover {
       max-width: 2000px;
       justify-content: space-between;
@@ -96,7 +96,7 @@ margin-bottom: 5px;
     visibility: visible;
      bottom: 23px;
 }  */
-display: block;
+/* display: block;
     content: "";
     width: 70%;
     height:4px;
@@ -106,10 +106,10 @@ display: block;
     /* -webkit-transition: all .2s linear;
     -o-transition: all .2s linear;
     transition: all .2s linear; */
-    position: absolute;
+    /* position: absolute;
     bottom: 20px;
-}
-.form label:hover {
+} */
+/* .form label:hover {
     color: #0dd84a;
 
 }
@@ -213,4 +213,4 @@ text-transform: uppercase;
 
         color: #000000;
      }
-    } 
+    }   */
