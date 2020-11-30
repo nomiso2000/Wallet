@@ -6,7 +6,7 @@ import regist from '../../styles/css/icon/regist.svg';
 import fioletsvg from '../../styles/css/icon/fiolet.svg';
 import sirclesvg from '../../styles/css/icon/orangesircle.svg';
 import Ceshsvg from '../../styles/css/icon/Cesh.svg';
-import style from './resterForm.module.css';
+import style from './resterForm.module.scss';
 
 const ResterForm = () => {
   return (
