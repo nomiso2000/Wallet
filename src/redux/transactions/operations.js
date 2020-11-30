@@ -18,7 +18,6 @@ export const addTransactionOperation = createTransaction => async dispatch => {
       message: 'add Transaction Success!',
     });
   } catch (e) {
-    console.log(e.response);
     dispatch({ type: types.ADD_FAILURE, payload: e.response.data.errors });
   }
 };
@@ -39,9 +38,10 @@ export const getTransactionOperation = () => async dispatch => {
   }
 };
 export const transactionCategories = () => async dispatch => {
-  axios
+  return axios
     .get(`https://sheltered-sea-54747.herokuapp.com/api/transaction-categories`)
-    .then(response => console.log(response));
+    .then(response => response.data);
+
   // dispatch({ type: 'getTransactionCategories' });
   // try {
   //   const data = await API.transaction.get();

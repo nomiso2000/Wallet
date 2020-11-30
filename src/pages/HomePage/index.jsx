@@ -16,7 +16,6 @@ const HomePage = () => {
     setToggleModal(!toggleModal);
   };
   const show = () => {
-    console.log(toggleModal);
     setToggleModal(true);
   };
   return (

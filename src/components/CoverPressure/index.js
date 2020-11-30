@@ -15,14 +15,12 @@ class OverkayBlock extends Component {
     array: [],
     transactionDate: '',
     type: 'INCOME',
-    categoryId: '',
+    categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
     comment: '',
     amount: '',
   };
 
   audit = '';
-
-  // toggle = () => this.setState(state => ({ INCOME: !state.INCOME }));
 
   toggleType = () => {
     return this.state.type === 'INCOME'
@@ -42,7 +40,15 @@ class OverkayBlock extends Component {
   handleFormSubmit = e => {
     e.preventDefault();
 
-    const { transactionDate, type, categoryId, comment, amount } = this.state;
+    const {
+      transactionDate,
+      type,
+      categoryId,
+      comment,
+      amount,
+      array,
+    } = this.state;
+    // this.setState({ categoryId: this.state.array[0] });
     if (type == 'INCOME') {
       amount && transactionDate
         ? (this.audit = 'true')
@@ -57,13 +63,15 @@ class OverkayBlock extends Component {
       return;
     }
 
+    let amoundNumb = Number(amount);
+
     if (this.audit === 'true') {
       this.props.addTransaction({
         transactionDate,
         type,
         categoryId,
         comment,
-        amount,
+        amount: amoundNumb,
       });
       this.props.hiden();
     }
@@ -71,7 +79,7 @@ class OverkayBlock extends Component {
     this.setState({
       transactionDate: '',
       type: 'INCOME',
-      categoryId: '',
+      categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
       comment: '',
       amount: '',
     });
@@ -101,7 +109,7 @@ class OverkayBlock extends Component {
       comment,
       amount,
     } = this.state;
-
+    console.log(this.state);
     return (
       <div className={style.overlay}>
         <div className={style.modal}>
@@ -150,7 +158,7 @@ class OverkayBlock extends Component {
                   style.contactFormItem,
                   style.contactFormItemPrice,
                 ].join(' ')}
-                type="text"
+                type="number"
                 id="amount"
                 autoComplete="off"
                 placeholder="0.00"
@@ -167,6 +175,7 @@ class OverkayBlock extends Component {
 
             {type === 'EXPENSE' && (
               <select
+                // defaultValue="selected"
                 className={style.contactSelect}
                 id="categoryId"
                 name="categoryId"
@@ -183,37 +192,45 @@ class OverkayBlock extends Component {
                 >
                   Основной
                 </option>
-                <option className={style.SelectItem} name="Авто" value="auto">
+                <option
+                  className={style.SelectItem}
+                  name="Авто"
+                  value={array[3].id}
+                >
                   Авто
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Развитие"
-                  value={array[3].id}
+                  value={array[4].id}
                 >
                   Развитие
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Дети"
-                  value={array[4].id}
+                  value={array[5].id}
                 >
                   Дети
                 </option>
-                <option className={style.SelectItem} name="Дом" value="house">
+                <option
+                  className={style.SelectItem}
+                  name="Дом"
+                  value={array[6].id}
+                >
                   Дом
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Образование"
-                  value={array[5].id}
+                  value={array[7].id}
                 >
                   Образование
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Остальные"
-                  value={array[6].id}
+                  value={array[8].id}
                 >
                   Остальные
                 </option>
