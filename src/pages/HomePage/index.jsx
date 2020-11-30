@@ -8,6 +8,7 @@ import HomeTab from '../../components/HomeTab';
 import TransactionsTable from '../../components/Table';
 import UserMenu from '../../components/UserMenu';
 import routes from '../../routes';
+import Navigation from '../Navigation';
 const HomePage = () => {
   const dispatch = useDispatch();
   const [toggleModal, setToggleModal] = useState(false);
@@ -21,16 +22,13 @@ const HomePage = () => {
   };
   return (
     <>
+      {/* <Navigation /> */}
       <section className="main-section">
         <h1>HomePage</h1>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
         <UserMenu />
         <TransactionsTable />
       </section>
       <section>
-        <Balance />
-        <Currency />
         <button onClick={show}>CLICK</button>
         {toggleModal && <OverkayBlock hiden={handleHide} />}
         {/* <HomeTab /> */}
