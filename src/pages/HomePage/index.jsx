@@ -9,6 +9,7 @@ import TransactionsTable from '../../components/Table';
 import UserMenu from '../../components/UserMenu';
 import routes from '../../routes';
 import Navigation from '../Navigation';
+import syles from './HomePage.module.css';
 const HomePage = () => {
   const dispatch = useDispatch();
   const [toggleModal, setToggleModal] = useState(false);
@@ -22,17 +23,14 @@ const HomePage = () => {
   };
   return (
     <>
-      {/* <Navigation /> */}
-      <section className="main-section">
+      <section className={syles.mainSection}>
         <h1>HomePage</h1>
-        <UserMenu />
-        <TransactionsTable />
-      </section>
-      <section>
+        {/* <TransactionsTable /> */}
         <button onClick={show}>CLICK</button>
         {toggleModal && <OverkayBlock hiden={handleHide} />}
         {/* <HomeTab /> */}
       </section>
+      <section></section>
     </>
   );
 };
