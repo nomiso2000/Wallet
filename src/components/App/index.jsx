@@ -7,7 +7,18 @@ import ErrorNotification from '../Notifications/Error';
 import Loader from '../Loader';
 import routes from '../../routes';
 import PrivateRoute from '../../HOC/PrivateRoute';
+import "./App.css";
+import Header from "./components/Header";
+import Nav from "./components/NavMenu";
 
+function App() {
+  return (
+    <div className="App">
+      <Header />
+      <Nav />
+    </div>
+  );
+}
 const App = () => {
   const dispatch = useDispatch();
   const authLoading = useSelector(authSelectors.getLoading);
