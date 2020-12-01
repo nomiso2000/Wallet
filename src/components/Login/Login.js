@@ -12,7 +12,7 @@ import { ImgMain } from './ImageMain/ImageMain';
 export default class Login extends Component {
     render() {
         return (
-            <Container>
+            <Container className={styles.backGround}>
                 <div className={styles.grayBG}>
                   <FormWrapper>
                     <p className={styles.p}>Wallet</p>
@@ -27,8 +27,7 @@ export default class Login extends Component {
                     <ImgMain/>    
                     <div className={styles.violetCircle}></div>
                     <span className={styles.span}>Finance App</span>
-            </Container>
-            
+            </Container>                        
         )
     }
     
