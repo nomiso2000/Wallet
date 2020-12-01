@@ -1,0 +1,10 @@
+.background {
+  display: flex;
+  height: 100%;
+}
+.navMenu {
+  width: 40%;
+}
+.Other {
+  width: 60%;
+}

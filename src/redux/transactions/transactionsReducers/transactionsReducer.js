@@ -1,4 +1,4 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { createReducer, combineReducers } from '@reduxjs/toolkit';
 import { deleteTransaction, editTransaction } from '../action';
 
 // response ty-e
@@ -46,6 +46,7 @@ const initialState = [
     id: 1284,
   },
 ];
+
 const transactionReducer = createReducer(initialState, {
   [deleteTransaction]: (state, action) => {
     return [...state.filter(transaction => transaction.id !== action.payload)];
@@ -64,4 +65,21 @@ const transactionReducer = createReducer(initialState, {
   },
 });
 
-export default transactionReducer;
+const getAllTransaction = createReducer('', {
+  // [addTransaction]: (state, action) => {
+  //   return { ...action };
+  // },
+  // [editTransaction]: (state, action) => {
+  //   console.log('editTransaction action.payload', action.payload);
+  //   console.log(
+  //     '...state.filter(transaction => transaction.id !== action.payload)',
+  //     state.filter(transaction => transaction.id !== action.payload),
+  //   );
+  //   return [
+  //     ...state.filter(transaction => transaction.id !== action.payload),
+  //     ...action.payload,
+  //   ];
+  // },
+});
+
+export default combineReducers({ getAllTransaction, transactionReducer });

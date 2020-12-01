@@ -1,3 +1,8 @@
+*,
+::after,
+::before {
+  box-sizing: inherit;
+}
 .notification-enter {
   visibility: hidden;
   -webkit-transform: translate3d(100%, 0, 0);
