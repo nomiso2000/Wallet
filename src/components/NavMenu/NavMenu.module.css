@@ -92,8 +92,9 @@ main {
 @media screen and (min-width: 1280px) {
   .background {
     width: 36.3vw;
-    height: 100vh;
+    height: calc(100vh - 60px);
     background-color: #f1f2f7;
+    margin: 0;
   }
 
   main {
@@ -101,11 +102,11 @@ main {
     width: 36.3vw;
     background: url(../../pages/Login/icons/violetCircle.svg);
     background-repeat: no-repeat;
-    background-position: left -15px top 400px;
+    background-position: left 10px top 220px;
   }
   .main1 {
     width: 36.3vw;
-    height: 100vh;
+    height: calc(100vh - 60px);
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(50px);
   }
@@ -116,7 +117,7 @@ main {
     align-items: start;
     height: 76.4vh;
     padding-left: 6.7vw;
-    /* padding-top: 45px; */
+    padding-top: 45px;
   }
 
   .navMD img {
@@ -138,12 +139,21 @@ main {
     color: #000;
     font-size: 18px;
     font-weight: 400;
+    text-decoration: none;
   }
 
   .navMD p:hover {
+    color: #4a56e2;
+  }
+
+  .statActiveLink p {
     font-weight: 700;
   }
 
+  .activeLink p {
+    font-weight: 700;
+    color: black;
+  }
   .navUsd {
     display: none;
   }

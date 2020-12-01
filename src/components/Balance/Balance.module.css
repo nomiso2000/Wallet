@@ -302,6 +302,8 @@
 @media (min-width: 1280px) {
   .div {
     width: 350px;
+    margin-bottom: 4.2vh;
+    margin-top: 4.2vh;
   }
 
   .balanceText,

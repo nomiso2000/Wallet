@@ -28,9 +28,10 @@ function NavMenu() {
               <div className={styles.navMD}>
                 <img src={home} alt="home" className={styles.navHome} />
                 <NavLink
+                  style={{ textDecoration: 'none' }}
                   to={routes.HOME.path}
-                  className={styles.link}
                   activeClassName={styles.activeLink}
+                  className={styles.navLink}
                 >
                   {' '}
                   <p>Главная</p>
@@ -39,6 +40,8 @@ function NavMenu() {
               <div className={styles.navMD}>
                 <img src={graph} alt="graph" className={styles.navGraph} />
                 <NavLink
+                  style={{ textDecoration: 'none' }}
+                  className={styles.navLink}
                   to={routes.STATISTIC.path}
                   className={styles.link}
                   activeClassName={styles.statActiveLink}
@@ -57,17 +60,18 @@ function NavMenu() {
                   <img src={usd} alt="usd" className={styles.navUsd} />
                 </NavLink>
               </div>
+              <div className={styles.balanceContainer}>
+                {windowWidth < 768 ? (
+                  location.pathname === '/statistic' ||
+                  location.pathname === '/currency' ? null : (
+                    <Balance className={styles.balance} />
+                  )
+                ) : (
+                  <Balance className={styles.balance} />
+                )}
 
-              {windowWidth < 768 ? (
-                location.pathname === '/statistic' ||
-                location.pathname === '/currency' ? null : (
-                  <Balance />
-                )
-              ) : (
-                <Balance />
-              )}
-
-              {windowWidth > 768 && <Currency />}
+                {windowWidth > 768 && <Currency />}
+              </div>
             </div>
           </div>
         </section>
