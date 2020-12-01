@@ -7,6 +7,7 @@ import {
   filterTransactionsByIncomes,
   filterTransactionsByExpences,
 } from '../../../redux/transactions/action';
+import {filtredTransactions} from '../../../redux/transactions/selector'
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -27,8 +28,8 @@ const navigationLinks = [
 ];
 const FiltersBar = () => {
   const filterValue = useSelector(state => state.transactions.filter);
-  const transactions = useSelector(state => state.transactions.items);
-
+  // const transactions = useSelector(state => state.transactions.items);
+  const transactions = useSelector(filtredTransactions);
   const dispatch = useDispatch();
   return (
     <ul className={styles.filtersList}>
@@ -49,10 +50,10 @@ const FiltersBar = () => {
                   dispatch(filterALLTransactionOperation());
                 } else if (link.name === 'ДОХОДЫ') {
                   dispatch(filterIncomes('Incomes'));
-                  dispatch(filterTransactionsByIncomes(transactions));
+                  // dispatch(filterTransactionsByIncomes(transactions));
                 } else {
                   dispatch(filterExpences('Expences'));
-                  dispatch(filterTransactionsByExpences(transactions));
+                  // dispatch(filterTransactionsByExpences(transactions));
                 }
               }}
             >

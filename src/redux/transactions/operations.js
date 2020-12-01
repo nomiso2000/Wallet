@@ -175,9 +175,9 @@ export const filterALLTransactionOperation = () => async dispatch => {
     .then(response => {
       console.log('response', response);
       // проверка на успешность ответа по коду,отрисовка
-      if (response.statusCode >= 200 && response.statusCode <= 300) {
-        dispatch(getAllTransactionsFromBack(response));
-      }
+     
+        dispatch(getAllTransactionsFromBack(response.data));
+      
     })
     .catch(error => {
       dispatch(setError(error));

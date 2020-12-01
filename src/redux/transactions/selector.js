@@ -11,8 +11,8 @@ export const getTransaction = (state) => {
   export const filtredTransactions = createSelector(
     [getTransaction, getFilterValue],
     (transactions, filter) => {
-      if(filter==='INCOME'){return transactions.filter(transaction => transaction.type === 'INCOME')}
-      else if(filter==='EXPENSE'){return transactions.filter(transaction => transaction.type === 'EXPENSE')}
+      if(filter==='Incomes'){return transactions.filter(transaction => transaction.type === 'INCOME')}
+      else if(filter==='Expences'){return transactions.filter(transaction => transaction.type === 'EXPENSE')}
       return transactions
      
     }

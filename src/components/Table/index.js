@@ -26,8 +26,9 @@ import { CSSTransition } from 'react-transition-group';
 const TransactionsTable = () => {
   const dispatch = useDispatch();
 
-  // const transactions = useSelector(state => state.transactions.items);
-  const transactions = useSelector(state => state.transactions.items);
+
+  const transactions = useSelector(filtredTransactions);
+
 
   useEffect(() => {
     dispatch(getTransactionOperation());
