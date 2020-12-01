@@ -23,8 +23,8 @@ const filterIncomes = createAction(types.FILTER_INCOMES);
 
 const filterExpences = createAction(types.FILTER_EXPENCES);
 
-const filterTransactionsByIncomes = createAction(types.FILTER_TRANSACTIONS_BY_INCOMES);
-const filterTransactionsByExpences= createAction(types.FILTER_TRANSACTIONS_BY_EXPENCES);
+// const filterTransactionsByIncomes = createAction(types.FILTER_TRANSACTIONS_BY_INCOMES);
+// const filterTransactionsByExpences= createAction(types.FILTER_TRANSACTIONS_BY_EXPENCES);
 
 export {
     deleteTransaction,
@@ -36,7 +36,7 @@ export {
   filterALL,
   filterIncomes,
   filterExpences,
-  filterTransactionsByIncomes,
-  filterTransactionsByExpences,
+  // filterTransactionsByIncomes,
+  // filterTransactionsByExpences,
   getAllTransactionsFromBack
 };

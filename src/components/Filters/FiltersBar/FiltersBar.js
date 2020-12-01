@@ -50,10 +50,10 @@ const FiltersBar = () => {
                   dispatch(filterALLTransactionOperation());
                 } else if (link.name === 'ДОХОДЫ') {
                   dispatch(filterIncomes('Incomes'));
-                  // dispatch(filterTransactionsByIncomes(transactions));
+               
                 } else {
                   dispatch(filterExpences('Expences'));
-                  // dispatch(filterTransactionsByExpences(transactions));
+           
                 }
               }}
             >

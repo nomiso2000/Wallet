@@ -150,6 +150,8 @@ export const editTransactionOperation = editedTransaction => async dispatch => {
       //   .get('https://sheltered-sea-54747.herokuapp.com/api/transactions')
       //   .then(response => { dispatch(setUpdetedTransactionsFromBack(response))
       //       });
+console.log('editedTransaction from oper', editedTransaction)
+
        dispatch(editTransaction(editedTransaction));
       notification({
         type: 'success',
