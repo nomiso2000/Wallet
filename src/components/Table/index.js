@@ -4,7 +4,7 @@ import React from 'react';
 import styles from './Table.module.css';
 import ModalWindow from '../ModalWindow/index';
 // import TestWindow from '../TestWindow/index';
-import OverkayBlock from '../CoverPressure/index'
+import OverkayBlock from '../CoverPressure/index';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
@@ -19,29 +19,25 @@ import {
   editTransactionOperation,
   getTransactionOperation,
 } from '../../redux/transactions/operations';
-import {filtredTransactions} from '../../redux/transactions/selector'
+import { filtredTransactions } from '../../redux/transactions/selector';
 import { v4 as uuidv4 } from 'uuid';
 import { CSSTransition } from 'react-transition-group';
 
 const TransactionsTable = () => {
   const dispatch = useDispatch();
 
-
   const transactions = useSelector(filtredTransactions);
-
 
   useEffect(() => {
     dispatch(getTransactionOperation());
   }, []);
-  console.log('transactions', transactions);
+
   const [isShown, setShown] = useState(false);
   const [idHoveredElement, setIHE] = useState(null);
   // const [idModalWindow, setIdModalWindov] = useState(null);
   const [renderEditWindow, setRenderEditWindow] = useState(false);
 
   const getEvent = isOnModalWindow => {
-    // setIdModalWindov(isOnModalWindow);
-    console.log('isOnModalWindow', isOnModalWindow);
     if (isOnModalWindow) {
       setShown(true);
     }
@@ -51,10 +47,9 @@ const TransactionsTable = () => {
   const handleCloseOfTestlWindow = () => {
     // setShown(closeBolean);
     setRenderEditWindow(false);
-    console.log('renderEditWindow', renderEditWindow);
   };
 
-   const handleDeleteLetter = () => {
+  const handleDeleteLetter = () => {
     let id = idHoveredElement;
 
     // dispatch(deleteTransaction(id));
@@ -70,8 +65,7 @@ const TransactionsTable = () => {
       }
     });
     setRenderEditWindow(true);
-    console.log('editedTransaction', editedTransaction);
-    // dispatch(editTransaction(editedTransaction));
+
     dispatch(editTransactionOperation(editedTransaction));
   };
 
@@ -84,7 +78,6 @@ const TransactionsTable = () => {
     'Балланс',
   ];
   const quantityOflatter = Array.from({ length: 10 }, (v, k) => k);
- 
 
   return (
     <div className={styles.wrap}>
@@ -104,17 +97,15 @@ const TransactionsTable = () => {
         </thead>
         <tbody>
           {transactions.map((elem, index) => {
+           
             return (
               <tr
                 key={index}
                 onMouseOver={() => {
                   setShown(true);
                   setIHE(elem.id);
-                  console.log('onMouseOver');
                 }}
                 onMouseLeave={() => {
-                  console.log('onMouseLeave');
-
                   setShown(false);
                 }}
               >
@@ -123,7 +114,7 @@ const TransactionsTable = () => {
                 <td key={index + 3}>{elem.categoryId}</td>
                 <td key={index + 4}>{elem.comment}</td>
                 <td key={index + 5}>{elem.amount}</td>
-                              <td
+                <td
                   key={index + 6}
                   className={
                     renderEditWindow
@@ -131,13 +122,13 @@ const TransactionsTable = () => {
                       : styles.hoveredLetter
                   }
                 >
-                  {elem.balance}{' '}
+                  {elem.balanceAfter}{' '}
                   {isShown &&
                     idHoveredElement === elem.id &&
                     (renderEditWindow ? (
                       <OverkayBlock
-                      handleCloseOfTestlWindow={handleCloseOfTestlWindow}
-                      editedTransaction={elem}
+                        handleCloseOfTestlWindow={handleCloseOfTestlWindow}
+                        editedTransaction={elem}
                       />
                     ) : (
                       <ModalWindow

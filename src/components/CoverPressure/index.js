@@ -5,11 +5,10 @@ import {
   addTransactionOperation,
   getTransactionOperation,
   transactionCategories,
-  editTransactionOperation
+  editTransactionOperation,
 } from '../../redux/transactions/operations';
 import style from './coverPressure.module.css';
 import selectsvg from '../../styles/css/icon/calendar.svg';
-import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 class OverkayBlock extends Component {
   state = {
@@ -19,7 +18,7 @@ class OverkayBlock extends Component {
     categoryId: '',
     comment: '',
     amount: '',
-    id:''
+    id: '',
   };
 
   audit = '';
@@ -41,22 +40,6 @@ class OverkayBlock extends Component {
   handleFormSubmit = e => {
     e.preventDefault();
     let { transactionDate, type, categoryId, comment, amount, id } = this.state;
-    // if (!this.props.hiden) {
-    //   // {
-    //   // transactionDate,
-    //   // type,
-    //   // categoryId,
-    //   // comment,
-    //   // amount}=this.props.editedTransaction;
-
-    //   transactionDate = this.props.editedTransaction.transactionDate;
-    //   type = this.props.editedTransaction.type;
-    //   categoryId = this.props.editedTransaction.categoryId;
-    //   comment = this.props.editedTransaction.categoryId;
-    //   amount = this.props.editedTransaction.amount;
-
-    //   // console.log('comment', this.props.editedTransaction.comment);
-    // }
 
     if (type == 'INCOME') {
       amount && transactionDate
@@ -79,21 +62,24 @@ class OverkayBlock extends Component {
       if (type == 'INCOME') {
         categoryId = 'd9ee2284-4673-44f4-ab76-6258512ea409';
       }
-      if (this.props.hiden){ 
-      this.props.addTransaction({
-        transactionDate,
-        type,
-        categoryId,
-        comment,
-        amount,
-      });} else {this.props.editTransaction({
-        transactionDate,
-        type,
-        categoryId,
-        comment,
-        amount,
-        id
-      })}
+      if (this.props.hiden) {
+        this.props.addTransaction({
+          transactionDate,
+          type,
+          categoryId,
+          comment,
+          amount,
+        });
+      } else {
+        this.props.editTransaction({
+          transactionDate,
+          type,
+          categoryId,
+          comment,
+          amount,
+          id,
+        });
+      }
       if (this.props.hiden) {
         this.props.hiden();
       } else {
@@ -108,15 +94,15 @@ class OverkayBlock extends Component {
       amount: '',
     });
   };
-  componentDidMount() {
-    axios
+  async componentDidMount() {
+    await axios
       .get(
         `https://sheltered-sea-54747.herokuapp.com/api/transaction-categories`,
       )
-      .then(({ data }) => this.setState({ array: data }));
-    // this.props.getCategories().then(array => {
-    //   return this.setState({ array });
-    // });
+      .then(({ data }) => {
+        this.setState({ array: [...data] });
+      });
+
     let { transactionDate, type, categoryId, comment, amount, id } = this.state;
     if (!this.props.hiden) {
       transactionDate = this.props.editedTransaction.transactionDate;
@@ -124,10 +110,8 @@ class OverkayBlock extends Component {
       categoryId = this.props.editedTransaction.categoryId;
       comment = this.props.editedTransaction.comment;
       amount = this.props.editedTransaction.amount;
-      id=this.props.editedTransaction.id;
+      id = this.props.editedTransaction.id;
       this.setState({ transactionDate, type, categoryId, comment, amount, id });
-
-      console.log('comment', this.props.editedTransaction.comment);
     }
 
     window.addEventListener('keydown', this.handleKeydown);
@@ -316,6 +300,6 @@ const mapDispatchToProps = {
   addTransaction: addTransactionOperation,
   getTransaction: getTransactionOperation,
   getCategories: transactionCategories,
-  editTransaction: editTransactionOperation
+  editTransaction: editTransactionOperation,
 };
 export default connect(null, mapDispatchToProps)(OverkayBlock);

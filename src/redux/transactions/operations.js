@@ -18,7 +18,7 @@ export const addTransactionOperation = createTransaction => async dispatch => {
   dispatch({ type: types.ADD_TRANSACTION });
   try {
     const { data } = await API.transaction.add(createTransaction);
-    console.log(data);
+
     dispatch({ type: types.ADD_SUCCESS, payload: data });
     notification({
       type: 'success',
@@ -31,7 +31,6 @@ export const addTransactionOperation = createTransaction => async dispatch => {
       message: 'Get Transactions Success!',
     });
   } catch (e) {
-    console.log(e);
     dispatch({ type: types.ADD_FAILURE, payload: e });
     notification({
       type: 'error',
@@ -45,7 +44,7 @@ export const getTransactionOperation = () => async dispatch => {
 
   try {
     const { data } = await API.transaction.get();
-    console.log(data);
+
     dispatch({ type: types.GET_SUCCESS });
     dispatch(getAllTransactionsFromBack(data));
     notification({
@@ -67,7 +66,7 @@ export const transactionCategories = () => async dispatch => {
     const { data } = await axios.get(
       `https://sheltered-sea-54747.herokuapp.com/api/transaction-categories`,
     );
-    console.log(data);
+
     dispatch({ type: types.GET_SUCCESS });
     dispatch(getAllTransactionsFromBack(data));
     notification({
@@ -125,7 +124,6 @@ export const deleteTransactionOperation = id => async dispatch => {
 };
 
 export const editTransactionOperation = editedTransaction => async dispatch => {
-  console.log('editedTransaction', editedTransaction);
   const editeUrl = `/api/transactions/${editedTransaction.id}`;
 
   dispatch(loaderON());
@@ -164,6 +162,10 @@ export const filterALLTransactionOperation = () => async dispatch => {
   try {
     const { data } = await axios.get(getAllTransactionsUrl);
     dispatch(getAllTransactionsFromBack(data));
+    notification({
+      type: 'success',
+      message: 'All transaction get Success!',
+    });
   } catch (error) {
     dispatch(setError(error));
     notification({
