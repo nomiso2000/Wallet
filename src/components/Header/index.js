@@ -12,6 +12,7 @@ function Header() {
   const dispatch = useDispatch();
   const history = useHistory();
   let name = useSelector(state => state?.auth?.user?.username);
+  console.log(name);
   return (
     <div className={styles.header}>
       <Link to={routes.HOME.path}>
