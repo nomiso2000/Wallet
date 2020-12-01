@@ -5,6 +5,7 @@ import {
   addTransactionOperation,
   getTransactionOperation,
   transactionCategories,
+  editTransactionOperation
 } from '../../redux/transactions/operations';
 import style from './coverPressure.module.css';
 import selectsvg from '../../styles/css/icon/calendar.svg';
@@ -15,9 +16,10 @@ class OverkayBlock extends Component {
     array: [],
     transactionDate: '',
     type: 'INCOME',
-    categoryId: '345345',
+    categoryId: '',
     comment: '',
     amount: '',
+    id:''
   };
 
   audit = '';
@@ -38,16 +40,31 @@ class OverkayBlock extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
-    let { transactionDate, type, categoryId, comment, amount } = this.state;
-    
-    console.log(transactionDate);
+    let { transactionDate, type, categoryId, comment, amount, id } = this.state;
+    // if (!this.props.hiden) {
+    //   // {
+    //   // transactionDate,
+    //   // type,
+    //   // categoryId,
+    //   // comment,
+    //   // amount}=this.props.editedTransaction;
+
+    //   transactionDate = this.props.editedTransaction.transactionDate;
+    //   type = this.props.editedTransaction.type;
+    //   categoryId = this.props.editedTransaction.categoryId;
+    //   comment = this.props.editedTransaction.categoryId;
+    //   amount = this.props.editedTransaction.amount;
+
+    //   // console.log('comment', this.props.editedTransaction.comment);
+    // }
+
     if (type == 'INCOME') {
       amount && transactionDate
-        ? (this.audit = 'true' )
+        ? (this.audit = 'true')
         : (this.audit = 'false');
     } else if (type == 'EXPENSE') {
       // amount && transactionDate && categoryId
-      amount && transactionDate 
+      amount && transactionDate
         ? (this.audit = 'true')
         : (this.audit = 'false');
     }
@@ -56,16 +73,32 @@ class OverkayBlock extends Component {
       return;
     }
     if (this.audit === 'true') {
-      if(type == 'EXPENSE'){categoryId = "a6385df4-6696-4e73-89ce-2c52bda02a39"};
-      if(type == 'INCOME'){categoryId = "d9ee2284-4673-44f4-ab76-6258512ea409"}
+      if (type == 'EXPENSE') {
+        categoryId = 'a6385df4-6696-4e73-89ce-2c52bda02a39';
+      }
+      if (type == 'INCOME') {
+        categoryId = 'd9ee2284-4673-44f4-ab76-6258512ea409';
+      }
+      if (this.props.hiden){ 
       this.props.addTransaction({
         transactionDate,
         type,
         categoryId,
         comment,
         amount,
-      });
-      this.props.hiden();
+      });} else {this.props.editTransaction({
+        transactionDate,
+        type,
+        categoryId,
+        comment,
+        amount,
+        id
+      })}
+      if (this.props.hiden) {
+        this.props.hiden();
+      } else {
+        this.props.handleCloseOfTestlWindow();
+      }
     }
     this.setState({
       transactionDate: '',
@@ -84,6 +117,19 @@ class OverkayBlock extends Component {
     // this.props.getCategories().then(array => {
     //   return this.setState({ array });
     // });
+    let { transactionDate, type, categoryId, comment, amount, id } = this.state;
+    if (!this.props.hiden) {
+      transactionDate = this.props.editedTransaction.transactionDate;
+      type = this.props.editedTransaction.type;
+      categoryId = this.props.editedTransaction.categoryId;
+      comment = this.props.editedTransaction.comment;
+      amount = this.props.editedTransaction.amount;
+      id=this.props.editedTransaction.id;
+      this.setState({ transactionDate, type, categoryId, comment, amount, id });
+
+      console.log('comment', this.props.editedTransaction.comment);
+    }
+
     window.addEventListener('keydown', this.handleKeydown);
   }
 
@@ -93,11 +139,15 @@ class OverkayBlock extends Component {
 
   handleKeydown = e => {
     if (e.code === 'Escape' || e.target === e.currentTarget) {
-      this.props.hiden();
+      if (this.props.hiden) {
+        this.props.hiden();
+      } else {
+        this.props.handleCloseOfTestlWindow();
+      }
     }
   };
   render() {
-    const {
+    let {
       array,
       transactionDate,
       type,
@@ -105,6 +155,7 @@ class OverkayBlock extends Component {
       comment,
       amount,
     } = this.state;
+
     return (
       <div className={style.overlay}>
         <div className={style.modal}>
@@ -115,7 +166,9 @@ class OverkayBlock extends Component {
           >
             &#10006;
           </button>
-          <h2 className={style.title}>Добавить транзакцию</h2>
+          <h2 className={style.title}>
+            {this.props.hiden ? 'Добавить транзакцию' : 'Изменить транзакцию'}
+          </h2>
 
           {/* кнопка checkbox */}
           <div className={style.checkboxSelector}>
@@ -129,8 +182,10 @@ class OverkayBlock extends Component {
               Доход
             </span>
             <label onChange={this.toggleType} className={style.switch}>
-              <input 
-              
+              <input
+                // defaultValue=''
+                // defaultChecked
+                readOnly
                 type="checkbox"
                 checked={this.state.type === 'EXPENSE' ? true : false}
               />
@@ -242,7 +297,7 @@ class OverkayBlock extends Component {
               type="submit"
               className={[style.contactBtnAdd, style.btn].join(' ')}
             >
-              Добавить
+              {this.props.hiden ? 'Добавить' : 'Изменить'}
             </button>
             <span
               className={[style.contactBtnDel, style.btn].join(' ')}
@@ -261,5 +316,6 @@ const mapDispatchToProps = {
   addTransaction: addTransactionOperation,
   getTransaction: getTransactionOperation,
   getCategories: transactionCategories,
+  editTransaction: editTransactionOperation
 };
 export default connect(null, mapDispatchToProps)(OverkayBlock);

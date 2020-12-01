@@ -3,7 +3,8 @@ import React from 'react';
 // import '../TableClass/node_modules/react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import styles from './Table.module.css';
 import ModalWindow from '../ModalWindow/index';
-import TestWindow from '../TestWindow/index';
+// import TestWindow from '../TestWindow/index';
+import OverkayBlock from '../CoverPressure/index'
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
@@ -18,13 +19,16 @@ import {
   editTransactionOperation,
   getTransactionOperation,
 } from '../../redux/transactions/operations';
+import {filtredTransactions} from '../../redux/transactions/selector'
 import { v4 as uuidv4 } from 'uuid';
 import { CSSTransition } from 'react-transition-group';
 
 const TransactionsTable = () => {
   const dispatch = useDispatch();
 
+  // const transactions = useSelector(state => state.transactions.items);
   const transactions = useSelector(state => state.transactions.items);
+
   useEffect(() => {
     dispatch(getTransactionOperation());
   }, []);
@@ -49,7 +53,7 @@ const TransactionsTable = () => {
     console.log('renderEditWindow', renderEditWindow);
   };
 
-  const handleDeleteLetter = () => {
+   const handleDeleteLetter = () => {
     let id = idHoveredElement;
 
     // dispatch(deleteTransaction(id));
@@ -79,9 +83,7 @@ const TransactionsTable = () => {
     'Балланс',
   ];
   const quantityOflatter = Array.from({ length: 10 }, (v, k) => k);
-  // {
-  //   dispatch(filterALL('allTransactions'));
-  // }
+ 
 
   return (
     <div className={styles.wrap}>
@@ -132,8 +134,9 @@ const TransactionsTable = () => {
                   {isShown &&
                     idHoveredElement === elem.id &&
                     (renderEditWindow ? (
-                      <TestWindow
-                        handleCloseOfTestlWindow={handleCloseOfTestlWindow}
+                      <OverkayBlock
+                      handleCloseOfTestlWindow={handleCloseOfTestlWindow}
+                      editedTransaction={elem}
                       />
                     ) : (
                       <ModalWindow

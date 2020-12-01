@@ -27,53 +27,64 @@ export const addTransactionOperation = createTransaction => async dispatch => {
       message: 'add Transaction Success!',
     });
 
-    dispatch(getAllTransactionsFromBack(data))
+    dispatch(getAllTransactionsFromBack(data));
     notification({
       type: 'success',
       message: 'Get Transactions Success!',
     });
   } catch (e) {
-    console.log(e.response);
-    dispatch({ type: types.ADD_FAILURE, payload: e.response.data.errors });
+    console.log(e);
+    dispatch({ type: types.ADD_FAILURE, payload: e });
+    notification({
+      type: 'error',
+      message: e.message,
+    });
   }
 };
 
 export const getTransactionOperation = () => async dispatch => {
   dispatch({ type: types.GET_TRANSACTION });
- 
+
   try {
     const { data } = await API.transaction.get();
     console.log(data);
     dispatch({ type: types.GET_SUCCESS });
-    dispatch(getAllTransactionsFromBack(data))
+    dispatch(getAllTransactionsFromBack(data));
     notification({
       type: 'success',
       message: 'Get Transactions Success!',
     });
   } catch (e) {
-        dispatch({ type: types.GET_FAILURE});
-    dispatch(setError(e))
+    dispatch({ type: types.GET_FAILURE });
+    dispatch(setError(e));
+    notification({
+      type: 'error',
+      message: e.message,
+    });
   }
 };
 export const transactionCategories = () => async dispatch => {
   dispatch({ type: types.GET_TRANSACTION });
   try {
-    const { data } = await axios
-    .get(`https://sheltered-sea-54747.herokuapp.com/api/transaction-categories`);
+    const { data } = await axios.get(
+      `https://sheltered-sea-54747.herokuapp.com/api/transaction-categories`,
+    );
     console.log(data);
     dispatch({ type: types.GET_SUCCESS });
-    dispatch(getAllTransactionsFromBack(data))
+    dispatch(getAllTransactionsFromBack(data));
     notification({
       type: 'success',
       message: 'Get Categories Success!',
     });
   } catch (e) {
-        dispatch({ type: types.GET_FAILURE});
-    dispatch(setError(e))
+    dispatch({ type: types.GET_FAILURE });
+    dispatch(setError(e));
+    notification({
+      type: 'error',
+      message: e.message,
+    });
   }
-  
-  
-  
+
   // dispatch({ type: 'getTransactionCategories' });
   // try {
   //   const data = await API.transaction.get();
@@ -96,32 +107,14 @@ export const deleteTransactionOperation = id => async dispatch => {
   const deleteUrl = `/api/transactions/${id}`;
 
   dispatch(loaderON());
-  // await axios
-  //   .delete(deleteUrl)
-  //   .then(response => {
-  //     console.log('response', response);
 
-  //     if (status.code >= 200 && status.code <= 300) {
-  //       //проверка на успешность ответа по коду,  axios.get() все транзакции, отрисовка
-  //       // axios
-  //       //   .get('https://sheltered-sea-54747.herokuapp.com/api/transactions')
-  //       //   .then(response => { dispatch(setUpdetedTransactionsFromBack(response))
-  //       //       });
-  //       dispatch(deleteTransaction(id));
-  //     }
-  //   })
-  //   .catch(error => {
-  //     dispatch(setError(error));
-  //     console.log('error', error);
-  //   })
-  //   .finally(() => dispatch(loaderOFF()));
   try {
     const response = await axios.delete(deleteUrl);
-    console.log('response del', response)
-
-    if (response.statusCode >= 200 && response.statusCode <= 300) {
-      dispatch(deleteTransaction(id));
-    }
+    dispatch(deleteTransaction(id));
+    notification({
+      type: 'success',
+      message: 'Delete transaction Success!',
+    });
   } catch (error) {
     dispatch(setError(error));
     notification({
@@ -134,6 +127,7 @@ export const deleteTransactionOperation = id => async dispatch => {
 };
 
 export const editTransactionOperation = editedTransaction => async dispatch => {
+  console.log('editedTransaction', editedTransaction)
   const editeUrl = `/api/transactions/${editedTransaction.id}`;
 
   dispatch(loaderON());
@@ -141,25 +135,26 @@ export const editTransactionOperation = editedTransaction => async dispatch => {
     method: 'patch',
     url: editeUrl,
     data: {
-      firstName: {
-        transactionDate: editedTransaction.transactionDate,
-        type: editedTransaction.type,
-        categoryId: editedTransaction.categoryId,
-        comment: editedTransaction.comment,
-        amount: editedTransaction.amount,
-      },
+      transactionDate: editedTransaction.transactionDate,
+      type: editedTransaction.type,
+      categoryId: editedTransaction.categoryId,
+      comment: editedTransaction.comment,
+      amount: Number(editedTransaction.amount),
     },
   })
     .then(response => {
       console.log('response', response);
-      if (response.statusCode >= 200 && response.statusCode <= 300) {
-        //проверка на успешность ответа по коду,  axios.get() все транзакции, отрисовка
-        // axios
-        //   .get('https://sheltered-sea-54747.herokuapp.com/api/transactions')
-        //   .then(response => { dispatch(setUpdetedTransactionsFromBack(response))
-        //       });
-        dispatch(editTransaction(editedTransaction));
-      }
+
+      //проверка на успешность ответа по коду,  axios.get() все транзакции, отрисовка
+      // axios
+      //   .get('https://sheltered-sea-54747.herokuapp.com/api/transactions')
+      //   .then(response => { dispatch(setUpdetedTransactionsFromBack(response))
+      //       });
+       dispatch(editTransaction(editedTransaction));
+      notification({
+        type: 'success',
+        message: 'Edite transaction Success!',
+      });
     })
     .catch(error => {
       dispatch(setError(error));

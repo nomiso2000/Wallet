@@ -1,5 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { deleteTransaction, editTransaction, getAllTransactionsFromBack, filterTransactionsByIncomes, filterTransactionsByExpences } from '../action';
+import {
+  deleteTransaction,
+  editTransaction,
+  getAllTransactionsFromBack,
+  filterTransactionsByIncomes,
+  filterTransactionsByExpences,
+} from '../action';
 
 // response ty-e
 // {
@@ -58,12 +64,11 @@ const initialState = [
 ];
 const transactionReducer = createReducer(initialState, {
   [getAllTransactionsFromBack]: (state, action) => {
-      return [... action.payload];
-    },
+    return [...action.payload];
+  },
   [deleteTransaction]: (state, action) => {
     return [...state.filter(transaction => transaction.id !== action.payload)];
   },
-
 
   [editTransaction]: (state, action) => {
     // console.log('editTransaction action.payload.id', action.payload.id);
@@ -71,23 +76,40 @@ const transactionReducer = createReducer(initialState, {
     //   '...state.filter(transaction => transaction.id !== action.payload)',
     //   state.filter(transaction => transaction.id !== action.payload.id),
     // );
-
+    console.log('action.payload', action.payload);
+    console.log('editttt', action.payload);
+    console.log(
+      ' ...state.filter((transaction) => {if(transaction.id === action.payload.id){return action.payload} return transaction.id !== action.payload.id}),',
+      [
+        ...state.filter(transaction => {
+          if (transaction.id === action.payload.id) {
+            return action.payload;
+          }
+          return transaction.id !== action.payload.id;
+        }),
+      ],
+    );
     return [
-       ...state.filter((transaction) => {if(transaction.id === action.payload.id){return action.payload} return transaction.id !== action.payload.id}),
-      
+      ...state.filter(transaction => {
+        if (transaction.id === action.payload.id) {
+          return action.payload;
+        }
+        return transaction.id !== action.payload.id;
+      }),
     ];
   },
 
-[filterTransactionsByIncomes]:(state, action) => {
-  return [...action.payload.filter(transaction => transaction.type === "INCOME")];
-},
+  [filterTransactionsByIncomes]: (state, action) => {
+    return [
+      ...action.payload.filter(transaction => transaction.type === 'INCOME'),
+    ];
+  },
 
-[filterTransactionsByExpences]:(state, action) => {
-  return [...action.payload.filter(transaction => transaction.type === "EXPENCES")];
-},
-
+  [filterTransactionsByExpences]: (state, action) => {
+    return [
+      ...action.payload.filter(transaction => transaction.type === 'EXPENSE'),
+    ];
+  },
 });
-
-
 
 export default transactionReducer;
