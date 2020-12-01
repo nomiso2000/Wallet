@@ -11,8 +11,6 @@ import {
   editTransaction,
   getAllTransactionsFromBack,
 } from '../transactions/action';
-import getTransaction from './selector';
-import Axios from 'axios';
 
 axios.defaults.baseURL = 'https://sheltered-sea-54747.herokuapp.com';
 
@@ -127,66 +125,52 @@ export const deleteTransactionOperation = id => async dispatch => {
 };
 
 export const editTransactionOperation = editedTransaction => async dispatch => {
-  console.log('editedTransaction', editedTransaction)
+  console.log('editedTransaction', editedTransaction);
   const editeUrl = `/api/transactions/${editedTransaction.id}`;
 
   dispatch(loaderON());
-  await axios({
-    method: 'patch',
-    url: editeUrl,
-    data: {
-      transactionDate: editedTransaction.transactionDate,
-      type: editedTransaction.type,
-      categoryId: editedTransaction.categoryId,
-      comment: editedTransaction.comment,
-      amount: Number(editedTransaction.amount),
-    },
-  })
-    .then(response => {
-      console.log('response', response);
-
-      //проверка на успешность ответа по коду,  axios.get() все транзакции, отрисовка
-      // axios
-      //   .get('https://sheltered-sea-54747.herokuapp.com/api/transactions')
-      //   .then(response => { dispatch(setUpdetedTransactionsFromBack(response))
-      //       });
-console.log('editedTransaction from oper', editedTransaction)
-
-       dispatch(editTransaction(editedTransaction));
-      notification({
-        type: 'success',
-        message: 'Edite transaction Success!',
-      });
-    })
-    .catch(error => {
-      dispatch(setError(error));
-      notification({
-        type: 'error',
-        message: error.message,
-      });
-    })
-    .finally(() => dispatch(loaderOFF()));
+  try {
+    const response = await axios({
+      method: 'patch',
+      url: editeUrl,
+      data: {
+        transactionDate: editedTransaction.transactionDate,
+        type: editedTransaction.type,
+        categoryId: editedTransaction.categoryId,
+        comment: editedTransaction.comment,
+        amount: Number(editedTransaction.amount),
+      },
+    });
+    dispatch(editTransaction(editedTransaction));
+    notification({
+      type: 'success',
+      message: 'Edite transaction Success!',
+    });
+  } catch (error) {
+    dispatch(setError(error));
+    notification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    dispatch(loaderOFF());
+  }
 };
 
 export const filterALLTransactionOperation = () => async dispatch => {
   const getAllTransactionsUrl = `/api/transactions`;
-  dispatch(filterALL('allTransactions'));
   dispatch(loaderON());
-  await axios
-    .get(getAllTransactionsUrl)
-    .then(response => {
-      console.log('response', response);
-      // проверка на успешность ответа по коду,отрисовка
-     
-        dispatch(getAllTransactionsFromBack(response.data));
-      
-    })
-    .catch(error => {
-      dispatch(setError(error));
-      notification({
-        type: 'error',
-        message: error.message,
-      });
-    })
-    .finally(() => dispatch(loaderOFF()));
+  dispatch(filterALL('allTransactions'));
+  try {
+    const { data } = await axios.get(getAllTransactionsUrl);
+    dispatch(getAllTransactionsFromBack(data));
+  } catch (error) {
+    dispatch(setError(error));
+    notification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    dispatch(loaderOFF());
+  }
 };

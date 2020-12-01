@@ -1,5 +1,5 @@
-import { createReducer } from '@reduxjs/toolkit';
-import { setError, resetError } from '../action';
+// import { createReducer } from '@reduxjs/toolkit';
+// import { setError, resetError } from '../action';
 import types from '../../types';
 
 // const initialState = '';
@@ -9,22 +9,20 @@ import types from '../../types';
 //     return  {state:payload}
 //   },
 
-
 //   [resetError]: (state, action) => {
 //     return '';
 //   },
 // });
 
-const transactionErrorReducer = (state = "", action) => {
+const transactionErrorReducer = (state = '', action) => {
   switch (action.type) {
     case types.SET_ERROR:
       return action.payload;
     case types.RESET_ERROR:
-      return "";
+      return '';
     default:
       return state;
   }
 };
-
 
 export default transactionErrorReducer;

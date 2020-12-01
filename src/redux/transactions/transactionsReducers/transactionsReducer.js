@@ -2,66 +2,10 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   deleteTransaction,
   editTransaction,
-  getAllTransactionsFromBack,
-  filterTransactionsByIncomes,
-  filterTransactionsByExpences,
+  getAllTransactionsFromBack
 } from '../action';
 
-// response ty-e
-// {
-//   "id": "string",
-//   "transactionDate": "string",
-//   "type": "INCOME",
-//   "categoryId": "string",
-//   "userId": "string",
-//   "comment": "string",
-//   "amount": 0,
-//   "balanceAfter": 0
-// }
-//
-const initialState = [
-  // {
-  //   avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/shojberg/128.jpg',
-  //   name: 'Mango',
-  //   isOnline: 'true',
-  //   id: 1812,
-  //   amount:2134,
-  //   balance:2134
-  // },
-  // {
-  //   avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/j04ntoh/128.jpg',
-  //   name: 'Kiwi',
-  //   isOnline: 'false',
-  //   id: 1137,
-  //   amount:2134,
-  //   balance:2134
-  // },
-  // {
-  //   avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/r_oy/128.jpg',
-  //   name: 'Ajax',
-  //   isOnline: 'true',
-  //   id: 1213,
-  //   amount:2134,
-  //   balance:2134
-  // },
-  // {
-  //   avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/mugukamil/128.jpg',
-  //   name: 'Jay',
-  //   isOnline: 'true',
-  //   id: 1714,
-  //   amount:2134,
-  //   balance:2134
-  // },
-  // {
-  //   avatar:
-  //     'https://s3.amazonaws.com/uifaces/faces/twitter/sweetdelisa/128.jpg',
-  //   name: 'Poly',
-  //   isOnline: 'false',
-  //   id: 1284,
-  //   amount:2134,
-  //   balance:2134
-  // },
-];
+const initialState = [];
 const transactionReducer = createReducer(initialState, {
   [getAllTransactionsFromBack]: (state, action) => {
     return [...action.payload];
@@ -90,18 +34,6 @@ const transactionReducer = createReducer(initialState, {
     //   }),
     // ];
   },
-
-  // [filterTransactionsByIncomes]: (state, action) => {
-  //   return [
-  //     ...action.payload.filter(transaction => transaction.type === 'INCOME'),
-  //   ];
-  // },
-
-  // [filterTransactionsByExpences]: (state, action) => {
-  //   return [
-  //     ...action.payload.filter(transaction => transaction.type === 'EXPENSE'),
-  //   ];
-  // },
 });
 
 export default transactionReducer;
