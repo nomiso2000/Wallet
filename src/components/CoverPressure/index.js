@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 import Datapicker from '../Datapicket';
 import {
   addTransactionOperation,
@@ -8,14 +10,13 @@ import {
 } from '../../redux/transactions/operations';
 import style from './coverPressure.module.css';
 import selectsvg from '../../styles/css/icon/calendar.svg';
-import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
+
 class OverkayBlock extends Component {
   state = {
     array: [],
     transactionDate: '',
     type: 'INCOME',
-    categoryId: '',
+    categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
     comment: '',
     amount: '',
   };
@@ -24,15 +25,23 @@ class OverkayBlock extends Component {
 
   toggleType = () => {
     return this.state.type === 'INCOME'
-      ? this.setState({ type: 'EXPENSE' })
-      : this.setState({ type: 'INCOME' });
+      ? this.setState({
+          type: 'EXPENSE',
+          categoryId: 'a6385df4-6696-4e73-89ce-2c52bda02a39',
+        })
+      : this.setState({
+          type: 'INCOME',
+          categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
+        });
   };
+
   handleChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
 
   onAddContact = value => {
+    console.log(value);
     this.setState({ transactionDate: value });
   };
 
@@ -53,20 +62,21 @@ class OverkayBlock extends Component {
       alert('Не були заповнені всі поля, спробуйте знову');
       return;
     }
+    let amoundNumb = Number(amount);
     if (this.audit === 'true') {
       this.props.addTransaction({
         transactionDate,
         type,
         categoryId,
         comment,
-        amount,
+        amount: amoundNumb,
       });
       this.props.hiden();
     }
     this.setState({
       transactionDate: '',
       type: 'INCOME',
-      categoryId: '',
+      categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
       comment: '',
       amount: '',
     });
@@ -80,6 +90,8 @@ class OverkayBlock extends Component {
     // this.props.getCategories().then(array => {
     //   return this.setState({ array });
     // });
+    // <Datapicker onAddContacts={this.onAddContact} />;
+    this.onAddContact();
     window.addEventListener('keydown', this.handleKeydown);
   }
 
@@ -182,37 +194,45 @@ class OverkayBlock extends Component {
                 >
                   Основной
                 </option>
-                <option className={style.SelectItem} name="Авто" value="auto">
+                <option
+                  className={style.SelectItem}
+                  name="Авто"
+                  value={array[3].id}
+                >
                   Авто
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Развитие"
-                  value={array[3].id}
+                  value={array[4].id}
                 >
                   Развитие
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Дети"
-                  value={array[4].id}
+                  value={array[5].id}
                 >
                   Дети
                 </option>
-                <option className={style.SelectItem} name="Дом" value="house">
+                <option
+                  className={style.SelectItem}
+                  name="Дом"
+                  value={array[6].id}
+                >
                   Дом
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Образование"
-                  value={array[5].id}
+                  value={array[7].id}
                 >
                   Образование
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Остальные"
-                  value={array[6].id}
+                  value={array[8].id}
                 >
                   Остальные
                 </option>

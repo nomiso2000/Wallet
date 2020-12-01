@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Balance.module.css';
 
 const Balance = () => {
+  useEffect(() => {
+    console.log('USE EFFECT');
+  }, []);
   return (
     <div className={styles.div}>
       <p className={styles.balanceText}>ВАШ БАЛАНС</p>
