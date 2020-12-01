@@ -61,6 +61,7 @@ main {
 .navMD p {
   display: none;
 }
+
 @media screen and (min-width: 768px) and (max-width: 1280px) {
   .nav {
     flex-direction: column;
@@ -142,7 +143,11 @@ main {
     font-weight: 400;
   }
 
-  .navMD p:hover {
+  .navMD:hover p {
+    color: #4a56e2;
+  }
+
+  .navMD p:active {
     font-weight: 700;
   }
 
