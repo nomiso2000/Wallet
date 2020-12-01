@@ -11,30 +11,36 @@ import Balance from '../Balance';
 
 function NavMenu() {
   return (
-    <main>
-      <section className={styles.main1}>
-        <div className={styles.nav}>
-          <div className={styles.navMD}>
-            <img src={home} alt="home" className={styles.navHome} />
-            <NavLink to={routes.HOME.path}>
-              {' '}
-              <p>Главная</p>
-            </NavLink>
+    <div className={styles.background}>
+      <main>
+        <section className={styles.main1}>
+          <div className={styles.nav}>
+            <div className={styles.navContainer}>
+              <div className={styles.navMD}>
+                <img src={home} alt="home" className={styles.navHome} />
+                <NavLink to={routes.HOME.path}>
+                  {' '}
+                  <p>Главная</p>
+                </NavLink>
+              </div>
+              <div className={styles.navMD}>
+                <img src={graph} alt="graph" className={styles.navGraph} />
+                <NavLink to={routes.STATISTIC.path}>
+                  {' '}
+                  <p>Статистика</p>
+                </NavLink>
+              </div>
+
+              <img src={usd} alt="usd" className={styles.navUsd} />
+            </div>
+
+            <Balance />
+            <Currency />
           </div>
-          <div className={styles.navMD}>
-            <img src={graph} alt="graph" className={styles.navGraph} />
-            <NavLink to={routes.STATISTIC.path}>
-              {' '}
-              <p>Статистика</p>
-            </NavLink>
-          </div>
-          <img src={usd} alt="usd" className={styles.navUsd} />
-          <Balance />
-          <Currency />
-        </div>
-      </section>
-      {/* <section className={styles.main2}></section> */}
-    </main>
+        </section>
+        {/* <section className={styles.main2}></section> */}
+      </main>
+    </div>
   );
 }
 
