@@ -7,6 +7,8 @@ import {
   statisticsOperations,
 } from '../../redux/statistics';
 
+import styles from './Select.module.css';
+
 // TEST TABLES
 import { allTransactions } from './testSummary';
 
@@ -76,10 +78,14 @@ class SelectYrsMth extends Component {
     e.preventDefault();
     const { name, value } = e.target;
     const { arrayOfDates, valueMonth, valueYear } = this.state;
+
     if (name === 'valueYear') {
+      this.setState({ valueMonth: 0 });
       const requestedYear = arrayOfDates.find(({ year }) => year === value);
       //   console.log(requestedYear.month);
-      this.setState({ monthsInRequestedYear: requestedYear.month });
+      this.setState({
+        monthsInRequestedYear: requestedYear.month,
+      });
     }
     this.setState({ [name]: Number(value) });
     // if (valueMonth !== 0 && valueYear !== 0) {
@@ -96,28 +102,45 @@ class SelectYrsMth extends Component {
     } = this.state;
 
     return (
-      <div>
+      <div className={styles.selectBlock}>
+        {/* <div className={styles.selectWrapper}> */}
         <select
+          className={styles.selectWrapper}
           name="valueMonth"
-          value={valueMonth}
+          // value="Month"
           onChange={this.handleChange}
         >
-          <option value="Месяц">Месяц</option>
+          {valueYear ? (
+            <option className={styles.optionYM} disabled={!!valueMonth}>
+              Месяц
+            </option>
+          ) : (
+            <option className={styles.optionYM}>Выберите "год"</option>
+          )}
           {monthsInRequestedYear &&
             monthsInRequestedYear.map(month => (
-              <option key={month} value={month}>
+              <option className={styles.optionYM} key={month} value={month}>
                 {moment(month, 'MM').format('MMMM')}
               </option>
             ))}
         </select>
-        <select name="valueYear" value={valueYear} onChange={this.handleChange}>
-          <option value="Год">Год</option>
+        {/* </div> */}
+        {/* <div className={styles.selectWrapper}> */}
+        <select
+          className={styles.selectWrapper}
+          name="valueYear"
+          onChange={this.handleChange}
+        >
+          <option className={styles.optionYM} disabled={!!valueYear}>
+            Год
+          </option>
           {arrayOfDates.map(({ year }) => (
-            <option key={year} value={year}>
+            <option className={styles.optionYM} key={year} value={year}>
               {year}
             </option>
           ))}
         </select>
+        {/* </div> */}
       </div>
     );
   }
