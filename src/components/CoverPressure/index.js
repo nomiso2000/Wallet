@@ -7,6 +7,7 @@ import {
   addTransactionOperation,
   getTransactionOperation,
   transactionCategories,
+  editTransactionOperation,
 } from '../../redux/transactions/operations';
 import style from './coverPressure.module.css';
 import selectsvg from '../../styles/css/icon/calendar.svg';
@@ -19,6 +20,7 @@ class OverkayBlock extends Component {
     categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
     comment: '',
     amount: '',
+    id: '',
   };
 
   audit = '';
@@ -46,8 +48,16 @@ class OverkayBlock extends Component {
   };
 
   handleFormSubmit = e => {
+    console.log(e);
     e.preventDefault();
-    const { transactionDate, type, categoryId, comment, amount } = this.state;
+    const {
+      transactionDate,
+      type,
+      categoryId,
+      comment,
+      amount,
+      id,
+    } = this.state;
     console.log(transactionDate);
     if (type == 'INCOME') {
       amount && transactionDate
@@ -64,15 +74,41 @@ class OverkayBlock extends Component {
     }
     let amoundNumb = Number(amount);
     if (this.audit === 'true') {
-      this.props.addTransaction({
-        transactionDate,
-        type,
-        categoryId,
-        comment,
-        amount: amoundNumb,
-      });
-      this.props.hiden();
+      if (this.props.hiden) {
+        this.props.addTransaction({
+          transactionDate,
+          type,
+          categoryId,
+          comment,
+          amount,
+        });
+      } else {
+        console.log(this.props);
+        this.props.editTransaction({
+          transactionDate,
+          type,
+          categoryId,
+          comment,
+          amount,
+          id,
+        });
+      }
+      if (this.props.hiden) {
+        this.props.hiden();
+      } else {
+        this.props.handleCloseOfTestlWindow();
+      }
     }
+    // this.props.addTransaction({
+    //   transactionDate,
+    //   type,
+    //   categoryId,
+    //   comment,
+    //   amount: amoundNumb,
+    // });
+
+    // this.props.hiden();
+
     this.setState({
       transactionDate: '',
       type: 'INCOME',
@@ -91,7 +127,17 @@ class OverkayBlock extends Component {
     //   return this.setState({ array });
     // });
     // <Datapicker onAddContacts={this.onAddContact} />;
-    this.onAddContact();
+    let { transactionDate, type, categoryId, comment, amount, id } = this.state;
+    if (!this.props.hiden) {
+      transactionDate = this.props.editedTransaction.transactionDate;
+      type = this.props.editedTransaction.type;
+      categoryId = this.props.editedTransaction.categoryId;
+      comment = this.props.editedTransaction.comment;
+      amount = this.props.editedTransaction.amount;
+      id = this.props.editedTransaction.id;
+      this.setState({ transactionDate, type, categoryId, comment, amount, id });
+    }
+    // this.onAddContact();
     window.addEventListener('keydown', this.handleKeydown);
   }
 
@@ -101,7 +147,11 @@ class OverkayBlock extends Component {
 
   handleKeydown = e => {
     if (e.code === 'Escape' || e.target === e.currentTarget) {
-      this.props.hiden();
+      if (this.props.hiden) {
+        this.props.hiden();
+      } else {
+        this.props.handleCloseOfTestlWindow();
+      }
     }
   };
   render() {
@@ -123,7 +173,10 @@ class OverkayBlock extends Component {
           >
             &#10006;
           </button>
-          <h2 className={style.title}>Добавить транзакцию</h2>
+          <h2 className={style.title}>
+            {' '}
+            {this.props.hiden ? 'Добавить транзакцию' : 'Изменить транзакцию'}
+          </h2>
 
           {/* кнопка checkbox */}
           <div className={style.checkboxSelector}>
@@ -257,7 +310,7 @@ class OverkayBlock extends Component {
               type="submit"
               className={[style.contactBtnAdd, style.btn].join(' ')}
             >
-              Добавить
+              {this.props.hiden ? 'Добавить' : 'Изменить'}
             </button>
             <span
               className={[style.contactBtnDel, style.btn].join(' ')}
@@ -276,5 +329,6 @@ const mapDispatchToProps = {
   addTransaction: addTransactionOperation,
   getTransaction: getTransactionOperation,
   getCategories: transactionCategories,
+  editTransaction: editTransactionOperation,
 };
 export default connect(null, mapDispatchToProps)(OverkayBlock);
