@@ -59,7 +59,7 @@ const Statistics = () => {
 
   defaults.global.legend.display = false;
 
-  defaults.global.legend.position = 'right';
+  // defaults.global.legend.position = 'right';
   return (
     <div className={styles.statisticsBlock}>
       <div className={styles.doughnut}>
@@ -67,7 +67,12 @@ const Statistics = () => {
         <div className={styles.periodTotal}>
           &#x20b4; {periodTotal.toFixed(2)}
         </div>
-        <Doughnut data={data} width={320} height={320} options={options} />
+        <Doughnut
+          data={data}
+          width={window.screen.width > 767 ? 320 : 280}
+          height={window.screen.width > 767 ? 320 : 280}
+          options={options}
+        />
       </div>
       <div className={styles.stat}>
         <SelectYrsMth />
