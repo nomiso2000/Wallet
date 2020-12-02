@@ -75,6 +75,13 @@ class OverkayBlock extends Component {
     let amoundNumb = Number(amount);
     if (this.audit === 'true') {
       if (this.props.hiden) {
+        console.log('addTransaction', {
+          transactionDate,
+          type,
+          categoryId,
+          comment,
+          amount,
+        });
         this.props.addTransaction({
           transactionDate,
           type,
@@ -117,12 +124,13 @@ class OverkayBlock extends Component {
       amount: '',
     });
   };
-  componentDidMount() {
-    axios
+  async componentDidMount() {
+    await axios
       .get(
         `https://sheltered-sea-54747.herokuapp.com/api/transaction-categories`,
       )
-      .then(({ data }) => this.setState({ array: data }));
+      .then(({ data }) => this.setState({ array: [...data] }));
+    console.log('arr', this.state.array);
     // this.props.getCategories().then(array => {
     //   return this.setState({ array });
     // });

@@ -7,10 +7,10 @@
 .table {
   background-color: red;
 }
-
+/* 
 tr:hover {
   background-color: #fff;
-}
+} */
 
 .hoveredLetter {
   position: relative;

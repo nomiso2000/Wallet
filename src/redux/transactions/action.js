@@ -1,6 +1,8 @@
 import types from '../types';
 import { createAction, createSelector } from '@reduxjs/toolkit';
 
+const addTransaction = createAction(types.ADD_TRANSACTION);
+
 const deleteTransaction = createAction(types.DELETE_TRANSACTION);
 
 const editTransaction = createAction(types.EDIT_TRANSACTION);
@@ -24,6 +26,7 @@ const filterIncomes = createAction(types.FILTER_INCOMES);
 const filterExpences = createAction(types.FILTER_EXPENCES);
 
 export {
+  addTransaction,
   deleteTransaction,
   editTransaction,
   setError,

@@ -1,6 +1,13 @@
 .background {
   background-color: rgba(180, 200, 250, 0.15);
 }
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  .Other {
+    min-height: calc(100vh - 138px);
+    display: flex;
+    justify-content: center;
+  }
+}
 
 @media screen and (min-width: 768px) and (max-width: 1280px) {
   /* .navMenu {
@@ -16,12 +23,16 @@
     width: 100%;
     margin-bottom: 30px;
     border-right: none;
-    background: url(../../pages/Login/icons/violetCircle.svg);
+    background: url(../Login/icons/pinkCircle.svg);
     background-repeat: no-repeat;
-    background-position: left -15px top 400px;
+    background-position: right 0px top -100px;
   }
   .Other {
     width: 100%;
+    height: 720px;
+    background: url(../../pages/Login/icons/violetCircle.svg);
+    background-repeat: no-repeat;
+    background-position: left -15px top 400px;
   }
 }
 /* width: 36.3vw; */
@@ -39,7 +50,10 @@
     background-repeat: no-repeat;
     background-position: left -15px top 400px;
   }
-  .Other {
+  /* .Other {
     width: 60%;
-  }
+    background: url(../Login/icons/pinkCircle.svg);
+    background-repeat: no-repeat;
+    background-position: right 0px top -100px;
+  } */
 }

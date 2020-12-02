@@ -1,31 +1,60 @@
 import axios from 'axios';
 import types from '../types';
 import API from '../../services/api';
+import notification from '../../services/notification';
 import {
+  addTransaction,
   setError,
   loaderON,
   loaderOFF,
-  getAllTransactionsFromBack,
+  filterALL,
   deleteTransaction,
   editTransaction,
-  filterALL,
+  getAllTransactionsFromBack,
 } from '../transactions/action';
-import notification from '../../services/notification';
+
 axios.defaults.baseURL = 'https://sheltered-sea-54747.herokuapp.com';
 
-export const addTransactionOperation = transaction => async dispatch => {
-  dispatch({ type: types.ADD_TRANSACTION });
+export const addTransactionOperation = createTransaction => async dispatch => {
+  console.log('createTransaction', createTransaction);
   try {
-    const { data } = await API.transaction.add(transaction);
-    console.log(data);
+    const { data } = await API.transaction.add(createTransaction);
+
     dispatch({ type: types.ADD_SUCCESS, payload: data });
     notification({
       type: 'success',
       message: 'add Transaction Success!',
     });
+    console.log('data', data);
+    dispatch(addTransaction(data));
+    // try {
+    //   const { data } = await API.transaction.get();
+
+    //   dispatch({ type: types.GET_SUCCESS });
+    //   dispatch(getAllTransactionsFromBack(data));
+    //   notification({
+    //     type: 'success',
+    //     message: 'Get Transactions Success!',
+    //   });
+    // } catch (e) {
+    //   dispatch({ type: types.GET_FAILURE });
+    //   dispatch(setError(e));
+    //   notification({
+    //     type: 'error',
+    //     message: e.message,
+    //   });
+    // }
+
+    notification({
+      type: 'success',
+      message: 'Get Transactions Success!',
+    });
   } catch (e) {
-    console.log(e.response);
-    dispatch({ type: types.ADD_FAILURE, payload: e.response.data.errors });
+    dispatch({ type: types.ADD_FAILURE, payload: e });
+    notification({
+      type: 'error',
+      message: e.message,
+    });
   }
 };
 
@@ -71,7 +100,25 @@ export const transactionCategories = () => async dispatch => {
       message: e.message,
     });
   }
+
+  // dispatch({ type: 'getTransactionCategories' });
+  // try {
+  //   const data = await API.transaction.get();
+  //   console.log(data);
+  //   dispatch({ type: 'getTransactionCategoriesSucces', payload: data });
+  //   notification({
+  //     type: 'success',
+  //     message: 'Get Transaction Categories Success!',
+  //   });
+  // } catch (e) {
+  //   console.log(e.response);
+  //   dispatch({
+  //     type: 'getTransactionCategoriesError',
+  //     payload: e.response.data.errors,
+  //   });
+  // }
 };
+
 export const deleteTransactionOperation = id => async dispatch => {
   const deleteUrl = `/api/transactions/${id}`;
 
@@ -100,7 +147,7 @@ export const editTransactionOperation = editedTransaction => async dispatch => {
 
   dispatch(loaderON());
   try {
-    const response = await axios({
+    const { data } = await axios({
       method: 'patch',
       url: editeUrl,
       data: {
@@ -111,7 +158,8 @@ export const editTransactionOperation = editedTransaction => async dispatch => {
         amount: Number(editedTransaction.amount),
       },
     });
-    dispatch(editTransaction(editedTransaction));
+
+    dispatch(editTransaction(data));
     notification({
       type: 'success',
       message: 'Edite transaction Success!',
