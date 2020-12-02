@@ -26,7 +26,7 @@ const HomePage = () => {
       <section className={syles.mainSection}>
         <h1>HomePage</h1>
         {/* <TransactionsTable /> */}
-        <button onClick={show}>CLICK</button>
+        <button onClick={show} className={syles.stickyButton}></button>
         {toggleModal && <OverkayBlock hiden={handleHide} />}
         {/* <HomeTab /> */}
       </section>

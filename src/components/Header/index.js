@@ -12,13 +12,12 @@ function Header() {
   const dispatch = useDispatch();
   const history = useHistory();
   let name = useSelector(state => state?.auth?.user?.username);
-  console.log(name);
   return (
     <div className={styles.header}>
       <Link to={routes.HOME.path}>
         <div className={styles.logo}>
           <img src={logo} alt="logo" className={styles.headerLogo} />
-          <p>Wallet</p>
+          <p className={styles.logoText}>Wallet</p>
         </div>
       </Link>
 

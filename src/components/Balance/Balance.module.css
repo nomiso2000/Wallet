@@ -94,6 +94,7 @@
 @media (min-width: 1280px) {
   .div {
     width: 350px;
+    margin-bottom: 30px;
   }
 
   .balanceText,

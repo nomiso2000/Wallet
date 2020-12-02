@@ -7,13 +7,17 @@
 }
 .logo {
   display: flex;
-  width: 182px;
-  justify-content: space-between;
+  width: 140px;
+  justify-content: space-around;
   align-items: center;
+  height: 30px;
 }
-.logo p {
-  font-size: 30px;
+.logoText {
+  font-size: 24px;
   font-weight: 700;
+  margin: 0px;
+  padding: 0px;
+  color: black;
 }
 .headerLogo {
   height: 30px;
@@ -40,7 +44,16 @@
 }
 @media screen and (min-width: 768px) {
   .header {
-    padding: 0 40px;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    height: 80px;
+  }
+  .logoText {
+    font-size: 28px;
+  }
+  .headerLogo {
+    padding-right: 20px;
+    height: 40px;
   }
   .headerI {
     display: block;

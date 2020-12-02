@@ -34,80 +34,60 @@
     /* Safari, Android, iOS */
       url('../../styles/fonts/poppins-v15-latin-700.svg#Poppins') format('svg'); /* Legacy iOS */
 }
-main {
-  display: flex;
-  background-color: #f1f2f7;
-}
-
-.nav {
-  height: 80px;
-  justify-content: space-around;
-  align-items: center;
-  display: flex;
-  padding: 0 30px;
-  /* background-color: #f1f2f7; */
-}
-.navBlock {
-  width: 38px;
-  height: 38px;
-  background-color: #6e78e8;
-  border-radius: 6px;
-}
 .navUsd {
   display: block;
 }
 .navMD p {
   display: none;
 }
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  .nav {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .navContainer {
+    margin: 20px 0px;
+    display: flex;
+    width: 260px;
+    justify-content: space-around;
+  }
+}
+
 @media screen and (min-width: 768px) and (max-width: 1280px) {
   .nav {
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    height: calc(100vh - 95px);
-    padding: 0 47px;
-    padding-top: 35px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
   }
-  .navUsd {
-    display: none;
-  }
-  .navGraph {
-    width: 18px;
-    height: 18px;
-    margin-right: 22px;
-  }
-  .navHome {
-    width: 18px;
-    height: 18px;
-    margin-bottom: 18px;
-    margin-right: 22px;
+  .navContainer {
+    margin-bottom: 40px;
   }
   .navMD {
     display: flex;
   }
   .navMD p {
-    display: block;
+    display: inline-block;
+    margin: 0;
+    padding-left: 23px;
+    font-family: 'Poppins', sans-serif;
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .navUsd {
+    display: none;
   }
 }
 @media screen and (min-width: 1280px) {
   .background {
-    width: 36.3vw;
-    height: 100vh;
-    background-color: #f1f2f7;
+    backdrop-filter: blur(50px);
   }
 
-  main {
-    display: flex;
-    width: 36.3vw;
-    background: url(../../pages/Login/icons/violetCircle.svg);
-    background-repeat: no-repeat;
-    background-position: left -15px top 400px;
-  }
-  .main1 {
-    width: 36.3vw;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(50px);
+  .navContainer {
+    margin-bottom: 30px;
   }
 
   .nav {
@@ -115,13 +95,11 @@ main {
     justify-content: space-between;
     align-items: start;
     height: 76.4vh;
+    height: calc(100vh - 126px);
     padding-left: 6.7vw;
-    /* padding-top: 45px; */
+    padding-top: 46px;
   }
 
-  .navMD img {
-    margin: 0;
-  }
   .navMD {
     display: flex;
     align-items: center;
@@ -131,7 +109,7 @@ main {
     margin-bottom: 10px;
   }
   .navMD p {
-    display: block;
+    display: inline-block;
     margin: 0;
     padding-left: 23px;
     font-family: 'Poppins', sans-serif;
@@ -141,6 +119,9 @@ main {
   }
 
   .navMD p:hover {
+    color: #4a56e2;
+  }
+  .navMD p:active {
     font-weight: 700;
   }
 
