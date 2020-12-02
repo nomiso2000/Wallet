@@ -13,7 +13,7 @@ import {
   editTransaction,
   filterALL,
 } from '../../redux/transactions/action';
-import FiltersBar from '../Filters/FiltersBar/FiltersBar';
+import FiltersBar from '../Filters';
 import {
   deleteTransactionOperation,
   editTransactionOperation,
@@ -97,7 +97,6 @@ const TransactionsTable = () => {
         </thead>
         <tbody>
           {transactions.map((elem, index) => {
-           
             return (
               <tr
                 key={index}

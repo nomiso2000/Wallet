@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
+.EmailForm {
+  position: absolute;
+  width: 220px;
+  height: 33px;
+  left: 20px;
+  top: 190px;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  z-index: 1;
+  padding: 0px 0px 0px 60px;
+  font-family: 'Noto Sans JP';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 27px;
+  color: black;
+}
+
+.EmailIcon {
+  position: absolute;
+  left: 32.5px;
+  top: 194px;
+  z-index: 2;
+  color: #e0e0e0;
+}
+
+.label {
+  position: relative;
+}
+
+.label:before {
+  content: '';
+  position: absolute;
+}
+
+input {
+  padding: 10px 30px;
+}
+
+@media (min-width: 768px) {
+  .EmailForm {
+    position: absolute;
+    width: 349.5px;
+    height: 34px;
+    left: 65.5px;
+    top: 140px;
+    padding: 12px 0px 0px 60px;
+  }
+
+  .EmailIcon {
+    position: absolute;
+    left: 71px;
+    top: 144px;
+    z-index: 2;
+    color: #e0e0e0;
+  }
+}

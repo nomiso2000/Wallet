@@ -21,11 +21,6 @@ const App = () => {
       <StrictMode>
         <Suspense fallback={<Loader />}>
           <Switch>
-            <PrivateRoute
-              exact
-              path={routes.HOME.path}
-              component={routes.HOME.component}
-            />
             <Route
               exact
               path={routes.LOGIN.path}
@@ -35,6 +30,10 @@ const App = () => {
               exact
               path={routes.REGISTER.path}
               component={routes.REGISTER.component}
+            />
+            <PrivateRoute
+              path={routes.NAVIGATION.path}
+              component={routes.NAVIGATION.component}
             />
             <Redirect to={routes.HOME.path} />
           </Switch>

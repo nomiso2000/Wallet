@@ -1,14 +1,21 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
+  addTransaction,
   deleteTransaction,
   editTransaction,
-  getAllTransactionsFromBack
+  getAllTransactionsFromBack,
 } from '../action';
 
 const initialState = [];
 const transactionReducer = createReducer(initialState, {
+  [addTransaction]: (state, action) => {
+    console.log(action)
+    return [ action.payload, ...state];
+  },
+
   [getAllTransactionsFromBack]: (state, action) => {
-    return [...action.payload];
+
+    return [...action.payload]
   },
   [deleteTransaction]: (state, action) => {
     return [...state.filter(transaction => transaction.id !== action.payload)];

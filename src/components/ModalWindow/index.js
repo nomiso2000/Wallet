@@ -1,30 +1,48 @@
 import React from 'react';
 import styl from './ModalWindow.module.css';
 import { useState } from 'react';
-import TestWindow from '../TestWindow/index';
+import TestWindow from '../TestWindow';
 
-const ModalWindow = ({ getEvent, handleDeleteLetter, handleEditLetter }) => {
+const ModalWindow = ({
+  // getEvent,
+  // handleCloseModalWindow,
+  handleDeleteLetter,
+  handleEditLetter,
+}) => {
+  const [renderEditWindow, setRenderEditWindow] = useState(false);
+
   return (
     <>
-      <div
-        id="ModalWindowId"
-        className={styl.modalWindow}
-        onMouseOver={event => {
-          getEvent(true);
-        }}
-      >
+      {renderEditWindow ? (
+        <TestWindow />
+      ) : (
         <div
-          className={styl.editSvg}
-          onClick={() => {
-            handleEditLetter();
+          id="ModalWindowId"
+          className={styl.modalWindow}
+          onMouseOver={event => {
+            // console.log('event.currentTarget.id', event.currentTarget.id),
+            // getEvent(event.currentTarget.id);
           }}
-        ></div>
-        <div
-          className={styl.deleteSvg}
-          onClick={() => { handleDeleteLetter();
-          }}
-        ></div>
-      </div>
+          // onMouseOut={getEvent(false)}
+        >
+          <div
+            className={styl.editSvg}
+            onClick={() => {
+              setRenderEditWindow(true);
+              console.log('renderEditWindow', renderEditWindow);
+              handleEditLetter();
+              // handleCloseModalWindow(false)
+            }}
+          ></div>
+          <div
+            className={styl.deleteSvg}
+            onClick={() => {
+              console.log('del');
+              handleDeleteLetter();
+            }}
+          ></div>
+        </div>
+      )}
     </>
   );
 };

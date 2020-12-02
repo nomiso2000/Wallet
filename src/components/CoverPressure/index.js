@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 import Datapicker from '../Datapicket';
 import {
   addTransactionOperation,
@@ -9,13 +11,13 @@ import {
 } from '../../redux/transactions/operations';
 import style from './coverPressure.module.css';
 import selectsvg from '../../styles/css/icon/calendar.svg';
-import axios from 'axios';
+
 class OverkayBlock extends Component {
   state = {
     array: [],
     transactionDate: '',
     type: 'INCOME',
-    categoryId: '',
+    categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
     comment: '',
     amount: '',
     id: '',
@@ -25,29 +27,44 @@ class OverkayBlock extends Component {
 
   toggleType = () => {
     return this.state.type === 'INCOME'
-      ? this.setState({ type: 'EXPENSE' })
-      : this.setState({ type: 'INCOME' });
+      ? this.setState({
+          type: 'EXPENSE',
+          categoryId: 'a6385df4-6696-4e73-89ce-2c52bda02a39',
+        })
+      : this.setState({
+          type: 'INCOME',
+          categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
+        });
   };
+
   handleChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
 
   onAddContact = value => {
+    console.log(value);
     this.setState({ transactionDate: value });
   };
 
   handleFormSubmit = e => {
+    console.log(e);
     e.preventDefault();
-    let { transactionDate, type, categoryId, comment, amount, id } = this.state;
-
+    const {
+      transactionDate,
+      type,
+      categoryId,
+      comment,
+      amount,
+      id,
+    } = this.state;
+    console.log(transactionDate);
     if (type == 'INCOME') {
       amount && transactionDate
         ? (this.audit = 'true')
         : (this.audit = 'false');
     } else if (type == 'EXPENSE') {
-      // amount && transactionDate && categoryId
-      amount && transactionDate
+      amount && transactionDate && categoryId
         ? (this.audit = 'true')
         : (this.audit = 'false');
     }
@@ -55,14 +72,16 @@ class OverkayBlock extends Component {
       alert('Не були заповнені всі поля, спробуйте знову');
       return;
     }
+    let amoundNumb = Number(amount);
     if (this.audit === 'true') {
-      if (type == 'EXPENSE') {
-        categoryId = 'a6385df4-6696-4e73-89ce-2c52bda02a39';
-      }
-      if (type == 'INCOME') {
-        categoryId = 'd9ee2284-4673-44f4-ab76-6258512ea409';
-      }
       if (this.props.hiden) {
+        console.log('addTransaction', {
+          transactionDate,
+          type,
+          categoryId,
+          comment,
+          amount,
+        } )
         this.props.addTransaction({
           transactionDate,
           type,
@@ -71,6 +90,7 @@ class OverkayBlock extends Component {
           amount,
         });
       } else {
+        console.log(this.props);
         this.props.editTransaction({
           transactionDate,
           type,
@@ -86,23 +106,35 @@ class OverkayBlock extends Component {
         this.props.handleCloseOfTestlWindow();
       }
     }
+    // this.props.addTransaction({
+    //   transactionDate,
+    //   type,
+    //   categoryId,
+    //   comment,
+    //   amount: amoundNumb,
+    // });
+
+    // this.props.hiden();
+
     this.setState({
       transactionDate: '',
       type: 'INCOME',
-      categoryId: '',
+      categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
       comment: '',
       amount: '',
     });
   };
-  async componentDidMount() {
-    await axios
+ async componentDidMount() {
+  await  axios
       .get(
         `https://sheltered-sea-54747.herokuapp.com/api/transaction-categories`,
       )
-      .then(({ data }) => {
-        this.setState({ array: [...data] });
-      });
-
+      .then(({ data }) => this.setState({  array: [...data] }));
+      console.log('arr', this.state.array)
+    // this.props.getCategories().then(array => {
+    //   return this.setState({ array });
+    // });
+    // <Datapicker onAddContacts={this.onAddContact} />;
     let { transactionDate, type, categoryId, comment, amount, id } = this.state;
     if (!this.props.hiden) {
       transactionDate = this.props.editedTransaction.transactionDate;
@@ -113,7 +145,7 @@ class OverkayBlock extends Component {
       id = this.props.editedTransaction.id;
       this.setState({ transactionDate, type, categoryId, comment, amount, id });
     }
-
+    // this.onAddContact();
     window.addEventListener('keydown', this.handleKeydown);
   }
 
@@ -131,7 +163,7 @@ class OverkayBlock extends Component {
     }
   };
   render() {
-    let {
+    const {
       array,
       transactionDate,
       type,
@@ -139,7 +171,6 @@ class OverkayBlock extends Component {
       comment,
       amount,
     } = this.state;
-
     return (
       <div className={style.overlay}>
         <div className={style.modal}>
@@ -151,6 +182,7 @@ class OverkayBlock extends Component {
             &#10006;
           </button>
           <h2 className={style.title}>
+            {' '}
             {this.props.hiden ? 'Добавить транзакцию' : 'Изменить транзакцию'}
           </h2>
 
@@ -167,9 +199,6 @@ class OverkayBlock extends Component {
             </span>
             <label onChange={this.toggleType} className={style.switch}>
               <input
-                // defaultValue=''
-                // defaultChecked
-                readOnly
                 type="checkbox"
                 checked={this.state.type === 'EXPENSE' ? true : false}
               />
@@ -226,37 +255,45 @@ class OverkayBlock extends Component {
                 >
                   Основной
                 </option>
-                <option className={style.SelectItem} name="Авто" value="auto">
+                <option
+                  className={style.SelectItem}
+                  name="Авто"
+                  value={array[3].id}
+                >
                   Авто
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Развитие"
-                  value={array[3].id}
+                  value={array[4].id}
                 >
                   Развитие
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Дети"
-                  value={array[4].id}
+                  value={array[5].id}
                 >
                   Дети
                 </option>
-                <option className={style.SelectItem} name="Дом" value="house">
+                <option
+                  className={style.SelectItem}
+                  name="Дом"
+                  value={array[6].id}
+                >
                   Дом
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Образование"
-                  value={array[5].id}
+                  value={array[7].id}
                 >
                   Образование
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Остальные"
-                  value={array[6].id}
+                  value={array[8].id}
                 >
                   Остальные
                 </option>

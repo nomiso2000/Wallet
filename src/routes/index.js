@@ -6,7 +6,6 @@ const routes = {
     component: lazy(() =>
       import('../pages/HomePage' /* webpackChunkName: "HomePage" */),
     ),
-    private: true,
   },
 
   LOGIN: {
@@ -14,7 +13,6 @@ const routes = {
     component: lazy(() =>
       import('../pages/Login' /* webpackChunkName: "Login" */),
     ),
-    private: false,
   },
 
   REGISTER: {
@@ -22,7 +20,25 @@ const routes = {
     component: lazy(() =>
       import('../pages/Register' /* webpackChunkName: "Register" */),
     ),
-    private: false,
+  },
+  STATISTIC: {
+    path: `/statistic`,
+    component: lazy(() =>
+      import('../pages/Statictic' /* webpackChunkName: "Statistic" */),
+    ),
+  },
+
+  NAVIGATION: {
+    path: `/`,
+    component: lazy(() =>
+      import('../pages/Navigation' /* webpackChunkName: "Navigation" */),
+    ),
+  },
+  CURRENCY: {
+    path: `/currency`,
+    component: lazy(() =>
+      import('../components/Currency' /* webpackChunkName: "Navigation" */),
+    ),
   },
 };
 export default routes;

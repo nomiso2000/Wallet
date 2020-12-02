@@ -3,6 +3,7 @@ import types from '../types';
 import API from '../../services/api';
 import notification from '../../services/notification';
 import {
+  addTransaction,
   setError,
   loaderON,
   loaderOFF,
@@ -15,7 +16,8 @@ import {
 axios.defaults.baseURL = 'https://sheltered-sea-54747.herokuapp.com';
 
 export const addTransactionOperation = createTransaction => async dispatch => {
-  dispatch({ type: types.ADD_TRANSACTION });
+
+  console.log('createTransaction', createTransaction);
   try {
     const { data } = await API.transaction.add(createTransaction);
 
@@ -24,8 +26,26 @@ export const addTransactionOperation = createTransaction => async dispatch => {
       type: 'success',
       message: 'add Transaction Success!',
     });
+console.log('data', data)
+    dispatch(addTransaction(data))
+    // try {
+    //   const { data } = await API.transaction.get();
 
-    dispatch(getAllTransactionsFromBack(data));
+    //   dispatch({ type: types.GET_SUCCESS });
+    //   dispatch(getAllTransactionsFromBack(data));
+    //   notification({
+    //     type: 'success',
+    //     message: 'Get Transactions Success!',
+    //   });
+    // } catch (e) {
+    //   dispatch({ type: types.GET_FAILURE });
+    //   dispatch(setError(e));
+    //   notification({
+    //     type: 'error',
+    //     message: e.message,
+    //   });
+    // }
+
     notification({
       type: 'success',
       message: 'Get Transactions Success!',
@@ -128,7 +148,7 @@ export const editTransactionOperation = editedTransaction => async dispatch => {
 
   dispatch(loaderON());
   try {
-    const response = await axios({
+    const {data} = await axios({
       method: 'patch',
       url: editeUrl,
       data: {
@@ -139,7 +159,8 @@ export const editTransactionOperation = editedTransaction => async dispatch => {
         amount: Number(editedTransaction.amount),
       },
     });
-    dispatch(editTransaction(editedTransaction));
+  
+    dispatch(editTransaction(data));
     notification({
       type: 'success',
       message: 'Edite transaction Success!',

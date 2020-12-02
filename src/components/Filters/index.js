@@ -1,15 +1,16 @@
 import React from 'react';
-import styles from './FiltersBar.module.css';
-import { filterALLTransactionOperation } from '../../../redux/transactions/operations';
+import styles from './Filters.module.css';
+
 import {
   filterIncomes,
   filterExpences,
   filterTransactionsByIncomes,
   filterTransactionsByExpences,
-} from '../../../redux/transactions/action';
-import {filtredTransactions} from '../../../redux/transactions/selector'
+} from '../../redux/transactions/action';
+import { filtredTransactions } from '../../redux/transactions/selector';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { filterALLTransactionOperation } from '../../redux/transactions/operations';
 
 // import { NavLink } from 'react-router-dom';
 const navigationLinks = [
@@ -50,10 +51,8 @@ const FiltersBar = () => {
                   dispatch(filterALLTransactionOperation());
                 } else if (link.name === 'ДОХОДЫ') {
                   dispatch(filterIncomes('Incomes'));
-               
                 } else {
                   dispatch(filterExpences('Expences'));
-           
                 }
               }}
             >
