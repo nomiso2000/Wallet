@@ -194,43 +194,50 @@ class OverkayBlock extends Component {
                 </option>
                 <option
                   className={style.SelectItem}
-                  name="Авто"
+                  name="Еда"
                   value={array[3].id}
+                >
+                  Еда
+                </option>
+                <option
+                  className={style.SelectItem}
+                  name="Авто"
+                  value={array[4].id}
                 >
                   Авто
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Развитие"
-                  value={array[4].id}
+                  value={array[5].id}
                 >
                   Развитие
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Дети"
-                  value={array[5].id}
+                  value={array[6].id}
                 >
                   Дети
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Дом"
-                  value={array[6].id}
+                  value={array[7].id}
                 >
                   Дом
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Образование"
-                  value={array[7].id}
+                  value={array[8].id}
                 >
                   Образование
                 </option>
                 <option
                   className={style.SelectItem}
                   name="Остальные"
-                  value={array[8].id}
+                  value={array[9].id}
                 >
                   Остальные
                 </option>

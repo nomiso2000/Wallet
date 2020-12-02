@@ -16,7 +16,7 @@ function OverkayBlock(props) {
 
   return (
     <DatePicker
-      minDate={new Date()}
+      minDate={date}
       className="calendar"
       selected={date}
       onSelect={handleDateSelect} //when day is clicked
