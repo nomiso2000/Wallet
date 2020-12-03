@@ -74,19 +74,20 @@ export const getTransactionOperation = () => async dispatch => {
     });
   }
 };
-export const transactionCategories = () => async dispatch => {
+export const getTransactionCategoriesOperation = () => async dispatch => {
   dispatch({ type: types.GET_TRANSACTION });
   try {
     const { data } = await axios.get(
       `https://sheltered-sea-54747.herokuapp.com/api/transaction-categories`,
     );
-
+    console.log('data', data)
     dispatch({ type: types.GET_SUCCESS });
-    dispatch(getAllTransactionsFromBack(data));
+    // dispatch(getAllTransactionsFromBack(data));
     notification({
       type: 'success',
       message: 'Get Categories Success!',
     });
+    return data
   } catch (e) {
     dispatch({ type: types.GET_FAILURE });
     dispatch(setError(e));

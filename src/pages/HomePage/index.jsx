@@ -12,22 +12,23 @@ import Navigation from '../Navigation';
 import syles from './HomePage.module.css';
 const HomePage = () => {
   const dispatch = useDispatch();
-  const [toggleModal, setToggleModal] = useState(false);
   const isAuthentificated = useSelector(state => state.auth.token);
-  const handleHide = () => {
-    setToggleModal(!toggleModal);
-  };
-  const show = () => {
-    console.log(toggleModal);
-    setToggleModal(true);
-  };
+  // const [toggleModal, setToggleModal] = useState(false);
+  
+  // const handleHide = () => {
+  //   setToggleModal(!toggleModal);
+  // };
+  // const show = () => {
+  //   console.log(toggleModal);
+  //   setToggleModal(true);
+  // };
   return (
     <>
       <section className={syles.mainSection}>
         <h1>HomePage</h1>
         <TransactionsTable />
-        <button onClick={show} className={syles.stickyButton}></button>
-        {toggleModal && <OverkayBlock hiden={handleHide} />}
+        {/* <button onClick={show} className={syles.stickyButton}></button>
+        {toggleModal && <OverkayBlock hiden={handleHide} />} */}
         {/* <HomeTab /> */}
       </section>
       <section></section>

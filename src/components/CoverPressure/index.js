@@ -6,7 +6,7 @@ import Datapicker from '../Datapicket';
 import {
   addTransactionOperation,
   getTransactionOperation,
-  transactionCategories,
+  getTransactionCategoriesOperation,
   editTransactionOperation,
 } from '../../redux/transactions/operations';
 import style from './coverPressure.module.css';
@@ -17,10 +17,22 @@ class OverkayBlock extends Component {
     array: [],
     transactionDate: '',
     type: 'INCOME',
-    categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
+    // categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
+    categoryId: '',
     comment: '',
     amount: '',
     id: '',
+  };
+
+  incomeCategoryId = () => {
+    let incomeCategoryId;
+    this.props.categories.find(elem => {
+      if (elem.type === 'INCOME' && elem.name === 'test income') {
+        incomeCategoryId = elem.id;
+      }
+    });
+
+    return incomeCategoryId;
   };
 
   audit = '';
@@ -33,7 +45,7 @@ class OverkayBlock extends Component {
         })
       : this.setState({
           type: 'INCOME',
-          categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
+          categoryId: this.incomeCategoryId(),
         });
   };
 
@@ -43,12 +55,10 @@ class OverkayBlock extends Component {
   };
 
   onAddContact = value => {
-    console.log(value);
     this.setState({ transactionDate: value });
   };
 
   handleFormSubmit = e => {
-    console.log(e);
     e.preventDefault();
     const {
       transactionDate,
@@ -58,7 +68,7 @@ class OverkayBlock extends Component {
       amount,
       id,
     } = this.state;
-   
+
     if (type == 'INCOME') {
       amount && transactionDate
         ? (this.audit = 'true')
@@ -75,7 +85,6 @@ class OverkayBlock extends Component {
     let amoundNumb = Number(amount);
     if (this.audit === 'true') {
       if (this.props.hiden) {
-        
         this.props.addTransaction({
           transactionDate,
           type,
@@ -84,7 +93,6 @@ class OverkayBlock extends Component {
           amount,
         });
       } else {
-        
         this.props.editTransaction({
           transactionDate,
           type,
@@ -100,25 +108,26 @@ class OverkayBlock extends Component {
         this.props.handleCloseEditWindow();
       }
     }
-       this.setState({
+    this.setState({
       transactionDate: '',
       type: 'INCOME',
-      categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
+      categoryId: this.incomeCategoryId(),
       comment: '',
       amount: '',
     });
   };
- async componentDidMount() {
-  await  axios
-      .get(
-        `https://sheltered-sea-54747.herokuapp.com/api/transaction-categories`,
-      )
-      .then(({ data }) => this.setState({  array: [...data] }));
-      console.log('arr', this.state.array)
-    // this.props.getCategories().then(array => {
-    //   return this.setState({ array });
-    // });
-    // <Datapicker onAddContacts={this.onAddContact} />;
+  async componentDidMount() {
+    // await axios
+    //   .get(
+    //     `https://sheltered-sea-54747.herokuapp.com/api/transaction-categories`,
+    //   )
+    //   .then(({ data }) => this.setState({ array: [...data] }));
+    // console.log('arr', this.state.array);
+    this.setState({
+      array: [...this.props.categories],
+      categoryId: this.incomeCategoryId(),
+    });
+
     let { transactionDate, type, categoryId, comment, amount, id } = this.state;
     if (!this.props.hiden) {
       transactionDate = this.props.editedTransaction.transactionDate;
@@ -129,7 +138,7 @@ class OverkayBlock extends Component {
       id = this.props.editedTransaction.id;
       this.setState({ transactionDate, type, categoryId, comment, amount, id });
     }
-    // this.onAddContact();
+
     window.addEventListener('keydown', this.handleKeydown);
   }
 
@@ -147,6 +156,8 @@ class OverkayBlock extends Component {
     }
   };
   render() {
+    console.log('this.props', this.props);
+    console.log('this.state', this.state);
     const {
       array,
       transactionDate,
@@ -232,55 +243,21 @@ class OverkayBlock extends Component {
                 <option value="" disabled selected hidden>
                   Выберите категорию
                 </option>
-                <option
-                  className={style.SelectItem}
-                  name="Основной"
-                  value={array[2].id}
-                >
-                  Основной
-                </option>
-                <option
-                  className={style.SelectItem}
-                  name="Авто"
-                  value={array[3].id}
-                >
-                  Авто
-                </option>
-                <option
-                  className={style.SelectItem}
-                  name="Развитие"
-                  value={array[4].id}
-                >
-                  Развитие
-                </option>
-                <option
-                  className={style.SelectItem}
-                  name="Дети"
-                  value={array[5].id}
-                >
-                  Дети
-                </option>
-                <option
-                  className={style.SelectItem}
-                  name="Дом"
-                  value={array[6].id}
-                >
-                  Дом
-                </option>
-                <option
-                  className={style.SelectItem}
-                  name="Образование"
-                  value={array[7].id}
-                >
-                  Образование
-                </option>
-                <option
-                  className={style.SelectItem}
-                  name="Остальные"
-                  value={array[8].id}
-                >
-                  Остальные
-                </option>
+
+                {this.props.categories.map((elem, index) => {
+                  if (elem.type === 'EXPENSE' && elem.name !== 'test expense')
+                    return (
+                      <option
+                        // onClick={this.setState({categoryId:''})}
+                        className={style.SelectItem}
+                        name={elem.name}
+                        value={elem.id}
+                        key={elem.name}
+                      >
+                        {elem.name}
+                      </option>
+                    );
+                })}
               </select>
             )}
 
@@ -320,7 +297,7 @@ class OverkayBlock extends Component {
 const mapDispatchToProps = {
   addTransaction: addTransactionOperation,
   getTransaction: getTransactionOperation,
-  getCategories: transactionCategories,
+  getCategories: getTransactionCategoriesOperation,
   editTransaction: editTransactionOperation,
 };
 export default connect(null, mapDispatchToProps)(OverkayBlock);

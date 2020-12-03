@@ -25,6 +25,7 @@
     "axios": "^0.19.2",
     "crypto-js": "^4.0.0",
     "react": "^16.13.1",
+    "react-css-transition": "^0.7.4",
     "react-datepicker": "^3.3.0",
     "react-dom": "^16.13.1",
     "react-loadingg": "^1.7.2",
