@@ -17,6 +17,7 @@
     font-size: 18px;
     line-height: 27px;
     color: black;
+    outline: none;
 }
 
 .EmailIcon {
@@ -26,33 +27,17 @@
     z-index: 2;
     color: #E0E0E0;;
 }
-
-.label {
-    position: relative;
-  }
   
-.label:before {
-    content: "";
-    position: absolute;
-  }
-  
-  input {
-    padding: 10px 30px;
-  }
-
-
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
     .EmailForm {
-      position: absolute;
       width: 349.5px;
       height: 34px;
       left: 65.5px;
       top: 130px;
-      padding: 12px 0px 0px 60px;
+      padding: 8px 0px 4px 60px;
       }
 
       .EmailIcon {
-        position: absolute;
         left: 71px;
         top: 144px;
         z-index: 2;

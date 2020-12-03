@@ -22,7 +22,6 @@ export class PassForm extends Component {
         const { password } = this.state;
         return (
             <form onSubmit={this.handleSubmit}  >
-            <label>
                 <LockIcon className={styles.LockIcon}/>
                     <input 
                     type="password" 
@@ -31,8 +30,7 @@ export class PassForm extends Component {
                     name='password'
                     placeholder="Пароль"
                     className={styles.PassForm}
-                    />            
-                </label>
+                    />          
             </form>
         )
     }

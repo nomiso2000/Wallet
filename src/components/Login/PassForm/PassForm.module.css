@@ -15,7 +15,10 @@ font-weight: normal;
 font-size: 18px;
 line-height: 27px;
 color: black;
+outline: none;
 }
+
+
 
 .LockIcon {
     position: absolute;
@@ -24,19 +27,6 @@ color: black;
     z-index: 2;
     color: #E0E0E0;;
 }
-
-.label {
-    position: relative;
-  }
-  
-.label:before {
-    content: "";
-    position: absolute;
-  }
-  
-  input {
-    padding: 10px 30px;
-  }
 
   @media (min-width: 768px) {
     .PassForm {

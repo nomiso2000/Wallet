@@ -12,21 +12,23 @@ import { ImgMain } from './ImageMain/ImageMain';
 export default class Login extends Component {
     render() {
         return (
-            <Container className={styles.backGround}>
-                <div className={styles.grayBG}>
+            <Container >
+                 <div className={styles.leftWrapper}>  
+                    <div className={styles.violetCircle}></div>
+                    <ImgMain/> 
+                    <span className={styles.textApp}>Finance App</span>
+                </div>
+                <div className={styles.rightWrapper}>
                   <FormWrapper>
-                    <p className={styles.p}>Wallet</p>
+                    <p className={styles.textWallet}>Wallet</p>
                     <EmailForm />
                     <PassForm />
                     <ButtonEnter />
-                    <ButtonRegistration />    
+                    <ButtonRegistration /> 
                   </FormWrapper>
-                    <div className={styles.pinkCircle}></div> 
+                  <div className={styles.pinkCircle}></div>   
                 </div>    
-
-                    <ImgMain/>    
-                    <div className={styles.violetCircle}></div>
-                    <span className={styles.span}>Finance App</span>
+               
             </Container>                        
         )
     }

@@ -1,34 +1,35 @@
 * {
     margin: 0;
     padding: 0;
-    
 }
 
 .container {
     width: 100%;
-    height: 568px;
-    margin-left: auto;
-    margin-right: auto;
-    background: #FFFFFF;
     z-index: 1;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
 @media (min-width: 768px) {
    .container {
-    width: 100%;
+    margin: 0 auto;
     height: 1024px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     background: #E7EAF2;
-    background-repeat: no-repeat;
-    box-sizing: border-box;
-    margin-left: auto;
-    margin-right: auto;
    }
 }
 
 @media (min-width: 1280px) {
     .container {
-    width: 100%;
-    background: #E5E5E5;
+    margin: 0 auto;
+    height: 720px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: #E7EAF2;
     }
 }
 

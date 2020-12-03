@@ -24,7 +24,6 @@ export class EmailForm extends Component {
         return (
             <form onSubmit={this.handleSubmit} >
                <EmailIcon className={styles.EmailIcon}/>
-                    <label>
                     <input 
                     type="email" 
                     value={email} 
@@ -32,8 +31,7 @@ export class EmailForm extends Component {
                     name='email'
                     placeholder="E-mail"
                     className={styles.EmailForm}
-                    />   
-                    </label>         
+                    />          
             </form>
         )
     }

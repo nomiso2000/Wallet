@@ -5,7 +5,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-p {
+.textWallet {
    margin-left: 100px;
    margin-top: 110px;
    padding-left: 60px;
@@ -19,18 +19,49 @@ p {
    background-image: url(./icons/wallet.svg);
    background-repeat: no-repeat;
 }
-.span {
+
+.textApp {
    visibility: hidden;
    z-index: 3;
 }
 
 
 @media (min-width: 768px) {
-   p {
+   .rightWrapper {
+      width: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center; 
+   }
+
+   .leftWrapper {
+      width: 100%;
+      /* position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center; */
+      background: #E7EAF2;
+   }
+   
+   .textWallet {
       margin-left: 179px;
       margin-top: 40px;
       padding-left: 60px;
    }
+   .textApp {
+      visibility: visible;
+      position: absolute;
+      right: 20%;
+      top: 19%;
+      width: 187px;
+      height: 45px;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: normal;
+      font-size: 30px;
+      line-height: 45px; 
+     }
 
    .violetCircle {
       background-image: url(./icons/violetCircle.svg);
@@ -45,83 +76,68 @@ p {
 
      .pinkCircle {
       position: absolute;
-      width: 618px;
-      height: 547px;
-      left: 312px;
-      top: 0px;
+      right: 0px;
+      top: -418px;
+      width: 457px;
+      height: 383px;
       background-image: url(./icons/pinkCircle.svg);
       background-repeat: no-repeat;
       z-index: 2;
      }
 
-     .span {
-      visibility: visible;
-      position: absolute;
-      width: 187px;
-      height: 45px;
-      left: 414.26px;
-      top: 167px;
-      font-family: 'Poppins';
-      font-style: normal;
-      font-weight: normal;
-      font-size: 30px;
-      line-height: 45px;      
-      display: flex;
-      align-items: center;
-      text-align: center;
-      color: #000000;
-     }
+     
 }
 
 @media (min-width: 1280px) {
-   p {
+   .textWallet {
+      position: relative;
       margin-left: 179px;
       margin-top: 40px;
       padding-left: 60px;
    }
+   .rightWrapper {
+      width: 50%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center; 
+      background: rgba(255, 255, 255, 0.4);
+   }
 
-   .span {
+   .leftWrapper {
+      width: 50%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #E7EAF2;
+   }
+
+   .textApp {
       position: absolute;
-      left: 200px;
-      top: 597.5px;
-      
+      top: 83%;
+      right: auto;
       width: 187px;
       height: 45px;
-      
       font-family: 'Poppins';
       font-style: normal;
       font-weight: normal;
       font-size: 30px;
-      line-height: 45px;      
-      display: flex;
-      align-items: center;
-      text-align: center;
-      color: #000000;
+      line-height: 45px; 
      }
 
-   .violetCircle {
-      left: 0px;
-      top: 281px;
+     .violetCircle {
+      left: 0;
+      bottom: 0px;
+      top: auto;
       z-index: 1;
      }
 
      .pinkCircle {
       background-image: url(./icons/pinkCircleScreen.svg);
-      position: absolute;
       width: 618px;
       height: 547px;
-      left: 102px;
-      top: 0px;
+      right: 0;
+      top: 0;
      }    
-
-     .grayBG {
-      height: 1023px;
-      margin-left: 560px;
-      top: 0px;
-      background: rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(50px);
-     }
 }
-
-
-
