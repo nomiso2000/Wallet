@@ -13,3 +13,13 @@
   color: #020101;
   margin-left: 20px;
 }
+
+@media (max-width: 480px) {
+  .calendar {
+    margin: 0 auto;
+    text-align: left;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    width: 280px;
+  }
+}

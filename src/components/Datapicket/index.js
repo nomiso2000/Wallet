@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import './style.css';
 import 'react-datepicker/dist/react-datepicker.css';
+
 function OverkayBlock(props) {
   const [date, setDate] = useState(new Date());
-  // let nameselect = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}-05:00`;
   let nameselect = date.toISOString();
+  useEffect(() => {
+    handleDateSelect();
+  }, [date]);
   const handleDateSelect = () => {
     props.onAddContacts(nameselect);
   };
 
   const handleDateChange = date => {
+    props.onAddContacts(nameselect);
     setDate(date);
   };
-
+  console.log('data', date);
   return (
     <DatePicker
-      minDate={date}
       className="calendar"
       selected={date}
       onSelect={handleDateSelect} //when day is clicked

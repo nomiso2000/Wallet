@@ -2,11 +2,18 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import routes from '../../routes';
-import styles from './Register.module.css';
+import style from './Register.module.css';
 import withAuth from '../../HOC/withAuth';
 import { register } from '../../redux/auth/operations';
 import { emailValid, isGood } from '../../services/helpers';
 import notification from '../../services/notification';
+import selectsvg from '../../styles/css/icon/formsvgfile.svg';
+import masage from '../../styles/css/icon/masage.svg';
+import profil from '../../styles/css/icon/profil.svg';
+import regist from '../../styles/css/icon/register.svg';
+import sirclesvg from '../../styles/css/icon/orangesircle.svg';
+import Ceshsvg from '../../styles/css/icon/Cesh.svg';
+import fioletsvg from '../../styles/css/icon/fiolet.svg';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -69,78 +76,78 @@ const Register = () => {
     }
   };
   return (
-    <section>
-      <div className="blockCover">
-        <div className="firstblock">
-          {/* <img  className= "imgrigister" src={selectsvg}/> */}
-          <h2 className="git">Finance App</h2>
-        </div>
-        <div className="endblock">
-          {/* <div className={styles.container}>
-            <h1 className={styles.header}>Register page</h1> */}
-          <form onSubmit={handleSubmit} className="form">
-            <label class="list">
-              {/* <img src={masage}/> */}
-              <input
-                className="input"
-                // className={styles.input}
-                type="email"
-                name="email"
-                value={email}
-                placeholder="E-mail"
-                autoFocus
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              {/* <img src={regist}/> */}
-              <input
-                className={styles.input}
-                type="password"
-                name="password"
-                value={password}
-                placeholder="Пароль"
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <label>
-              Подтвердить Пароль
-              <input
-                className={styles.input}
-                type="password"
-                name="repassword"
-                value={rePassword}
-                placeholder="Подтвердить пароль"
-                onChange={handleChange}
-              />
-            </label>
-            {password.length >= 4 && <span>{passwordValid}</span>}
-            <br />
-            <label>
-              Ваше имя
-              <input
-                className={styles.input}
-                type="name"
-                name="username"
-                value={username}
-                placeholder="Ваше имя"
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <button className={styles.button} type="submit">
+    <div className={style.blockCover}>
+      <div className={style.firstblock}>
+        <img className={style.imgrigister} src={selectsvg} />
+        <img className={style.fiolet} src={fioletsvg} />
+        <h2 className={style.titleselect}>Finance App</h2>
+      </div>
+      <div className={style.endblock}>
+        <img className={style.sircle} src={sirclesvg} />
+        {/* <h1 className={styles.header}>Register page</h1>  */}
+        <form onSubmit={handleSubmit} className={style.form}>
+          <img className={style.imgCesh} src={Ceshsvg} />
+          <label className={style.list}>
+            <img src={masage} />
+            <input
+              className="input"
+              className={style.input}
+              type="email"
+              name="email"
+              value={email}
+              placeholder="E-mail"
+              autoFocus
+              onChange={handleChange}
+            />
+          </label>
+          <label className={style.list}>
+            <img src={regist} />
+            <input
+              className={style.input}
+              type="password"
+              name="password"
+              value={password}
+              placeholder="Пароль"
+              onChange={handleChange}
+            />
+          </label>
+          <label className={style.list}>
+            <img src={regist} />
+            <input
+              className={style.input}
+              type="password"
+              name="repassword"
+              value={rePassword}
+              placeholder="Подтвердить пароль"
+              onChange={handleChange}
+            />
+          </label>
+          {/* {password.length >= 4 && <span>{passwordValid}</span>} */}
+
+          <label className={style.list}>
+            <img src={profil} />
+            <input
+              className={style.input}
+              type="name"
+              name="username"
+              value={username}
+              placeholder="Ваше имя"
+              onChange={handleChange}
+            />
+          </label>
+          <div class={style.buttonBlok}>
+            <button className={style.button} type="submit">
               РЕГИСТРАЦИЯ
             </button>
             <Link to={routes.LOGIN.path}>
               {' '}
-              <button className={styles.button}>ВХОД</button>
+              <button className={style.button}>ВХОД</button>
             </Link>
-          </form>
-          {/* </div> */}
-        </div>
+          </div>
+        </form>
+        {/* </div> */}
       </div>
-    </section>
+    </div>
   );
 };
 

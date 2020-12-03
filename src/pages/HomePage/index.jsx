@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Balance from '../../components/Balance';
 import OverkayBlock from '../../components/CoverPressure';
 import Currency from '../../components/Currency';
 import HomeTab from '../../components/HomeTab';
 import TransactionsTable from '../../components/Table';
 import UserMenu from '../../components/UserMenu';
 import routes from '../../routes';
-
+import Navigation from '../Navigation';
+import syles from './HomePage.module.css';
 const HomePage = () => {
   const dispatch = useDispatch();
   const [toggleModal, setToggleModal] = useState(true);
@@ -20,19 +22,14 @@ const HomePage = () => {
   };
   return (
     <>
-      <section className="main-section">
+      <section className={syles.mainSection}>
         <h1>HomePage</h1>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
-        <UserMenu />
-        {/* <TransactionsTable /> */}
-      </section>
-      <section>
-        <Currency />
-        <button onClick={show}>CLICK</button>
+        <TransactionsTable />
+        <button onClick={show} className={syles.stickyButton}></button>
         {toggleModal && <OverkayBlock hiden={handleHide} />}
         {/* <HomeTab /> */}
       </section>
+      <section></section>
     </>
   );
 };
