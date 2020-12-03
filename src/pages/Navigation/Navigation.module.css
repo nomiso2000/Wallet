@@ -50,10 +50,10 @@
     background-repeat: no-repeat;
     background-position: left -15px top 400px;
   }
-  /* .Other {
+  .Other {
     width: 60%;
     background: url(../Login/icons/pinkCircle.svg);
     background-repeat: no-repeat;
     background-position: right 0px top -100px;
-  } */
+  }
 }

@@ -265,15 +265,57 @@ input:checked + .slider:before {
   color: #e0e0e0;
 }
 
-@media (max-width: 360px) {
+@media (max-width: 480px) {
   .modal {
+    top: 53%;
     width: 360px;
+    height: auto;
+  }
+
+  .contactForm {
+    padding: 0;
+  }
+
+  .contactBtnDel {
+    margin-bottom: 45px;
+  }
+
+  .button_close {
+    display: none;
   }
 
   .calendar_svg {
-    top: 225px;
+    top: 260px;
+    right: 50px;
   }
   .btn {
     width: 260px;
+  }
+  .contactFormItemPrice {
+    padding: 0;
+    margin: 0 auto;
+    text-align: left;
+    padding-left: 20px;
+    width: 280px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+  }
+  .contactFormItemComent {
+    margin: 0 auto;
+    text-align: left;
+    padding-left: 20px;
+    margin-bottom: 50px;
+    width: 280px;
+  }
+
+  .contactSelect {
+    margin: 0 auto;
+    text-align: left;
+    padding-left: 10px;
+
+    width: 290px;
+  }
+  .overlay {
+    background-color: inherit;
   }
 }

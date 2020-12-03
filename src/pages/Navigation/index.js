@@ -7,7 +7,7 @@ import ErrorNotification from '../../components/Notifications/Error';
 import routes from '../../routes/index';
 import PrivateRoute from '../../HOC/PrivateRoute';
 
-import './Navigation.css';
+import styles from './Navigation.module.css';
 import Header from '../../components/Header';
 import NavMenu from '../../components/NavMenu';
 
@@ -20,13 +20,13 @@ const Navigation = () => {
     <>
       <Header />
 
-      <div className="background">
-        <div className="navMenu">
+      <div className={styles.background}>
+        <div className={styles.navMenu}>
           <NavMenu />
         </div>
-        <div className="Other">
+        <div className={styles.Other}>
           <StrictMode>
-            <Suspense fallback="loading">
+            <Suspense fallback={styles.loading}>
               <Switch>
                 <PrivateRoute
                   path={routes.HOME.path}
