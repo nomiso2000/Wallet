@@ -17,7 +17,7 @@ function Header() {
       <Link to={routes.HOME.path}>
         <div className={styles.logo}>
           <img src={logo} alt="logo" className={styles.headerLogo} />
-          <p>Wallet</p>
+          <p className={styles.logoText}>Wallet</p>
         </div>
       </Link>
 

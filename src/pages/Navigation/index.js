@@ -36,6 +36,12 @@ const Navigation = () => {
                   path={routes.STATISTIC.path}
                   component={routes.STATISTIC.component}
                 />
+                {window.screen.width < 768 && (
+                  <PrivateRoute
+                    path={routes.CURRENCY.path}
+                    component={routes.CURRENCY.component}
+                  />
+                )}
 
                 <Redirect to={routes.HOME.path} />
               </Switch>

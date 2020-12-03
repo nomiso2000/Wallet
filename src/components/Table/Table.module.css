@@ -1,15 +1,16 @@
 .wrap {
   display: flex;
   flex-direction: column;
+  width: 90%;
 }
 
 .table {
   background-color: red;
 }
-
+/* 
 tr:hover {
   background-color: #fff;
-}
+} */
 
 .hoveredLetter {
   position: relative;

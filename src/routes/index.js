@@ -34,6 +34,12 @@ const routes = {
       import('../pages/Navigation' /* webpackChunkName: "Navigation" */),
     ),
   },
+  CURRENCY: {
+    path: `/currency`,
+    component: lazy(() =>
+      import('../components/Currency' /* webpackChunkName: "Navigation" */),
+    ),
+  },
 };
 export default routes;
 // export default [
