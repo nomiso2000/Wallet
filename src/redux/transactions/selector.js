@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 export const getTransaction = state => {
+  console.log('STATE', state);
   return state.transactions.items;
 };
 

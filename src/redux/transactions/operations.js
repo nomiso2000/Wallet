@@ -63,7 +63,6 @@ export const getTransactionOperation = () => async dispatch => {
 
   try {
     const { data } = await API.transaction.get();
-
     dispatch({ type: types.GET_SUCCESS });
     dispatch(getAllTransactionsFromBack(data));
     notification({
@@ -196,3 +195,5 @@ export const filterALLTransactionOperation = () => async dispatch => {
     dispatch(loaderOFF());
   }
 };
+
+export default { getTransactionOperation };
