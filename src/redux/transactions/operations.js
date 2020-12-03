@@ -16,18 +16,16 @@ import {
 axios.defaults.baseURL = 'https://sheltered-sea-54747.herokuapp.com';
 
 export const addTransactionOperation = createTransaction => async dispatch => {
-
-  console.log('createTransaction', createTransaction);
   try {
     const { data } = await API.transaction.add(createTransaction);
-
+    dispatch(addTransaction(data));
     dispatch({ type: types.ADD_SUCCESS, payload: data });
     notification({
       type: 'success',
       message: 'add Transaction Success!',
     });
-console.log('data', data)
-    dispatch(addTransaction(data))
+
+  
     // try {
     //   const { data } = await API.transaction.get();
 
@@ -45,11 +43,7 @@ console.log('data', data)
     //     message: e.message,
     //   });
     // }
-
-    notification({
-      type: 'success',
-      message: 'Get Transactions Success!',
-    });
+    
   } catch (e) {
     dispatch({ type: types.ADD_FAILURE, payload: e });
     notification({
@@ -126,7 +120,7 @@ export const deleteTransactionOperation = id => async dispatch => {
   dispatch(loaderON());
 
   try {
-    const response = await axios.delete(deleteUrl);
+    await axios.delete(deleteUrl);
     dispatch(deleteTransaction(id));
     notification({
       type: 'success',
@@ -148,7 +142,7 @@ export const editTransactionOperation = editedTransaction => async dispatch => {
 
   dispatch(loaderON());
   try {
-    const {data} = await axios({
+    const { data } = await axios({
       method: 'patch',
       url: editeUrl,
       data: {
@@ -159,7 +153,7 @@ export const editTransactionOperation = editedTransaction => async dispatch => {
         amount: Number(editedTransaction.amount),
       },
     });
-  
+
     dispatch(editTransaction(data));
     notification({
       type: 'success',
@@ -179,10 +173,10 @@ export const editTransactionOperation = editedTransaction => async dispatch => {
 export const filterALLTransactionOperation = () => async dispatch => {
   const getAllTransactionsUrl = `/api/transactions`;
   dispatch(loaderON());
-  dispatch(filterALL('allTransactions'));
   try {
     const { data } = await axios.get(getAllTransactionsUrl);
     dispatch(getAllTransactionsFromBack(data));
+    dispatch(filterALL('allTransactions'));
     notification({
       type: 'success',
       message: 'All transaction get Success!',

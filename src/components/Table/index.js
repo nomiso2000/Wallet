@@ -3,24 +3,17 @@ import React from 'react';
 // import '../TableClass/node_modules/react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import styles from './Table.module.css';
 import ModalWindow from '../ModalWindow/index';
-// import TestWindow from '../TestWindow/index';
+
 import OverkayBlock from '../CoverPressure/index';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
-import {
-  deleteTransaction,
-  editTransaction,
-  filterALL,
-} from '../../redux/transactions/action';
 import FiltersBar from '../Filters';
 import {
   deleteTransactionOperation,
-  editTransactionOperation,
   getTransactionOperation,
 } from '../../redux/transactions/operations';
 import { filtredTransactions } from '../../redux/transactions/selector';
-import { v4 as uuidv4 } from 'uuid';
 import { CSSTransition } from 'react-transition-group';
 
 const TransactionsTable = () => {
@@ -34,25 +27,15 @@ const TransactionsTable = () => {
 
   const [isShown, setShown] = useState(false);
   const [idHoveredElement, setIHE] = useState(null);
-  // const [idModalWindow, setIdModalWindov] = useState(null);
   const [renderEditWindow, setRenderEditWindow] = useState(false);
 
-  const getEvent = isOnModalWindow => {
-    if (isOnModalWindow) {
-      setShown(true);
-    }
-    setShown(false);
-  };
-
-  const handleCloseOfTestlWindow = () => {
-    // setShown(closeBolean);
+  const handleCloseEditWindow = () => {
     setRenderEditWindow(false);
   };
 
   const handleDeleteLetter = () => {
     let id = idHoveredElement;
 
-    // dispatch(deleteTransaction(id));
     dispatch(deleteTransactionOperation(id));
   };
 
@@ -65,8 +48,6 @@ const TransactionsTable = () => {
       }
     });
     setRenderEditWindow(true);
-
-    dispatch(editTransactionOperation(editedTransaction));
   };
 
   const titleOfTable = [
@@ -77,7 +58,6 @@ const TransactionsTable = () => {
     'Сумма',
     'Балланс',
   ];
-  const quantityOflatter = Array.from({ length: 10 }, (v, k) => k);
 
   return (
     <div className={styles.wrap}>
@@ -126,12 +106,11 @@ const TransactionsTable = () => {
                     idHoveredElement === elem.id &&
                     (renderEditWindow ? (
                       <OverkayBlock
-                        handleCloseOfTestlWindow={handleCloseOfTestlWindow}
+                        handleCloseEditWindow={handleCloseEditWindow}
                         editedTransaction={elem}
                       />
                     ) : (
                       <ModalWindow
-                        getEvent={getEvent}
                         handleEditLetter={handleEditLetter}
                         handleDeleteLetter={handleDeleteLetter}
                       />

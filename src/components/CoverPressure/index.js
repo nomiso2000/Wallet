@@ -58,7 +58,7 @@ class OverkayBlock extends Component {
       amount,
       id,
     } = this.state;
-    console.log(transactionDate);
+   
     if (type == 'INCOME') {
       amount && transactionDate
         ? (this.audit = 'true')
@@ -75,13 +75,7 @@ class OverkayBlock extends Component {
     let amoundNumb = Number(amount);
     if (this.audit === 'true') {
       if (this.props.hiden) {
-        console.log('addTransaction', {
-          transactionDate,
-          type,
-          categoryId,
-          comment,
-          amount,
-        } )
+        
         this.props.addTransaction({
           transactionDate,
           type,
@@ -90,7 +84,7 @@ class OverkayBlock extends Component {
           amount,
         });
       } else {
-        console.log(this.props);
+        
         this.props.editTransaction({
           transactionDate,
           type,
@@ -103,20 +97,10 @@ class OverkayBlock extends Component {
       if (this.props.hiden) {
         this.props.hiden();
       } else {
-        this.props.handleCloseOfTestlWindow();
+        this.props.handleCloseEditWindow();
       }
     }
-    // this.props.addTransaction({
-    //   transactionDate,
-    //   type,
-    //   categoryId,
-    //   comment,
-    //   amount: amoundNumb,
-    // });
-
-    // this.props.hiden();
-
-    this.setState({
+       this.setState({
       transactionDate: '',
       type: 'INCOME',
       categoryId: 'd9ee2284-4673-44f4-ab76-6258512ea409',
@@ -158,7 +142,7 @@ class OverkayBlock extends Component {
       if (this.props.hiden) {
         this.props.hiden();
       } else {
-        this.props.handleCloseOfTestlWindow();
+        this.props.handleCloseEditWindow();
       }
     }
   };
