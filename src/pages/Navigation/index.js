@@ -32,10 +32,10 @@ const Navigation = () => {
                   path={routes.HOME.path}
                   component={routes.HOME.component}
                 />
-                <PrivateRoute
+                {/* <PrivateRoute
                   path={routes.STATISTIC.path}
                   component={routes.STATISTIC.component}
-                />
+                /> */}
                 {window.screen.width < 768 && (
                   <PrivateRoute
                     path={routes.CURRENCY.path}

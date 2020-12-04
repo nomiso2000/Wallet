@@ -33,6 +33,20 @@ const token = (state = null, { type, payload }) => {
   }
 };
 
+const balance = (state = 0, { type, payload }) => {
+  switch (type) {
+    case types.GET_CURRENT_USER_SUCCESS:
+      return payload.balance;
+    case types.ADD_SUCCESS:
+      return payload.balanceAfter;
+    case types.LOGOUT_SUCCESS:
+      return null;
+
+    default:
+      return state;
+  }
+};
+
 const loading = (state = false, { type }) => {
   switch (type) {
     case types.LOGIN_START:
@@ -68,4 +82,4 @@ const loading = (state = false, { type }) => {
   }
 };
 
-export default combineReducers({ user, token, loading });
+export default combineReducers({ user, token, loading, balance });

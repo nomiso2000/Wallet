@@ -17,7 +17,6 @@ function OverkayBlock(props) {
     props.onAddContacts(nameselect);
     setDate(date);
   };
-  console.log('data', date);
   return (
     <DatePicker
       // minDate={new Date()}

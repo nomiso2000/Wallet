@@ -3,57 +3,55 @@ import React from 'react';
 // import '../TableClass/node_modules/react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import styles from './Table.module.css';
 import ModalWindow from '../ModalWindow/index';
-// import TestWindow from '../TestWindow/index';
 import OverkayBlock from '../CoverPressure/index';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
-import {
-  deleteTransaction,
-  editTransaction,
-  filterALL,
-} from '../../redux/transactions/action';
 import FiltersBar from '../Filters';
 import {
   deleteTransactionOperation,
-  editTransactionOperation,
   getTransactionOperation,
+  getTransactionCategoriesOperation,
 } from '../../redux/transactions/operations';
+
 import { filtredTransactions } from '../../redux/transactions/selector';
-import { v4 as uuidv4 } from 'uuid';
-import { CSSTransition } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { getCurrentUser } from '../../redux/auth/operations';
 
 const TransactionsTable = () => {
   const dispatch = useDispatch();
 
-  const transactions = useSelector(filtredTransactions);
+  const [toggleModal, setToggleModal] = useState(false);
 
-  useEffect(() => {
-    dispatch(getTransactionOperation());
-  }, []);
-
-  const [isShown, setShown] = useState(false);
-  const [idHoveredElement, setIHE] = useState(null);
-  // const [idModalWindow, setIdModalWindov] = useState(null);
-  const [renderEditWindow, setRenderEditWindow] = useState(false);
-
-  const getEvent = isOnModalWindow => {
-    if (isOnModalWindow) {
-      setShown(true);
-    }
-    setShown(false);
+  const handleHide = () => {
+    setToggleModal(!toggleModal);
+  };
+  const show = () => {
+    setToggleModal(true);
   };
 
-  const handleCloseOfTestlWindow = () => {
-    // setShown(closeBolean);
+  const transactions = useSelector(filtredTransactions);
+  const [isShown, setShown] = useState(false);
+  const [idHoveredElement, setIHE] = useState(null);
+  const [renderEditWindow, setRenderEditWindow] = useState(false);
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    dispatch(getTransactionOperation());
+    async function сategoriesArray() {
+      const response = await dispatch(getTransactionCategoriesOperation());
+      setCategories(response);
+    }
+    сategoriesArray();
+  }, []);
+
+  const handleCloseEditWindow = () => {
     setRenderEditWindow(false);
   };
 
   const handleDeleteLetter = () => {
     let id = idHoveredElement;
 
-    // dispatch(deleteTransaction(id));
-    dispatch(deleteTransactionOperation(id));
+    dispatch(deleteTransactionOperation(id, getCurrentUser));
   };
 
   const handleEditLetter = () => {
@@ -65,8 +63,19 @@ const TransactionsTable = () => {
       }
     });
     setRenderEditWindow(true);
+  };
 
-    dispatch(editTransactionOperation(editedTransaction));
+  const nameByCategoryId = categoryId => {
+    let nameOfCategory;
+    categories.find(elem => {
+      if (categoryId === elem.id) {
+        nameOfCategory = elem.name;
+        if (nameOfCategory === 'test income') {
+          nameOfCategory = 'Доход';
+        }
+      }
+    });
+    return nameOfCategory;
   };
 
   const titleOfTable = [
@@ -77,71 +86,70 @@ const TransactionsTable = () => {
     'Сумма',
     'Балланс',
   ];
-  const quantityOflatter = Array.from({ length: 10 }, (v, k) => k);
 
   return (
     <div className={styles.wrap}>
       <FiltersBar />
-      {/* <CSSTransition
-  in={isShown}
-  timeout={1000}
-  onEntered={()=>{setTimeout(()=>{setShown(isShown=false)},1000)}}
-  >
-  <ModalWindow />
-  </CSSTransition>   */}
       <table className={styles.table}>
         <thead>
           {titleOfTable.map(title => {
             return <th key={title}>{title}</th>;
           })}
         </thead>
-        <tbody>
+        <TransitionGroup component="tbody">
           {transactions.map((elem, index) => {
             return (
-              <tr
-                key={index}
-                onMouseOver={() => {
-                  setShown(true);
-                  setIHE(elem.id);
-                }}
-                onMouseLeave={() => {
-                  setShown(false);
-                }}
-              >
-                <td key={index + 1}>{elem.transactionDate}</td>
-                <td key={index + 2}>{elem.type}</td>
-                <td key={index + 3}>{elem.categoryId}</td>
-                <td key={index + 4}>{elem.comment}</td>
-                <td key={index + 5}>{elem.amount}</td>
-                <td
-                  key={index + 6}
-                  className={
-                    renderEditWindow
-                      ? styles.hoveredLetterwindow
-                      : styles.hoveredLetter
-                  }
+              <CSSTransition timeout={250} classNames={styles} key={elem.id}>
+                <tr
+                  key={index}
+                  onMouseOver={() => {
+                    setShown(true);
+                    setIHE(elem.id);
+                  }}
+                  onMouseLeave={() => {
+                    setShown(false);
+                  }}
                 >
-                  {elem.balanceAfter}{' '}
-                  {isShown &&
-                    idHoveredElement === elem.id &&
-                    (renderEditWindow ? (
-                      <OverkayBlock
-                        handleCloseOfTestlWindow={handleCloseOfTestlWindow}
-                        editedTransaction={elem}
-                      />
-                    ) : (
-                      <ModalWindow
-                        getEvent={getEvent}
-                        handleEditLetter={handleEditLetter}
-                        handleDeleteLetter={handleDeleteLetter}
-                      />
-                    ))}
-                </td>
-              </tr>
+                  <td key={index + 1}>{elem.transactionDate}</td>
+                  <td key={index + 2}>{elem.type === 'EXPENSE' ? '-' : '+'}</td>
+                  <td key={index + 3}>{nameByCategoryId(elem.categoryId)}</td>
+                  <td key={index + 4}>{elem.comment}</td>
+                  <td key={index + 5}>{elem.amount}</td>
+                  <td
+                    key={index + 6}
+                    className={
+                      renderEditWindow
+                        ? styles.hoveredLetterwindow
+                        : styles.hoveredLetter
+                    }
+                  >
+                    {elem.balanceAfter}{' '}
+                    {isShown &&
+                      idHoveredElement === elem.id &&
+                      (renderEditWindow ? (
+                        <OverkayBlock
+                          handleCloseEditWindow={handleCloseEditWindow}
+                          editedTransaction={elem}
+                          categories={categories}
+                        />
+                      ) : (
+                        <ModalWindow
+                          handleEditLetter={handleEditLetter}
+                          handleDeleteLetter={handleDeleteLetter}
+                        />
+                      ))}
+                  </td>
+                </tr>
+              </CSSTransition>
             );
           })}
-        </tbody>
+        </TransitionGroup>
       </table>
+
+      <button onClick={show} className={styles.stickyButton}></button>
+      {toggleModal && (
+        <OverkayBlock hiden={handleHide} categories={categories} />
+      )}
     </div>
   );
 };

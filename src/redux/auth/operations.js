@@ -17,10 +17,8 @@ export const logIn = (user, history) => async dispatch => {
   dispatch({ type: types.LOGIN_START });
   try {
     const { data, status } = await API.auth.login(user);
-    console.log(data);
     // if (status < 200 && status >= 300) throw new Error('Something went wrong!');
     dispatch({ type: types.LOGIN_SUCCESS, payload: data });
-    console.log(data.token);
     token.set(data.token);
     // clearForm();
     history.push('/home');
@@ -62,11 +60,10 @@ export const getCurrentUser = () => async (dispatch, getState) => {
   try {
     const { data } = await API.auth.getCurrentUser();
     dispatch({ type: types.GET_CURRENT_USER_SUCCESS, payload: data });
-    console.log(data);
-    notification({
-      type: 'success',
-      message: 'getCurrentUser Success!',
-    });
+    // notification({
+    //   type: 'success',
+    //   message: 'getCurrentUser Success!',
+    // });
   } catch (e) {
     console.log(e.response);
     dispatch({ type: types.LOGOUT_FAILURE });
@@ -78,7 +75,6 @@ export const logOut = history => async dispatch => {
   try {
     const data = await API.auth.logout();
     // if (status < 200 && status >= 300) throw new Error('Something went wrong!');
-    console.log(data);
     dispatch({ type: types.LOGOUT_SUCCESS, payload: data });
     history.push('/login');
     token.unset();

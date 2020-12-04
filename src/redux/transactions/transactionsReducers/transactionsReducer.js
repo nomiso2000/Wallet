@@ -5,11 +5,11 @@ import {
   editTransaction,
   getAllTransactionsFromBack,
 } from '../action';
+import { combineReducers } from 'redux';
 
 const initialState = [];
 const transactionReducer = createReducer(initialState, {
   [addTransaction]: (state, action) => {
-    console.log(action);
     return [action.payload, ...state];
   },
 

@@ -18,29 +18,29 @@ const App = () => {
 
   return (
     <>
-      <StrictMode>
-        <Suspense fallback={<Loader />}>
-          <Switch>
-            <Route
-              exact
-              path={routes.LOGIN.path}
-              component={routes.LOGIN.component}
-            />
-            <Route
-              exact
-              path={routes.REGISTER.path}
-              component={routes.REGISTER.component}
-            />
-            <PrivateRoute
-              path={routes.NAVIGATION.path}
-              component={routes.NAVIGATION.component}
-            />
-            <Redirect to={routes.HOME.path} />
-          </Switch>
-          {loading && <Loader />}
-          <ErrorNotification />
-        </Suspense>
-      </StrictMode>
+      {/* <StrictMode> */}
+      <Suspense fallback={<Loader />}>
+        <Switch>
+          <Route
+            exact
+            path={routes.LOGIN.path}
+            component={routes.LOGIN.component}
+          />
+          <Route
+            exact
+            path={routes.REGISTER.path}
+            component={routes.REGISTER.component}
+          />
+          <PrivateRoute
+            path={routes.NAVIGATION.path}
+            component={routes.NAVIGATION.component}
+          />
+          <Redirect to={routes.HOME.path} />
+        </Switch>
+        {loading && <Loader />}
+        <ErrorNotification />
+      </Suspense>
+      {/* </StrictMode> */}
     </>
   );
 };
