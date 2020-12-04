@@ -14,7 +14,7 @@ const Balance = balance => {
       <p className={styles.balanceText}>ВАШ БАЛАНС</p>
       <span className={styles.sign}>$</span>{' '}
       <p className={styles.balanceValue}>
-        {parseFloat(totalBalance).toFixed(2)}
+        {totalBalance ? parseFloat(totalBalance).toFixed(2) : '000.00'}
       </p>
     </div>
   );
