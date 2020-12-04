@@ -15,6 +15,7 @@ import {
 } from '../../redux/transactions/operations';
 import { filtredTransactions } from '../../redux/transactions/selector';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 const TransactionsTable = () => {
   const dispatch = useDispatch();
@@ -106,7 +107,9 @@ const TransactionsTable = () => {
                     setIHE(elem.id);
                   }}
                   onMouseLeave={() => {
-                    setShown(false);
+                    isShown &&
+                      idHoveredElement === elem.id &&
+                      (renderEditWindow ? setShown(true) : setShown(false));
                   }}
                 >
                   <td key={index + 1}>{elem.transactionDate}</td>

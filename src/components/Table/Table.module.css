@@ -5,7 +5,8 @@
 }
 
 .table {
-  background-color: red;
+  background: rgba(255, 255, 255, 0.4);
+backdrop-filter: blur(50px);
 }
 
 tr:hover {
@@ -17,8 +18,10 @@ tr:hover {
 }
 
 .hoveredLetterwindow {
-  position: static;
-  
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 11111111111;
 }
 
 .enter {
