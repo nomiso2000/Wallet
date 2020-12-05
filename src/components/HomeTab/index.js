@@ -4,9 +4,8 @@
 // import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 // import moment from 'moment';
-// import { ReactComponent as Trash } from '../../images/trash.svg';
 // import styles from './HomeTab.module.css';
-// import { deleteTransaction } from '../../redux/finance/financeOperations';
+// import { deleteTransaction } from '../../redux/transactions/operations';
 
 // function timestampToDate(timestamp) {
 //   return moment(timestamp).format('DD/MM/YYYY');
@@ -50,7 +49,7 @@
 //                 <tr className={styles.tr}>
 //                   <th className={styles.th}>Тип</th>
 //                   <td className={styles.td}>
-//                     {trans.type === 'income' ? '+' : '-'}
+//                     {trans.type === 'Доход' ? '+' : '-'}
 //                   </td>
 //                 </tr>
 //                 <tr className={styles.tr}>
@@ -65,7 +64,7 @@
 //                   <th className={styles.th}>Сумма</th>
 //                   <td
 //                     className={styles.td}
-//                     className={trans.type === 'expense' ? styles.hilite : ''}
+//                     className={trans.type === 'Расход' ? styles.hilite : ''}
 //                   >
 //                     {trans.amount}
 //                   </td>
@@ -100,13 +99,13 @@
 //                     {timestampToDate(trans.transactionDate)}
 //                   </td>
 //                   <td className={styles.td}>
-//                     {trans.type === 'income' ? '+' : '-'}
+//                     {trans.type === 'Доход' ? '+' : '-'}
 //                   </td>
 //                   <td className={styles.td}>{trans.category}</td>
 //                   <td className={styles.td}>{trans.comment}</td>
 //                   <td
 //                     className={styles.td}
-//                     className={trans.type === 'expense' ? styles.hilite : ''}
+//                     className={trans.type === 'Расход' ? styles.hilite : ''}
 //                   >
 //                     {trans.amount}
 //                   </td>
