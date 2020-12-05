@@ -107,7 +107,9 @@ const TransactionsTable = () => {
                     setIHE(elem.id);
                   }}
                   onMouseLeave={() => {
-                    setShown(false);
+                    isShown &&
+                      idHoveredElement === elem.id &&
+                      (renderEditWindow ? setShown(true) : setShown(false));
                   }}
                 >
                   <td key={index + 1}>{elem.transactionDate}</td>

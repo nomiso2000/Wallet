@@ -1,29 +1,24 @@
 .wrap {
-    position: absolute;
-    z-index: 4;
+  z-index: 4;
 }
 
-
-
 @media (min-width: 768px) {
-    .wrap {
-        width: 260.26px;
-        height: 250px;
-        left: 114px;
-        top: 60px;
-        background-image: url(../icons/img.svg);
-        background-repeat: no-repeat;
-    }
- }
-
+  .wrap {
+    width: 260.26px;
+    height: 250px;
+    background-image: url(../icons/img.svg);
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 16%;
+    top: 10%;
+  }
+}
 
 @media (min-width: 1280px) {
-.wrap {
+  .wrap {
     width: 435.2px;
     height: 419.5px;
-    left: 76px;
-    top: 150px;
     background-image: url(../icons/imgScreen.svg);
     background-repeat: no-repeat;
   }
-} 
+}

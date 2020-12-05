@@ -6,7 +6,7 @@ export function ButtonRegistration() {
   return (
     <Link to={routes.REGISTER.path}>
       {' '}
-      <button className={styles.Button}>РЕГИСТРАЦИЯ</button>
+      <button className={styles.BtnReg}>РЕГИСТРАЦИЯ</button>
     </Link>
   );
 }

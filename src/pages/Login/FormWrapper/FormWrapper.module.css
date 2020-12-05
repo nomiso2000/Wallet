@@ -1,31 +1,28 @@
+/* * {
+  margin: 0;
+  padding: 0;
+} */
+
 .FormWrapper {
-  position: absolute;
+  position: relative;
   width: 320px;
   height: 568px;
-  margin-left: 0;
-  top: 0px;
-  background: #ffffff;
   z-index: 5;
+  background: #fff;
 }
 
 @media (min-width: 768px) {
   .FormWrapper {
-    position: absolute;
     width: 540px;
     height: 468px;
-    left: 114px;
-    top: 360px;
     border-radius: 20px;
   }
 }
 
 @media (min-width: 1280px) {
   .FormWrapper {
-    position: absolute;
     width: 540px;
     height: 468px;
-    left: 95px;
-    top: 136px;
     border-radius: 20px;
   }
 }

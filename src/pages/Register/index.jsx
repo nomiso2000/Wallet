@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import routes from '../../routes';
-import style from './Register.module.css';
+import styles from './Register.module.css';
 import withAuth from '../../HOC/withAuth';
 import { register } from '../../redux/auth/operations';
 import { emailValid, isGood } from '../../services/helpers';
 import notification from '../../services/notification';
-import selectsvg from '../../styles/css/icon/formsvgfile.svg';
-import masage from '../../styles/css/icon/masage.svg';
-import profil from '../../styles/css/icon/profil.svg';
-import regist from '../../styles/css/icon/register.svg';
-import sirclesvg from '../../styles/css/icon/orangesircle.svg';
-import Ceshsvg from '../../styles/css/icon/Cesh.svg';
-import fioletsvg from '../../styles/css/icon/fiolet.svg';
+import { Container } from '../Login/Container';
+import containStyles from '../Login/Container/Container.module.css';
+
+import EmailIcon from '@material-ui/icons/Email';
+import LockIcon from '@material-ui/icons/Lock';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -38,6 +37,7 @@ const Register = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    console.log(username, email, password, rePassword);
     if (
       emailValid(email) &&
       password.length >= 4 &&
@@ -45,109 +45,115 @@ const Register = () => {
       password === rePassword
     ) {
       dispatch(register({ username, email, password }, history));
-
-      // setUsername('');
-      // setEmail('');
-      // setPassword('');
-      // setRePassword('');
-      // setPasswordValid('');
     } else {
-      if (!emailValid(email)) {
-        return notification({
-          type: 'warning',
-          message: 'Email is not valid!',
-        });
-      } else if (password.length < 4) {
-        return notification({
-          type: 'warning',
-          message: 'Password is to short!',
-        });
-      } else if (username.length > 0) {
-        return notification({
-          type: 'warning',
-          message: 'Enter a name',
-        });
-      } else if (!password === rePassword) {
-        return notification({
-          type: 'warning',
-          message: 'Passwords did not match',
-        });
+      switch (true) {
+        case !emailValid(email):
+          return notification({
+            type: 'warning',
+            message: 'Email is not valid!',
+          });
+        case password.length < 4:
+          return notification({
+            type: 'warning',
+            message: 'Password is to short!',
+          });
+        case password !== rePassword:
+          return notification({
+            type: 'warning',
+            message: 'Passwords did not match',
+          });
+        case username.length > 0:
+          return notification({
+            type: 'warning',
+            message: 'Enter a name',
+          });
       }
     }
   };
   return (
-    <div className={style.blockCover}>
-      <div className={style.firstblock}>
-        <img className={style.imgrigister} src={selectsvg} />
-        <img className={style.fiolet} src={fioletsvg} />
-        <h2 className={style.titleselect}>Finance App</h2>
+    <Container className={containStyles.backGround}>
+      <div className={styles.leftWrapper}>
+        <div className={styles.violetCircle}></div>
+        <div className={styles.wrap}></div>
+        <span className={styles.textApp}>Finance App</span>
       </div>
-      <div className={style.endblock}>
-        <img className={style.sircle} src={sirclesvg} />
-        {/* <h1 className={styles.header}>Register page</h1>  */}
-        <form onSubmit={handleSubmit} className={style.form}>
-          <img className={style.imgCesh} src={Ceshsvg} />
-          <label className={style.list}>
-            <img src={masage} />
-            <input
-              className="input"
-              className={style.input}
-              type="email"
-              name="email"
-              value={email}
-              placeholder="E-mail"
-              autoFocus
-              onChange={handleChange}
-            />
-          </label>
-          <label className={style.list}>
-            <img src={regist} />
-            <input
-              className={style.input}
-              type="password"
-              name="password"
-              value={password}
-              placeholder="Пароль"
-              onChange={handleChange}
-            />
-          </label>
-          <label className={style.list}>
-            <img src={regist} />
-            <input
-              className={style.input}
-              type="password"
-              name="repassword"
-              value={rePassword}
-              placeholder="Подтвердить пароль"
-              onChange={handleChange}
-            />
-          </label>
-          {/* {password.length >= 4 && <span>{passwordValid}</span>} */}
+      <div className={styles.rightWrapper}>
+        <div className={styles.FormWrapper}>
+          <p className={styles.textWallet}>Wallet</p>
+          <form onSubmit={handleSubmit}>
+            <label>
+              <EmailIcon className={styles.EmailIcon} />
+              <input
+                className="input"
+                className={styles.EmailForm}
+                type="email"
+                name="email"
+                value={email}
+                placeholder="E-mail"
+                autoFocus
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              <LockIcon className={styles.PassIcon} />
+              <input
+                className={styles.PassForm}
+                type="password"
+                name="password"
+                value={password}
+                placeholder="Пароль"
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              <LockIcon className={styles.LockIcon} />
+              <input
+                className={styles.rePass}
+                type="password"
+                name="repassword"
+                value={rePassword}
+                placeholder="Подтвердить пароль"
+                onChange={handleChange}
+              />
+            </label>
+            {rePassword.length >= 4 && (
+              <div
+                className={
+                  rePassword.length >= 4
+                    ? passwordValid === 'Weak'
+                      ? styles.Weak
+                      : passwordValid === 'Medium'
+                      ? styles.Medium
+                      : styles.Strong
+                    : null
+                }
+              ></div>
+            )}
 
-          <label className={style.list}>
-            <img src={profil} />
-            <input
-              className={style.input}
-              type="name"
-              name="username"
-              value={username}
-              placeholder="Ваше имя"
-              onChange={handleChange}
-            />
-          </label>
-          <div class={style.buttonBlok}>
-            <button className={style.button} type="submit">
+            <label>
+              <AccountBoxIcon className={styles.AccountBoxIcon} />
+              <input
+                className={styles.labelName}
+                type="name"
+                name="username"
+                value={username}
+                placeholder="Ваше имя"
+                onChange={handleChange}
+              />
+            </label>
+
+            <button className={styles.BtnReg} type="submit">
               РЕГИСТРАЦИЯ
             </button>
             <Link to={routes.LOGIN.path}>
               {' '}
-              <button className={style.button}>ВХОД</button>
+              <button className={styles.BtnEnter}>ВХОД</button>
             </Link>
-          </div>
-        </form>
-        {/* </div> */}
+          </form>
+        </div>
+        <div className={styles.pinkCircle}></div>
       </div>
-    </div>
+    </Container>
   );
 };
 
