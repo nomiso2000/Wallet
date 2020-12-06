@@ -1,6 +1,6 @@
 import React from 'react';
-// import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-// import '../TableClass/node_modules/react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import '../../../node_modules/react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import styles from './Table.module.css';
 import ModalWindow from '../ModalWindow/index';
 import OverkayBlock from '../CoverPressure/index';
@@ -90,17 +90,19 @@ const TransactionsTable = () => {
   return (
     <div className={styles.wrap}>
       <FiltersBar />
-      <table className={styles.table}>
-        <thead>
+      <Table key={1} className={styles.table}>
+        <Thead className={styles.thead} >
+          <Tr >
           {titleOfTable.map(title => {
-            return <th key={title}>{title}</th>;
+            return <Th key={title} className={styles.thIsideThead}>{title}</Th>;
           })}
-        </thead>
-        <TransitionGroup component="tbody">
-          {transactions.map((elem, index) => {
+          </Tr>
+        </Thead>
+        <TransitionGroup component="Tbody">
+                  {transactions.map((elem, index) => {
             return (
               <CSSTransition timeout={250} classNames={styles} key={elem.id}>
-                <tr
+                <Tr
                   key={index}
                   onMouseOver={() => {
                     setShown(true);
@@ -109,15 +111,15 @@ const TransactionsTable = () => {
                   onMouseLeave={() => {
                     isShown &&
                       idHoveredElement === elem.id &&
-                      (renderEditWindow ? setShown(true) : setShown(false));
+                      (!renderEditWindow && setShown(false));
                   }}
                 >
-                  <td key={index + 1}>{elem.transactionDate}</td>
-                  <td key={index + 2}>{elem.type === 'EXPENSE' ? '-' : '+'}</td>
-                  <td key={index + 3}>{nameByCategoryId(elem.categoryId)}</td>
-                  <td key={index + 4}>{elem.comment}</td>
-                  <td key={index + 5}>{elem.amount}</td>
-                  <td
+                  <Td key={index + 1}>{elem.transactionDate}</Td>
+                  <Td key={index + 2}>{elem.type === 'EXPENSE' ? '-' : '+'}</Td>
+                  <Td key={index + 3}>{nameByCategoryId(elem.categoryId)}</Td>
+                  <Td key={index + 4}>{elem.comment}</Td>
+                  <Td key={index + 5}>{elem.amount}</Td>
+                  <Td
                     key={index + 6}
                     className={
                       renderEditWindow
@@ -140,13 +142,14 @@ const TransactionsTable = () => {
                           handleDeleteLetter={handleDeleteLetter}
                         />
                       ))}
-                  </td>
-                </tr>
-              </CSSTransition>
+                  </Td>
+                </Tr>
+               </CSSTransition>
             );
           })}
         </TransitionGroup>
-      </table>
+        {/* </Tbody> */}
+      </Table>
 
       <button onClick={show} className={styles.stickyButton}></button>
       {toggleModal && (

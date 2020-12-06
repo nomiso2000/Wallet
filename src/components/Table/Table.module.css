@@ -1,12 +1,12 @@
-.wrap {
+@media screen and (min-width: 321px) { 
+  .wrap {
   display: flex;
   flex-direction: column;
   width: 90%;
 }
 
 .table {
-  background: rgba(255, 255, 255, 0.4);
-backdrop-filter: blur(50px);
+  position: relative;
 }
 
 tr:hover {
@@ -21,7 +21,7 @@ tr:hover {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  z-index: 11111111111;
+ 
 }
 
 .enter {
@@ -59,3 +59,32 @@ tr:hover {
   background-color: #24cca7;
   box-shadow: 0px 6px 15px rgba(36, 204, 167, 0.5);
 }
+
+.thead {
+  background: #ffffff;
+  border-radius: 30px;
+  font-family: Circe;
+font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: 27px;
+letter-spacing: 0em;
+/* text-align: right; */
+
+}
+
+.thead > tr{
+   width: 700px;
+  height: 58px;
+
+}
+.thIsideThead:first-child {
+  border-radius: 30px 0 0 30px;
+}
+.thIsideThead:last-child {
+  border-radius: 0 30px 30px 0;
+}
+
+
+}
+

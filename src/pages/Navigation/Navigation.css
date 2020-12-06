@@ -1,16 +1,18 @@
-.background {
+/* .background {
   background-color: rgba(180, 200, 250, 0.15);
-}
+  /* flex-wrap: wrap; */
+  /* display: flex; */
+/*} */
 
-@media screen and (min-width: 768px) and (max-width: 1280px) {
+/* @media screen and (min-width: 768px) and (max-width: 1280px) { */
   /* .navMenu {
     min-width: 400px;
   } */
-  .background {
+  /* .background {
     height: 100%;
-    display: flex;
+    
     width: 100%;
-    flex-wrap: wrap;
+    
   }
   .navMenu {
     width: 100%;
@@ -23,15 +25,18 @@
   .Other {
     width: 100%;
   }
-}
+} */
 /* width: 36.3vw; */
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 768px) {
   .background {
     height: 100%;
     display: flex;
+    
     width: 100%;
   }
   .navMenu {
+    display: flex;
+    flex-direction: column;
     width: 40%;
     border-right: 1px solid black;
     margin-right: 30px;
