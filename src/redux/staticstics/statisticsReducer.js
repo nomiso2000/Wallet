@@ -14,20 +14,18 @@ const allTransactions = createReducer([], {
   [statisticsActions.allTransactionsSuccess]: (_, action) => action.payload,
 });
 
-const loadingTransactions =
-  (false,
-  {
-    [statisticsActions.transactionsSummaryRequest]: () => true,
-    [statisticsActions.transactionsSummarySuccess]: () => false,
-    [statisticsActions.transactionsSummaryError]: () => false,
+const loading = createReducer(false, {
+  [statisticsActions.transactionsSummaryRequest]: () => true,
+  [statisticsActions.transactionsSummarySuccess]: () => false,
+  [statisticsActions.transactionsSummaryError]: () => false,
 
-    [statisticsActions.allTransactionsRequest]: () => true,
-    [statisticsActions.allTransactionsSuccess]: () => false,
-    [statisticsActions.allTransactionsError]: () => false,
-  });
+  [statisticsActions.allTransactionsRequest]: () => true,
+  [statisticsActions.allTransactionsSuccess]: () => false,
+  [statisticsActions.allTransactionsError]: () => false,
+});
 
 export default combineReducers({
   transactionsSummary,
   allTransactions,
-  loadingTransactions,
+  loading,
 });

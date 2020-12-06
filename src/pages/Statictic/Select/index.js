@@ -5,12 +5,14 @@ import { connect } from 'react-redux';
 import {
   statisticsSelectors,
   statisticsOperations,
-} from '../../../redux/staticstics/';
+} from '../../../redux/staticstics';
+
+import {
+  finalYMArrayMethod,
+  transactionsYearsMonths,
+} from '../services/selectServices';
 
 import styles from './Select.module.css';
-
-// TEST TABLES
-import { allTransactions } from '../testSummary';
 
 moment.locale('ru');
 
@@ -23,74 +25,36 @@ class SelectYrsMth extends Component {
   };
 
   componentDidMount() {
-    // TRY THIS
-    const { assembledArrayOfYrsMths } = this.props;
-
-    //    COMMENT FRAGMENT FROM HERE
-    const { finalYMArrayMethod, transactionsYearsMonths } = this;
-
-    // const assembledArrayOfYrsMths = finalYMArrayMethod(
-    //   transactionsYearsMonths(allTransactions),
-    // );
-
-    //    COMMENT FRAGMENT TO HERE
-    // console.log(assembledArrayOfYrsMths);
-    this.setState({ arrayOfDates: assembledArrayOfYrsMths });
+    this.props.onFetchAllTransactions();
   }
-  //    COMMENT FRAGMENT FROM HERE
 
-  transactionsYearsMonths = array =>
-    array
-      .filter(({ type }) => type === 'EXPENSE')
-      .map(({ transactionDate }) => {
-        const year = moment(transactionDate, 'YYYY MM D').format('YYYY');
-        const month = moment(transactionDate, 'YYYY MM D').format('MM');
-        return { year, month: [month] };
-      })
-      .sort((a, b) => a.year - b.year);
+  componentDidUpdate(prevProps) {
+    const { valueMonth, valueYear } = this.state;
+    const { allTransactions } = this.props;
+    // const { finalYMArrayMethod, transactionsYearsMonths } = this;
+    if (allTransactions !== prevProps.allTransactions) {
+      const assembledArrayOfYrsMths = finalYMArrayMethod(
+        transactionsYearsMonths(allTransactions),
+      );
 
-  finalYMArrayMethod = array => {
-    for (let i = 0; i < array.length; i += 1) {
-      for (let j = i + 1; j < array.length; j += 1) {
-        if (
-          array[i].year === array[j].year &&
-          array[i].month !== array[j].month
-        ) {
-          // eslint-disable-next-line no-unused-expressions
-          array[j].year;
-
-          // eslint-disable-next-line no-param-reassign
-          array[i].month = [
-            ...new Set([...array[i].month, ...array[j].month]),
-          ].sort();
-
-          array.splice(j, 1);
-          j = i;
-        }
-      }
+      this.setState({ arrayOfDates: assembledArrayOfYrsMths });
     }
+    if (valueMonth !== 0 && valueYear !== 0) {
+      this.props.onFetchSummaryTransactions(valueYear, valueMonth);
+    }
+  }
 
-    return array;
-  };
-
-  //    COMMENT FRAGMENT TO HERE
   handleChange = e => {
     e.preventDefault();
     const { name, value } = e.target;
     const { arrayOfDates, valueMonth, valueYear } = this.state;
-
     if (name === 'valueYear') {
       this.setState({ valueMonth: 0 });
       const requestedYear = arrayOfDates.find(({ year }) => year === value);
-      //   console.log(requestedYear.month);
-      this.setState({
-        monthsInRequestedYear: requestedYear.month,
-      });
+
+      this.setState({ monthsInRequestedYear: requestedYear.month });
     }
     this.setState({ [name]: Number(value) });
-    if (valueMonth !== 0 && valueYear !== 0) {
-      this.props.onFetchSummaryTransactions(valueYear, valueMonth);
-    }
   };
 
   render() {
@@ -102,7 +66,7 @@ class SelectYrsMth extends Component {
     } = this.state;
 
     return (
-      <div className={styles.selectBlock}>
+      <form className={styles.selectBlock}>
         {/* <div className={styles.selectWrapper}> */}
         <select
           className={styles.selectWrapper}
@@ -141,20 +105,19 @@ class SelectYrsMth extends Component {
           ))}
         </select>
         {/* </div> */}
-      </div>
+        {/* <button type="submit">Test</button> */}
+      </form>
     );
   }
 }
+const mapStateToProps = state => ({
+  allTransactions: statisticsSelectors.getAllTransactions(state),
+});
+const mapDispatchToProps = dispatch => ({
+  onFetchAllTransactions: () =>
+    dispatch(statisticsOperations.fetchAllTransactions()),
+  onFetchSummaryTransactions: (year, month) =>
+    dispatch(statisticsOperations.fetchTransactionsSummary(year, month)),
+});
 
-export default connect(
-  state => ({
-    assembledArrayOfYrsMths: statisticsSelectors.getAssembledArrayOfYrsMths(
-      state,
-    ),
-  }),
-  {
-    onFetchSummaryTransactions: statisticsOperations.fetchTransactionsSummary,
-  },
-)(SelectYrsMth);
-
-// export default SelectYrsMth;
+export default connect(mapStateToProps, mapDispatchToProps)(SelectYrsMth);
