@@ -2,10 +2,18 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import routes from '../../routes';
-import styles from './Register.module.css';
+import style from './Register.module.css';
+import withAuth from '../../HOC/withAuth';
 import { register } from '../../redux/auth/operations';
 import { emailValid, isGood } from '../../services/helpers';
 import notification from '../../services/notification';
+import selectsvg from '../../styles/css/icon/formsvgfile.svg';
+import masage from '../../styles/css/icon/masage.svg';
+import profil from '../../styles/css/icon/profil.svg';
+import regist from '../../styles/css/icon/register.svg';
+import sirclesvg from '../../styles/css/icon/orangesircle.svg';
+import Ceshsvg from '../../styles/css/icon/Cesh.svg';
+import fioletsvg from '../../styles/css/icon/fiolet.svg';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -27,6 +35,7 @@ const Register = () => {
         return setRePassword(e.target.value);
     }
   };
+
   const handleSubmit = e => {
     e.preventDefault();
     if (
@@ -35,13 +44,13 @@ const Register = () => {
       username.length > 0 &&
       password === rePassword
     ) {
-      dispatch(register({ username, email, password }));
-      history.push('/home');
-      setUsername('');
-      setEmail('');
-      setPassword('');
-      setRePassword('');
-      setPasswordValid('');
+      dispatch(register({ username, email, password }, history));
+
+      // setUsername('');
+      // setEmail('');
+      // setPassword('');
+      // setRePassword('');
+      // setPasswordValid('');
     } else {
       if (!emailValid(email)) {
         return notification({
@@ -67,27 +76,34 @@ const Register = () => {
     }
   };
   return (
-    <section>
-      <h1>Register</h1>
-      <div className={styles.container}>
-        <h1 className={styles.header}>Register page</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
-            E-mail
+    <div className={style.blockCover}>
+      <div className={style.firstblock}>
+        <img className={style.imgrigister} src={selectsvg} />
+        <img className={style.fiolet} src={fioletsvg} />
+        <h2 className={style.titleselect}>Finance App</h2>
+      </div>
+      <div className={style.endblock}>
+        <img className={style.sircle} src={sirclesvg} />
+        {/* <h1 className={styles.header}>Register page</h1>  */}
+        <form onSubmit={handleSubmit} className={style.form}>
+          <img className={style.imgCesh} src={Ceshsvg} />
+          <label className={style.list}>
+            <img src={masage} />
             <input
-              className={styles.input}
+              className="input"
+              className={style.input}
               type="email"
               name="email"
               value={email}
               placeholder="E-mail"
+              autoFocus
               onChange={handleChange}
             />
           </label>
-          <br />
-          <label>
-            Пароль
+          <label className={style.list}>
+            <img src={regist} />
             <input
-              className={styles.input}
+              className={style.input}
               type="password"
               name="password"
               value={password}
@@ -95,11 +111,10 @@ const Register = () => {
               onChange={handleChange}
             />
           </label>
-          <br />
-          <label>
-            Подтвердить Пароль
+          <label className={style.list}>
+            <img src={regist} />
             <input
-              className={styles.input}
+              className={style.input}
               type="password"
               name="repassword"
               value={rePassword}
@@ -107,12 +122,12 @@ const Register = () => {
               onChange={handleChange}
             />
           </label>
-          {password.length >= 4 && <span>{passwordValid}</span>}
-          <br />
-          <label>
-            Ваше имя
+          {/* {password.length >= 4 && <span>{passwordValid}</span>} */}
+
+          <label className={style.list}>
+            <img src={profil} />
             <input
-              className={styles.input}
+              className={style.input}
               type="name"
               name="username"
               value={username}
@@ -120,18 +135,20 @@ const Register = () => {
               onChange={handleChange}
             />
           </label>
-          <br />
-          <button className={styles.button} type="submit">
-            РЕГИСТРАЦИЯ
-          </button>
-          <Link to={routes.LOGIN.path}>
-            {' '}
-            <button className={styles.button}>ВХОД</button>
-          </Link>
+          <div class={style.buttonBlok}>
+            <button className={style.button} type="submit">
+              РЕГИСТРАЦИЯ
+            </button>
+            <Link to={routes.LOGIN.path}>
+              {' '}
+              <button className={style.button}>ВХОД</button>
+            </Link>
+          </div>
         </form>
+        {/* </div> */}
       </div>
-    </section>
+    </div>
   );
 };
 
-export default Register;
+export default withAuth(Register);
